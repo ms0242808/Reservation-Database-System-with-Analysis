@@ -42,8 +42,6 @@ public class FxController implements Initializable {
     @FXML
     private AnchorPane MenuP;
     @FXML
-    private Menu Menuname;
-    @FXML
     private MenuItem Customermenu;
     @FXML
     private MenuItem Managermenu;
@@ -119,9 +117,19 @@ public class FxController implements Initializable {
     private AnchorPane CustomerDP;
     @FXML
     private MenuItem Exitmenu;
+    @FXML
+    private Menu GeneralMenu;
+    @FXML
+    private Menu AccountMenu;
+    @FXML
+    private MenuItem CRMenu;
+    @FXML
+    private MenuItem SDMenu;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -191,7 +199,7 @@ public class FxController implements Initializable {
         CustomerP1.setVisible(true);
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(false);
-        Menuname.setText("Customer");
+        GeneralMenu.setText("Customer");
         
         ClearFields();
     }
@@ -200,7 +208,7 @@ public class FxController implements Initializable {
     private void ManagerMClicked(ActionEvent event) {
         CustomerP.setVisible(false);
         ManagerP.setVisible(true);
-        Menuname.setText("Manager/Staff");
+        GeneralMenu.setText("Manager/Staff");
         
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
