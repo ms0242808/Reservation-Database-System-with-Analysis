@@ -6,22 +6,32 @@
 package RDBMSA;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.util.Pair;
 
 /**
  * FXML Controller class
@@ -107,6 +117,8 @@ public class FxController implements Initializable {
     private AnchorPane ManagerP;
     @FXML
     private AnchorPane CustomerDP;
+    @FXML
+    private MenuItem Exitmenu;
 
     /**
      * Initializes the controller class.
@@ -114,6 +126,8 @@ public class FxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Exitmenu.setOnAction(actionEvent -> Platform.exit());
+        
         CustomerP.setVisible(true);
         ManagerP.setVisible(false);
         CustomerP1.setVisible(true);
@@ -187,6 +201,59 @@ public class FxController implements Initializable {
         CustomerP.setVisible(false);
         ManagerP.setVisible(true);
         Menuname.setText("Manager/Staff");
+        
+        // Create the custom dialog.
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Login Dialog");
+        dialog.setHeaderText("Manager/Staff Login");
+
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
+        ButtonType cancelButtonType = ButtonType.CANCEL;
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, cancelButtonType);
+
+        // Create the username and password labels and fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField username = new TextField();
+        username.setPromptText("Username");
+        PasswordField password = new PasswordField();
+        password.setPromptText("Password");
+
+        grid.add(new Label("Username:"), 0, 0);
+        grid.add(username, 1, 0);
+        grid.add(new Label("Password:"), 0, 1);
+        grid.add(password, 1, 1);
+        // Enable/Disable login button depending on whether a username was entered.
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+
+        // Do some validation (using the Java 8 lambda syntax).
+        username.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Request focus on the username field by default.
+        Platform.runLater(() -> username.requestFocus());
+
+        // Convert the result to a username-password-pair when the login button is clicked.
+        dialog.setResultConverter(dialogButton -> {
+        if (dialogButton == loginButtonType) {
+            return new Pair<>(username.getText(), password.getText());
+        }
+            return null;
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+        result.ifPresent(usernamePassword -> {
+            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+        });
     }
 
     @FXML

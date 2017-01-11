@@ -18,6 +18,7 @@
                         <items>
                           <MenuItem fx:id="Customermenu" mnemonicParsing="false" onAction="#CustomerMClicked" text="Customer" />
                               <MenuItem fx:id="Managermenu" mnemonicParsing="false" onAction="#ManagerMClicked" text="Manager/Staff" />
+                              <MenuItem fx:id="Exitmenu" mnemonicParsing="false" text="Exit" />
                         </items>
                       </Menu>
                     </menus>
@@ -36,26 +37,27 @@
                                  </image>
                               </ImageView>
                               <ComboBox fx:id="NPeople" layoutX="340.0" layoutY="60.0" onAction="#SelectedNP" prefHeight="27.0" prefWidth="198.0" promptText="Select number of diners" />
-                              <DatePicker fx:id="Date" layoutX="111.0" layoutY="141.0" onAction="#SelectedDate" />
+                              <DatePicker fx:id="Date" disable="true" layoutX="111.0" layoutY="141.0" onAction="#SelectedDate" />
                               <ImageView fx:id="Clock" fitHeight="50.0" fitWidth="50.0" layoutX="485.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../ICONS/clock.png" />
                                  </image>
                               </ImageView>
-                              <ComboBox fx:id="Time" layoutX="536.0" layoutY="139.0" onAction="#SelectedTime" prefWidth="150.0" />
+                              <ComboBox fx:id="Time" disable="true" layoutX="536.0" layoutY="139.0" onAction="#SelectedTime" prefWidth="150.0" />
                               <AnchorPane fx:id="CustomerDP" layoutX="257.0" layoutY="210.0" prefHeight="200.0" prefWidth="309.0">
                                  <children>
                                     <Label fx:id="FLabel" layoutX="44.0" layoutY="22.0" text="First name:" />
                                     <TextField fx:id="Ftextfield" layoutX="115.0" layoutY="17.0" onKeyTyped="#EditedFname" />
                                     <Label fx:id="SLabel" layoutX="32.0" layoutY="64.0" text="Family name:" />
-                                    <TextField fx:id="Stextfield" disable="true" layoutX="115.0" layoutY="59.0" onKeyTyped="#EditedSname" />
+                                    <TextField fx:id="Stextfield" layoutX="115.0" layoutY="59.0" onKeyTyped="#EditedSname" />
                                     <Label fx:id="PLabel" layoutX="17.0" layoutY="106.0" text="Phone Number:" />
-                                    <TextField fx:id="Ptextfield" disable="true" layoutX="115.0" layoutY="101.0" onKeyTyped="#EditedP" />
+                                    <TextField fx:id="Ptextfield" layoutX="115.0" layoutY="101.0" onKeyTyped="#EditedP" />
                                     <Label fx:id="ELabel" layoutX="76.0" layoutY="148.0" text="Email:" />
-                                    <TextField fx:id="Etextfield" disable="true" layoutX="115.0" layoutY="143.0" onKeyTyped="#EditedE" />
+                                    <TextField fx:id="Etextfield" layoutX="115.0" layoutY="143.0" onKeyTyped="#EditedE" />
                                  </children>
                               </AnchorPane>
                               <Button fx:id="BCnext1" layoutX="381.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#BCNextClicked" text="Next ---&gt;" />
+                              <ProgressBar layoutX="331.0" layoutY="501.0" prefWidth="200.0" progress="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="CustomerP2" prefHeight="564.0" prefWidth="798.0" visible="false">
@@ -96,7 +98,22 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="ManagerP" prefHeight="564.0" prefWidth="798.0" visible="false" />
+                  <AnchorPane fx:id="ManagerP" disable="true" prefHeight="564.0" prefWidth="798.0" visible="false">
+                     <children>
+                        <Button layoutX="142.0" layoutY="88.0" mnemonicParsing="false" text="Graphic" />
+                        <Button layoutX="250.0" layoutY="88.0" mnemonicParsing="false" text="Date picker" />
+                        <Button layoutX="408.0" layoutY="88.0" mnemonicParsing="false" text="Number of people" />
+                        <AnchorPane layoutX="78.0" layoutY="128.0" prefHeight="373.0" prefWidth="615.0">
+                           <children>
+                              <TableView prefHeight="373.0" prefWidth="615.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
                </children>
             </AnchorPane>
         </items>
