@@ -1,38 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.05351170568561873" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="798.0">
+          <AnchorPane fx:id="MenuP" minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="798.0">
                <children>
                   <MenuBar prefHeight="29.0" prefWidth="799.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu fx:id="Menuname" mnemonicParsing="false" text="Customer">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Logout" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Edit">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="About" />
+                          <MenuItem fx:id="Customermenu" mnemonicParsing="false" text="Customer" />
+                              <MenuItem fx:id="Managermenu" mnemonicParsing="false" text="Manager/Staff" />
                         </items>
                       </Menu>
                     </menus>
                   </MenuBar>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+            <AnchorPane fx:id="SceneP" prefHeight="564.0" prefWidth="798.0">
+               <children>
+                  <AnchorPane fx:id="CustomerP" prefHeight="564.0" prefWidth="798.0">
+                     <children>
+                        <AnchorPane fx:id="CustomerP1" prefHeight="564.0" prefWidth="798.0">
+                           <children>
+                              <ImageView fx:id="Crowd" fitHeight="50.0" fitWidth="50.0" layoutX="286.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../ICONS/crowd-of-users.png" />
+                                 </image>
+                              </ImageView>
+                              <ChoiceBox fx:id="NPeople" layoutX="344.0" layoutY="60.0" prefHeight="22.0" prefWidth="158.0" />
+                              <DatePicker fx:id="Date" layoutX="111.0" layoutY="141.0" />
+                              <ImageView fx:id="Clock" fitHeight="50.0" fitWidth="50.0" layoutX="485.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../ICONS/clock.png" />
+                                 </image>
+                              </ImageView>
+                              <ChoiceBox fx:id="Time" layoutX="536.0" layoutY="139.0" prefHeight="22.0" prefWidth="158.0" />
+                              <Label fx:id="FLabel" layoutX="232.0" layoutY="235.0" text="First name:" />
+                              <TextField fx:id="Ftextfield" layoutX="314.0" layoutY="232.0" />
+                              <Label fx:id="SLabel" layoutX="220.0" layoutY="273.0" text="Family name:" />
+                              <TextField fx:id="Stextfield" layoutX="314.0" layoutY="271.0" />
+                              <Label fx:id="PLabel" layoutX="206.0" layoutY="315.0" text="Phone Number:" />
+                              <TextField fx:id="Ptextfield" layoutX="315.0" layoutY="309.0" />
+                              <Label fx:id="ELabel" layoutX="264.0" layoutY="352.0" text="Email:" />
+                              <TextField fx:id="Etextfield" layoutX="315.0" layoutY="347.0" />
+                              <Button fx:id="BCnext1" layoutX="381.0" layoutY="439.0" mnemonicParsing="false" text="Next ---&gt;" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="CustomerP2" prefHeight="564.0" prefWidth="798.0" visible="false">
+                           <children>
+                              <Label fx:id="DLabel" layoutX="157.0" layoutY="42.0" text="Your Details:">
+                                 <graphic>
+                                    <ImageView fx:id="Detail" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../ICONS/detail.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="DNLabel" layoutX="157.0" layoutY="72.0" text="Name:" />
+                              <Label fx:id="DNPLabel" layoutX="157.0" layoutY="102.0" text="Number of diner:" />
+                              <Label fx:id="DELabel" layoutX="157.0" layoutY="132.0" text="Email:" />
+                              <Label fx:id="DPLabel" layoutX="157.0" layoutY="162.0" text="Phone number:" />
+                              <Label fx:id="DTLabel" layoutX="157.0" layoutY="192.0" text="Time:" />
+                              <Label fx:id="DDLabel" layoutX="157.0" layoutY="222.0" text="Date:" />
+                              <Label fx:id="SRLabel" layoutX="472.0" layoutY="42.0" text="Special Requests:">
+                                 <graphic>
+                                    <ImageView fx:id="Request" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../ICONS/notepad.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <TextArea fx:id="SRtextarea" layoutX="472.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" />
+                              <Button fx:id="BCConfirm" layoutX="370.0" layoutY="422.0" mnemonicParsing="false" text="Confirm" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="CustomerP3" prefHeight="564.0" prefWidth="798.0" visible="false">
+                           <children>
+                              <Label fx:id="ConfirmLabel" layoutX="337.0" layoutY="332.0" text="Confirmation code:" />
+                              <Button fx:id="BCSee" layoutX="343.0" layoutY="415.0" mnemonicParsing="false" text="See you soon!" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="ManagerP" prefHeight="564.0" prefWidth="798.0" visible="false" />
+               </children>
+            </AnchorPane>
         </items>
       </SplitPane>
    </children>
