@@ -7,6 +7,8 @@ package RDBMSA;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -53,4 +55,47 @@ public class Database {
             System.out.println(e);
         }
     }
+    
+    //Customer SQL methods
+    static void booktable(String FN,String SN,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
+        String selectstat = "insert into customer (FirstName,LastName,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?)";
+        open();
+        
+        try{
+            connection.setAutoCommit(false);
+            PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
+            prepStmt.setString(1,FN);
+            prepStmt.setString(2,SN);
+            prepStmt.setString(3,Date);
+            prepStmt.setString(4,Time);
+            prepStmt.setString(5,Phone);
+            prepStmt.setString(6,Email);
+            prepStmt.setString(7,Note);
+            prepStmt.setString(8,Order);
+            prepStmt.setString(9,Code);
+  
+            prepStmt.executeUpdate();
+            connection.commit();
+
+            ResultSet rs = statement.executeQuery("select * from customer");
+            while(rs.next()){
+                // read the result set
+                //System.out.println("name = " + rs.getString("FirstName"));
+                //System.out.println("id = " + rs.getInt("customerID"));
+                //System.out.println("surname = " + rs.getString("LastName"));
+                //System.out.println("email = " + rs.getString("email"));
+                //System.out.println("password = " + rs.getString("password"));
+                //System.out.println("date of birth = " + rs.getString("dateOfBirth"));
+                //System.out.println("address = " + rs.getString("address1"));
+                //System.out.println("city = " + rs.getString("city"));
+                //System.out.println("phone number = " + rs.getString("phoneNumber"));       
+            }
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        
+        close();
+    }
+    
+    //Account/manager/staff SQL methods
 }
