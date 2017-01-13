@@ -142,6 +142,8 @@ public class FxController implements Initializable {
     private MenuItem SDMenu;
     @FXML
     private ProgressBar ProgBar;
+    @FXML
+    private Button BCBack;
 
     /**
      * Initializes the controller class.
@@ -198,6 +200,8 @@ public class FxController implements Initializable {
         CustomerP1.setVisible(false);
         CustomerP2.setVisible(true);
         CustomerP3.setVisible(false);
+
+        updateProgBar(3);
         
         DNLabel.setText("Your name: " + Ftextfield.getText() + " "+ Stextfield.getText());
         DNPLabel.setText("Number of diners: " + NPeople.getValue());
@@ -209,7 +213,7 @@ public class FxController implements Initializable {
 
     @FXML
     private void valiation(ActionEvent event) {
-        valiateFirstname();
+        valiateFirstname();//button valiation
         valiateSurname();
         valiatePhone();
         valiateEmail();
@@ -296,6 +300,13 @@ public class FxController implements Initializable {
     }
     
     @FXML
+    private void BCBackClicked(MouseEvent event) {
+        CustomerP1.setVisible(true);
+        CustomerP2.setVisible(false);
+        CustomerP3.setVisible(false);
+    }
+    
+    @FXML
     private void BCConfirmClicked(MouseEvent event) {
         CustomerP1.setVisible(false);
         CustomerP2.setVisible(false);
@@ -343,6 +354,8 @@ public class FxController implements Initializable {
         CustomerP1.setVisible(true);
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(false);
+        ProgBar.progressProperty().unbind();
+        ProgBar.setProgress(0);
         ClearFields();
         SetDisables();
     }
@@ -359,6 +372,7 @@ public class FxController implements Initializable {
         CustomerP.setVisible(false);
         ManagerP.setVisible(true);
         GeneralMenu.setText("Manager/Staff");
+        AccountMenu.setVisible(true);
         
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -419,18 +433,13 @@ public class FxController implements Initializable {
         
         copyWorker = new Task() {
             @Override
-            protected Object call() throws Exception {
-                //for (int i = 0; i < 10; i++) {
-                    Thread.sleep(2000);
-                    updateMessage("2000 milliseconds");
-                    updateProgress(bar + 1, 10);
-                //}
+            protected Object call() throws Exception {                  
+                updateProgress(bar + 1, 10);
                 return true;
             }
         };
-        ProgBar.progressProperty().unbind();
-        
-        //ProgBar.progressProperty().bind(copyWorker.progressProperty());
+        ProgBar.progressProperty().unbind();        
+        ProgBar.progressProperty().bind(copyWorker.progressProperty());
         copyWorker.messageProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         System.out.println(newValue);
@@ -463,6 +472,7 @@ public class FxController implements Initializable {
     private void SelectedTime(ActionEvent event) {
         if(Time.getValue() != null){
             CustomerDP.setDisable(false);
+            updateProgBar(2);
         }
     }
 
