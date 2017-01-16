@@ -5,24 +5,41 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.RetSet;
 import static RDBMSA.Database.booktable;
+import static RDBMSA.Database.userCheck;
+import static RDBMSA.Database.passwordCheck;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -37,14 +54,19 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -144,7 +166,59 @@ public class FxController implements Initializable {
     private ProgressBar ProgBar;
     @FXML
     private Button BCBack;
+    @FXML
+    private AnchorPane DetailCustomerP;
+    @FXML
+    private AnchorPane DetailAccountP;
+    @FXML
+    private TableView<customerList> CustomerTable;
+    @FXML
+    private TableColumn<customerList, Integer> cID;
+    @FXML
+    private TableColumn<customerList, String> Fname;
+    @FXML
+    private TableColumn<customerList, String> Lname;
+    @FXML
+    private TableColumn<customerList, String> BDate;
+    @FXML
+    private TableColumn<customerList, String> BTime;
+    @FXML
+    private TableColumn<customerList, String> Pnumber;
+    @FXML
+    private TableColumn<customerList, String> eMail;
+    @FXML
+    private TableColumn<customerList, String> SRequest;
+    @FXML
+    private TableColumn<customerList, String> POrder;
+    @FXML
+    private TableColumn<customerList, String> Ccode;
+    
+    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
+    private static Connection connection = null;
+    private static Statement statement;
 
+    @FXML
+    private TableView<staffList> StaffTable;
+    @FXML
+    private TableColumn<staffList, Integer> StaffID;
+    @FXML
+    private TableColumn<staffList, String> SFname;
+    @FXML
+    private TableColumn<staffList, String> SLname;
+    @FXML
+    private TableColumn<staffList, String> SDob;
+    @FXML
+    private TableColumn<staffList, Integer> SPhone;
+    @FXML
+    private TableColumn<staffList, String> SAddress;
+    @FXML
+    private TableColumn<staffList, String> SUsername;
+    
+    private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
+    @FXML
+    private TableColumn<?, ?> SPassword;
+    
+    public static Stage LoginStage;
     /**
      * Initializes the controller class.
      * @param url
@@ -166,6 +240,26 @@ public class FxController implements Initializable {
         Time.getItems().addAll("12.00","12.30","13.00");
         
         //ProgBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS); // running automiac repeatly
+        
+        cID.setCellValueFactory(new PropertyValueFactory("CustomerID"));
+        Fname.setCellValueFactory(new PropertyValueFactory("FirstName"));
+        Lname.setCellValueFactory(new PropertyValueFactory("SurName"));
+        BDate.setCellValueFactory(new PropertyValueFactory("Bdate"));
+        BTime.setCellValueFactory(new PropertyValueFactory("Btime"));
+        Pnumber.setCellValueFactory(new PropertyValueFactory("Pnumber"));
+        eMail.setCellValueFactory(new PropertyValueFactory("Email"));
+        SRequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
+        POrder.setCellValueFactory(new PropertyValueFactory("Porder"));
+        Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));
+        
+        StaffID.setCellValueFactory(new PropertyValueFactory("StaffID"));
+        SFname.setCellValueFactory(new PropertyValueFactory("FirstName"));
+        SLname.setCellValueFactory(new PropertyValueFactory("SurName"));
+        SDob.setCellValueFactory(new PropertyValueFactory("DOB"));
+        SPhone.setCellValueFactory(new PropertyValueFactory("Pnumber"));
+        SAddress.setCellValueFactory(new PropertyValueFactory("SA"));
+        SUsername.setCellValueFactory(new PropertyValueFactory("SU"));
+        SPassword.setCellValueFactory(new PropertyValueFactory("SPW"));
     }    
 
     public void SetCustomerVisibles(){
@@ -332,7 +426,7 @@ public class FxController implements Initializable {
         String Concode = randStr.toString();
         
         //System.out.println(Dt);
-        //booktable(FT,ST,Dt,T,PT,ET,SR,"8",Concode);
+        booktable(FT,ST,Dt,T,PT,ET,SR,"8",Concode);
         
         BCSee.setText("See you at " + Dt + " , " + T);
     }
@@ -368,66 +462,78 @@ public class FxController implements Initializable {
     }
 
     @FXML
-    private void ManagerMClicked(ActionEvent event) {
+    private void ManagerMClicked(ActionEvent event) throws IOException {
         CustomerP.setVisible(false);
         ManagerP.setVisible(true);
         GeneralMenu.setText("Manager/Staff");
-        AccountMenu.setVisible(true);
         
-        // Create the custom dialog.
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Login Dialog");
-        dialog.setHeaderText("Manager/Staff Login");
-
-        // Set the button types.
-        ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
-        ButtonType cancelButtonType = ButtonType.CANCEL;
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, cancelButtonType);
-
-        // Create the username and password labels and fields.
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField username = new TextField();
-        username.setPromptText("Username");
-        PasswordField password = new PasswordField();
-        password.setPromptText("Password");
-
-        grid.add(new Label("Username:"), 0, 0);
-        grid.add(username, 1, 0);
-        grid.add(new Label("Password:"), 0, 1);
-        grid.add(password, 1, 1);
-        // Enable/Disable login button depending on whether a username was entered.
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
-
-        // Do some validation (using the Java 8 lambda syntax).
-        username.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
-
-        dialog.getDialogPane().setContent(grid);
-
-        // Request focus on the username field by default.
-        Platform.runLater(() -> username.requestFocus());
-
-        // Convert the result to a username-password-pair when the login button is clicked.
-        dialog.setResultConverter(dialogButton -> {
-        if (dialogButton == loginButtonType) {
-            return new Pair<>(username.getText(), password.getText());
-        }
-            return null;
-        });
-
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-
-        result.ifPresent(usernamePassword -> {
-            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-        });
+        Parent root2 = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));       
+        LoginStage = new Stage();
+        javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        LoginStage.setScene(new Scene(root2));
+     
+        LoginStage.setHeight(Generator.viewStage.getHeight());
+        LoginStage.setWidth(Generator.viewStage.getWidth());
+        
+        LoginStage.show();
+        LoginStage.setResizable(false);
+        Generator.viewStage.close();
     }
-
+    
+    public void CustomerTable(){
+        CList.clear();
+        try{
+            String CustomerQuery = "SELECT * from customer";
+            ResultSet rs2 = Database.RetSet(CustomerQuery);
+            while (rs2.next())
+            {
+                CList.add(new customerList(rs2.getInt("CustomerID"), 
+                                           rs2.getString("Firstname"),
+                                           rs2.getString("Lastname"),
+                                           rs2.getString("Date"),
+                                           rs2.getString("Time"),
+                                           rs2.getInt("Phone"),
+                                           rs2.getString("Email"),
+                                           rs2.getString("AdditionalRequest"),
+                                           rs2.getString("PreOrder"),
+                                           rs2.getString("ConfirmCode")));
+                CustomerTable.setItems(this.CList);
+            }
+        }
+        catch (Exception e)
+        {
+            //System.out.println(e);
+        } 
+            CustomerTable.setItems(CList); 
+            Database.close();
+    }
+    
+    public void StaffListTable(){       
+        SList.clear();
+        try{
+            String StaffQuery = "SELECT * from account";
+            ResultSet rs2 = Database.RetSet(StaffQuery);
+            while (rs2.next())
+            {
+                SList.add(new staffList(rs2.getInt("AccountID"), 
+                                           rs2.getString("FirstName"),
+                                           rs2.getString("LastName"),
+                                           rs2.getString("DateOfBirth"),
+                                           rs2.getInt("Phone"),
+                                           rs2.getString("Address"),
+                                           rs2.getString("UserName"),
+                                           rs2.getString("PassWord")));
+                StaffTable.setItems(this.SList);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        } 
+            StaffTable.setItems(SList); 
+            Database.close();
+    }
+    
     public void updateProgBar(int bar){
         Task copyWorker;
         
@@ -502,6 +608,20 @@ public class FxController implements Initializable {
         if(Etextfield.getText() != null){
             BCnext1.setDisable(false);
         }
+    }
+
+    @FXML
+    private void CRMenuClicked(ActionEvent event) {
+        DetailCustomerP.setVisible(true);
+        DetailAccountP.setVisible(false);
+        CustomerTable();
+    }
+
+    @FXML
+    private void SDMenuClicked(ActionEvent event) {
+        DetailCustomerP.setVisible(false);
+        DetailAccountP.setVisible(true);
+        StaffListTable();
     }
  
 }

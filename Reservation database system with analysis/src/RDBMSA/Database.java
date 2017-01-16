@@ -56,6 +56,27 @@ public class Database {
         }
     }
     
+    //Method RetSet returns a ResultSet of the passed Query string, if query does not return result set, it Catches theSQLException adn prints it.
+    public static ResultSet RetSet(String query) 
+    {
+        try
+        {
+        //    connection = DriverManager.getConnection("jdbc:sqlite:myDatabaseNew.db");
+        //    statement = connection.createStatement();
+        //    statement.setQueryTimeout(20);
+            open();
+            ResultSet rs = statement.executeQuery(query);
+            System.out.println("Query successfully executed");
+            return rs;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+        close();
+        return null;
+    }
+    
     //Customer SQL methods
     static void booktable(String FN,String SN,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
         String selectstat = "insert into customer (FirstName,LastName,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?)";
@@ -98,4 +119,58 @@ public class Database {
     }
     
     //Account/manager/staff SQL methods
+  public static int userCheck(String username) {
+      
+      String selectStatement = "select AccountID from account where UserName = ?";
+      int userid = 0;
+      open();
+      try{
+      PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
+       prepStmt.setString(1,username);
+       
+       ResultSet rs = prepStmt.executeQuery();
+       while (rs.next()) {
+	userid = rs.getInt("AccountID");
+}
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+          return -1;
+          
+      }
+      close();
+      return userid;   
+  }
+    
+    public static int passwordCheck(int id,String password){
+        String selectStatement = "select PassWord from account where AccountID = ?";
+       open();
+       String actualPassword = null;
+      try{
+      PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
+       prepStmt.setInt(1,id);
+       
+       ResultSet rs = prepStmt.executeQuery();
+       while (rs.next()) {
+	actualPassword = rs.getString("PassWord");
+}
+       if(actualPassword.equals("password")){
+           close();
+           return -1;
+       }
+       else {
+           close();
+       
+           return 0;
+          }
+      } 
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+          close();
+          return -1;
+          
+      }
+
+  
+    }
 }

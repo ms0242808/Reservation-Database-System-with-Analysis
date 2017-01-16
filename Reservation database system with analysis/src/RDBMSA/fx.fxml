@@ -22,10 +22,10 @@
                         <MenuItem fx:id="Exitmenu" mnemonicParsing="false" text="Exit" />
                   </items>
                 </Menu>
-                  <Menu fx:id="AccountMenu" mnemonicParsing="false" text="View" visible="false">
+                  <Menu fx:id="AccountMenu" mnemonicParsing="false" text="View">
                     <items>
-                      <MenuItem fx:id="CRMenu" mnemonicParsing="false" text="Customer Records" />
-                        <MenuItem fx:id="SDMenu" mnemonicParsing="false" text="Staff Details" />
+                      <MenuItem fx:id="CRMenu" mnemonicParsing="false" onAction="#CRMenuClicked" text="Booking(Customer) Records" />
+                        <MenuItem fx:id="SDMenu" mnemonicParsing="false" onAction="#SDMenuClicked" text="Staff Details" />
                     </items>
                   </Menu>
               </menus>
@@ -35,7 +35,7 @@
       <Separator layoutY="27.0" prefWidth="799.0" />
       <AnchorPane fx:id="SceneP" layoutY="36.0" prefHeight="564.0" prefWidth="799.0">
          <children>
-            <AnchorPane fx:id="CustomerP" prefHeight="486.0" prefWidth="798.0">
+            <AnchorPane fx:id="CustomerP" prefHeight="486.0" prefWidth="798.0" visible="false">
                <children>
                   <ProgressBar fx:id="ProgBar" layoutY="544.0" prefHeight="20.0" prefWidth="799.0" progress="0.0" />
                   <AnchorPane fx:id="CustomerP1" prefHeight="544.0" prefWidth="798.0">
@@ -110,17 +110,45 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ManagerP" disable="true" prefHeight="564.0" prefWidth="798.0" visible="false">
+            <AnchorPane fx:id="ManagerP" prefHeight="564.0" prefWidth="798.0">
                <children>
-                  <Button layoutX="142.0" layoutY="88.0" mnemonicParsing="false" text="Graphic" />
-                  <Button layoutX="250.0" layoutY="88.0" mnemonicParsing="false" text="Date picker" />
-                  <Button layoutX="408.0" layoutY="88.0" mnemonicParsing="false" text="Number of people" />
-                  <AnchorPane layoutX="78.0" layoutY="128.0" prefHeight="373.0" prefWidth="615.0">
+                  <AnchorPane fx:id="DetailCustomerP" prefHeight="564.0" prefWidth="798.0">
                      <children>
-                        <TableView prefHeight="373.0" prefWidth="615.0">
+                        <Button layoutX="137.0" layoutY="83.0" mnemonicParsing="false" text="Graphic" />
+                        <Button layoutX="250.0" layoutY="81.0" mnemonicParsing="false" text="Date picker" />
+                        <Button layoutX="377.0" layoutY="81.0" mnemonicParsing="false" text="Number of people" />
+                        <AnchorPane layoutX="25.0" layoutY="121.0" prefHeight="374.0" prefWidth="752.0">
+                           <children>
+                              <TableView fx:id="CustomerTable" prefHeight="373.0" prefWidth="752.0">
+                                <columns>
+                                  <TableColumn fx:id="cID" prefWidth="75.0" text="CustomerID" />
+                                  <TableColumn fx:id="Fname" prefWidth="75.0" text="First name" />
+                                    <TableColumn fx:id="Lname" prefWidth="75.0" text="Last name" />
+                                    <TableColumn fx:id="BDate" prefWidth="75.0" text="Booked Date" />
+                                    <TableColumn fx:id="BTime" prefWidth="75.0" text="Booked Time" />
+                                    <TableColumn fx:id="Pnumber" prefWidth="75.0" text="Phone number" />
+                                    <TableColumn fx:id="eMail" prefWidth="75.0" text="Email" />
+                                    <TableColumn fx:id="SRequest" prefWidth="75.0" text="Special Requests" />
+                                    <TableColumn fx:id="POrder" prefWidth="75.0" text="Pre order" />
+                                    <TableColumn fx:id="Ccode" prefWidth="75.0" text="Confirmation code" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="DetailAccountP" prefHeight="564.0" prefWidth="798.0" visible="false">
+                     <children>
+                        <TableView fx:id="StaffTable" layoutX="102.0" layoutY="102.0" prefHeight="374.0" prefWidth="609.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="StaffID" prefWidth="52.34929656982422" text="ID" />
+                            <TableColumn fx:id="SFname" prefWidth="78.40602111816406" text="Firstname" />
+                              <TableColumn fx:id="SLname" prefWidth="80.34927368164062" text="Lastname" />
+                              <TableColumn fx:id="SDob" prefWidth="102.05670166015625" text="Date of Birth" />
+                              <TableColumn fx:id="SPhone" prefWidth="66.58502197265625" text="Phone" />
+                              <TableColumn fx:id="SAddress" prefWidth="70.82080078125" text="Address" />
+                              <TableColumn fx:id="SUsername" prefWidth="77.0567626953125" text="Username" />
+                              <TableColumn fx:id="SPassword" prefWidth="79.94317626953125" text="Password" />
                           </columns>
                         </TableView>
                      </children>
