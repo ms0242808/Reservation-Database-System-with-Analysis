@@ -5,24 +5,19 @@
  */
 package RDBMSA;
 
-import static RDBMSA.Database.RetSet;
 import static RDBMSA.Database.booktable;
 import static RDBMSA.Database.userCheck;
 import static RDBMSA.Database.passwordCheck;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
@@ -32,14 +27,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -65,7 +56,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
@@ -463,21 +453,90 @@ public class FxController implements Initializable {
 
     @FXML
     private void ManagerMClicked(ActionEvent event) throws IOException {
-        CustomerP.setVisible(false);
-        ManagerP.setVisible(true);
+        CustomerP.setVisible(false);        
         GeneralMenu.setText("Manager/Staff");
+        loginDialog();
+    }
+    
+    public void loginDialog(){                
+        // Create the custom dialog.
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Manager/Staff Login");
+        dialog.setHeaderText("Manager/Staff Login");
         
-        Parent root2 = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));       
-        LoginStage = new Stage();
-        javafx.geometry.Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        LoginStage.setScene(new Scene(root2));
-     
-        LoginStage.setHeight(Generator.viewStage.getHeight());
-        LoginStage.setWidth(Generator.viewStage.getWidth());
+        // Set the icon (must be included in the project).
+        //dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
+
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
         
-        LoginStage.show();
-        LoginStage.setResizable(false);
-        Generator.viewStage.close();
+        // Enable/Disable login button depending on whether a username was entered.
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);    
+        
+        // Create the username and password labels and fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField username = new TextField();
+        username.setPromptText("Username");
+        PasswordField password = new PasswordField();
+        password.setPromptText("Password");
+
+        grid.add(new Label("Username:"), 0, 0);
+        grid.add(username, 1, 0);
+        grid.add(new Label("Password:"), 0, 1);
+        grid.add(password, 1, 1);
+        
+        // Do some validation (using the Java 8 lambda syntax).
+        username.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+        
+        // Request focus on the username field by default.
+        Platform.runLater(() -> username.requestFocus());
+        //dialog.showAndWait();
+        
+        // Convert the result to a username-password-pair when the login button is clicked.
+        dialog.setResultConverter(dialogButton -> {
+        if (dialogButton == loginButtonType) {
+            return new Pair<>(username.getText(), password.getText());
+        }
+        //loginDialog();
+        return null;
+        });
+        
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        result.ifPresent(usernamePassword -> {
+            //System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
+            System.out.println(user + " " + pass);
+            try{
+                int login = 0;
+                int loginPass = 0;            
+                login = userCheck(user);
+                System.out.println(login);
+                loginPass = passwordCheck(login, pass);
+                System.out.println(user + " "+loginPass);            
+                if (loginPass < 0){
+                    AccountMenu.setVisible(true);
+                    ManagerP.setVisible(true);
+                    CustomerTable();
+                    System.out.println("Success!");
+                }
+                else{
+                    System.out.println("Try again.");
+                }   
+            } catch(NullPointerException e){
+                System.out.println("Catched");
+            }
+        });
     }
     
     public void CustomerTable(){
