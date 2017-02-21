@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="SceneP" prefHeight="564.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.ManageController">
+   <children>
+      <AnchorPane fx:id="DetailCustomerP" layoutX="83.0" prefHeight="564.0" prefWidth="715.0">
+         <children>
+            <Button layoutX="137.0" layoutY="83.0" mnemonicParsing="false" text="Graphic" />
+            <Button layoutX="250.0" layoutY="81.0" mnemonicParsing="false" text="Date picker" />
+            <Button layoutX="377.0" layoutY="81.0" mnemonicParsing="false" text="Number of people" />
+            <AnchorPane layoutX="25.0" layoutY="121.0" prefHeight="374.0" prefWidth="659.0">
+               <children>
+                  <TableView fx:id="CustomerTable" prefHeight="373.0" prefWidth="650.0">
+                     <columns>
+                        <TableColumn fx:id="cID" prefWidth="75.0" text="CustomerID" />
+                        <TableColumn fx:id="Fname" prefWidth="75.0" text="First name" />
+                        <TableColumn fx:id="Lname" prefWidth="75.0" text="Last name" />
+                        <TableColumn fx:id="BDate" prefWidth="75.0" text="Booked Date" />
+                        <TableColumn fx:id="BTime" prefWidth="75.0" text="Booked Time" />
+                        <TableColumn fx:id="Pnumber" prefWidth="75.0" text="Phone number" />
+                        <TableColumn fx:id="eMail" prefWidth="75.0" text="Email" />
+                        <TableColumn fx:id="SRequest" prefWidth="75.0" text="Special Requests" />
+                        <TableColumn fx:id="POrder" prefWidth="75.0" text="Pre order" />
+                        <TableColumn fx:id="Ccode" prefWidth="75.0" text="Confirmation code" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <DatePicker fx:id="sortDate" layoutX="250.0" layoutY="24.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="DetailAccountP" layoutX="83.0" prefHeight="564.0" prefWidth="715.0" visible="false">
+         <children>
+            <TableView fx:id="StaffTable" layoutX="102.0" layoutY="102.0" prefHeight="374.0" prefWidth="609.0">
+               <columns>
+                  <TableColumn fx:id="StaffID" prefWidth="52.34929656982422" text="ID" />
+                  <TableColumn fx:id="SFname" prefWidth="78.40602111816406" text="Firstname" />
+                  <TableColumn fx:id="SLname" prefWidth="80.34927368164062" text="Lastname" />
+                  <TableColumn fx:id="SDob" prefWidth="102.05670166015625" text="Date of Birth" />
+                  <TableColumn fx:id="SPhone" prefWidth="66.58502197265625" text="Phone" />
+                  <TableColumn fx:id="SAddress" prefWidth="70.82080078125" text="Address" />
+                  <TableColumn fx:id="SUsername" prefWidth="77.0567626953125" text="Username" />
+                  <TableColumn fx:id="SPassword" prefWidth="79.94317626953125" text="Password" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

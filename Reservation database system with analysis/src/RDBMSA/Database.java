@@ -156,8 +156,8 @@ public class Database {
                 return -1;
             }
         else{
-           close();       
-           return 0;
+            close();       
+            return 0;
         }
         } 
         catch(SQLException e){
