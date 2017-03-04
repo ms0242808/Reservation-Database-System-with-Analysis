@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import jfxtras.scene.control.*?>
-<?import jfxtras.scene.control.agenda.*?>
-<?import jfxtras.labs.scene.control.*?>
-<?import jfxtras.scene.control.gauge.linear.*?>
-<?import jfxtras.scene.layout.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.media.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
    <children>
     <AnchorPane fx:id="MenuP" minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="799.0">
          <children>
@@ -43,7 +36,7 @@
             <Separator layoutY="79.0" prefHeight="5.0" prefWidth="82.0" />
             <Separator layoutY="171.0" prefHeight="5.0" prefWidth="82.0" />
             <Separator layoutX="82.0" layoutY="-8.0" orientation="VERTICAL" prefHeight="572.0" prefWidth="6.0" />
-            <AnchorPane fx:id="SceneP" prefHeight="564.0" prefWidth="799.0" />
+            <AnchorPane fx:id="SceneP" layoutX="80.0" prefHeight="564.0" prefWidth="719.0" />
             <Button fx:id="CustomerTab" layoutX="1.0" layoutY="-8.0" mnemonicParsing="false" onAction="#BCTabClicked" prefHeight="85.0" prefWidth="81.0" text="Book a table" />
             <Button fx:id="EditTab" layoutX="1.0" layoutY="84.0" mnemonicParsing="false" onAction="#BETabClicked" prefHeight="85.0" prefWidth="81.0" text="Edit booking" />
             <Button fx:id="ManagerTab" layoutX="1.0" layoutY="177.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Login" />

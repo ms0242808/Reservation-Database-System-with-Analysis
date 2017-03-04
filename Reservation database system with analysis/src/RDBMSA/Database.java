@@ -118,6 +118,133 @@ public class Database {
         close();
     }
     
+    //EditBooking SQL methods
+    public static int phoneCheck(String phoneText){
+        String selectStatement = "select CustomerID from customer where Phone = ?";
+        int userid = 0;
+        open();
+        try{
+            PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
+            prepStmt.setString(1,phoneText);
+       
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                userid = rs.getInt("CustomerID");
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return -1;          
+        }
+        close();
+        return userid;
+    }
+    
+    public static String getFirstname(int cID){
+        String firstname = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select FirstName from customer where customerID = '" + cID + "' ");
+            firstname = rs.getString("FirstName");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return firstname;
+    }
+    
+        public static String getSurname(int cID){
+        String surname = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select LastName from customer where customerID = '" + cID + "' ");
+            surname = rs.getString("LastName");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return surname;
+    }
+    
+    public static String getEmail(int cID){
+        String email = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select Email from customer where customerID = '" + cID + "' ");
+            email = rs.getString("Email");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return email;
+    }
+
+    public static String getPhonenumber(int cID){
+        String phone = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select Phone from customer where customerID = '" + cID + "' ");
+            phone = rs.getString("Phone");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return phone;
+    }
+
+    public static String getNumberofdiner(int cID){
+        String diner = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select NumberOfDiner from customer where customerID = '" + cID + "' ");
+            diner = rs.getString("NumberOfDiner");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return diner;
+    }
+
+    public static String getDate(int cID){
+        String date = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select Date from customer where customerID = '" + cID + "' ");
+            date = rs.getString("Date");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return date;
+    }
+
+    public static String getTime(int cID){
+        String time = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select Time from customer where customerID = '" + cID + "' ");
+            time = rs.getString("Time");
+            //System.out.println("Query successfully executed");
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return time;
+    }    
+    
     //Account/manager/staff SQL methods
     public static int userCheck(String username){      
         String selectStatement = "select AccountID from account where UserName = ?";

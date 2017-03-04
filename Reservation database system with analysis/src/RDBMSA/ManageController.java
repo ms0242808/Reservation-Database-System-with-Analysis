@@ -47,6 +47,8 @@ import javafx.util.Pair;
  */
 public class ManageController implements Initializable {
     @FXML
+    private AnchorPane SceneP;
+    @FXML
     private AnchorPane DetailCustomerP;
     @FXML
     private TableView<customerList> CustomerTable;
@@ -56,6 +58,8 @@ public class ManageController implements Initializable {
     private TableColumn<customerList, String> Fname;
     @FXML
     private TableColumn<customerList, String> Lname;
+    @FXML
+    private TableColumn<customerList, String> NoDiner;
     @FXML
     private TableColumn<customerList, String> BDate;
     @FXML
@@ -98,8 +102,6 @@ public class ManageController implements Initializable {
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
     public static Stage LoginStage;    
-    @FXML
-    private AnchorPane SceneP;
 
     /**
      * Initializes the controller class.
@@ -111,6 +113,7 @@ public class ManageController implements Initializable {
         cID.setCellValueFactory(new PropertyValueFactory("CustomerID"));
         Fname.setCellValueFactory(new PropertyValueFactory("FirstName"));
         Lname.setCellValueFactory(new PropertyValueFactory("SurName"));
+        NoDiner.setCellValueFactory(new PropertyValueFactory("Numberofdiner"));
         BDate.setCellValueFactory(new PropertyValueFactory("Bdate"));
         BTime.setCellValueFactory(new PropertyValueFactory("Btime"));
         Pnumber.setCellValueFactory(new PropertyValueFactory("Pnumber"));
@@ -194,8 +197,8 @@ public class ManageController implements Initializable {
         Optional<Pair<String, String>> result = dialog.showAndWait();
         result.ifPresent(usernamePassword -> {
             //System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-            String user = username.getText().toString();
-            String pass = password.getText().toString();
+            String user = username.getText();
+            String pass = password.getText();
             System.out.println(user + " " + pass);
             try{
                 int login = 0;
@@ -229,6 +232,7 @@ public class ManageController implements Initializable {
                 CList.add(new customerList(rs2.getInt("CustomerID"), 
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
+                                           rs2.getString("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
                                            rs2.getInt("Phone"),
@@ -281,6 +285,7 @@ public class ManageController implements Initializable {
                 CList.add(new customerList(rs2.getInt("CustomerID"), 
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
+                                           rs2.getString("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
                                            rs2.getInt("Phone"),
