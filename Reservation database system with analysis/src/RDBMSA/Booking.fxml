@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="SceneP" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BookingController">
    <children>
-      <ProgressBar fx:id="ProgBar" layoutY="544.0" prefHeight="20.0" prefWidth="719.0" progress="0.0" />
+      <ProgressBar fx:id="ProgBar" layoutX="6.0" layoutY="544.0" prefHeight="20.0" prefWidth="713.0" progress="0.0" />
       <AnchorPane fx:id="CustomerP1" prefHeight="564.0" prefWidth="719.0">
          <children>
             <ImageView fx:id="Crowd" fitHeight="50.0" fitWidth="50.0" layoutX="330.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">

@@ -38,7 +38,7 @@ public class Tables {
             statement.executeUpdate("create table customer (CustomerID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT, NumberOfDiner TEXT,Date TEXT, Time TEXT,Phone TEXT,Email TEXT,AdditionalRequest TEXT,PreOrder TEXT,ConfirmCode TEXT)");
       
             statement.executeUpdate("drop table if exists account");
-            statement.executeUpdate("create table account (AccountID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT,DateOfBirth TEXT,Phone TEXT,Address TEXT,UserName TEXT,PassWord TEXT)");
+            statement.executeUpdate("create table account (AccountID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT,DateOfBirth TEXT,Phone TEXT,Address TEXT,UserName TEXT,PassWord TEXT,Role TEXT)");
         
             //close connection
             close();

@@ -31,15 +31,17 @@
          </children>
       </AnchorPane>
       <Separator layoutY="27.0" prefWidth="799.0" />
-      <AnchorPane fx:id="GeneralP" layoutY="36.0" prefHeight="564.0" prefWidth="799.0">
+      <AnchorPane fx:id="GeneralP" layoutY="28.0" prefHeight="572.0" prefWidth="799.0">
          <children>
-            <Separator layoutY="79.0" prefHeight="5.0" prefWidth="82.0" />
-            <Separator layoutY="171.0" prefHeight="5.0" prefWidth="82.0" />
-            <Separator layoutX="82.0" layoutY="-8.0" orientation="VERTICAL" prefHeight="572.0" prefWidth="6.0" />
-            <AnchorPane fx:id="SceneP" layoutX="80.0" prefHeight="564.0" prefWidth="719.0" />
-            <Button fx:id="CustomerTab" layoutX="1.0" layoutY="-8.0" mnemonicParsing="false" onAction="#BCTabClicked" prefHeight="85.0" prefWidth="81.0" text="Book a table" />
-            <Button fx:id="EditTab" layoutX="1.0" layoutY="84.0" mnemonicParsing="false" onAction="#BETabClicked" prefHeight="85.0" prefWidth="81.0" text="Edit booking" />
-            <Button fx:id="ManagerTab" layoutX="1.0" layoutY="177.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Login" />
+            <Separator layoutY="88.0" prefHeight="5.0" prefWidth="82.0" />
+            <Separator layoutY="180.0" prefHeight="5.0" prefWidth="82.0" />
+            <Separator layoutX="82.0" orientation="VERTICAL" prefHeight="573.0" prefWidth="6.0" />
+            <AnchorPane fx:id="SceneP" layoutX="80.0" layoutY="8.0" prefHeight="564.0" prefWidth="719.0" />
+            <Button fx:id="CustomerTab" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#BCTabClicked" prefHeight="85.0" prefWidth="81.0" text="Book a Table" wrapText="true" />
+            <Button fx:id="EditTab" layoutX="1.0" layoutY="93.0" mnemonicParsing="false" onAction="#BETabClicked" prefHeight="85.0" prefWidth="81.0" text="Edit Booking" wrapText="true" />
+            <Button layoutX="1.0" layoutY="393.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="81.0" text="View Database" wrapText="true" />
+            <Button fx:id="ManagerTab" layoutX="1.0" layoutY="486.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Staff Login" wrapText="true" />
+            <Separator layoutY="480.0" prefHeight="5.0" prefWidth="82.0" />
          </children>
       </AnchorPane>
    </children>

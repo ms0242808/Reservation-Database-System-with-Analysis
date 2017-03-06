@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
+   <children>
+      <Label layoutX="310.0" layoutY="166.0" text="Admission Login" />
+      <VBox layoutX="250.0" layoutY="225.0" prefHeight="91.0" prefWidth="225.0">
+         <children>
+            <Label text="Username:" />
+            <TextField fx:id="TUname" />
+            <Label text="Password:" />
+            <TextField fx:id="TPword" />
+         </children>
+      </VBox>
+      <ButtonBar layoutX="285.0" layoutY="384.0" prefHeight="40.0" prefWidth="175.0">
+        <buttons>
+          <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
+            <Button fx:id="BLogin" mnemonicParsing="false" onMouseClicked="#BLoginClicked" text="Login" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

@@ -14,7 +14,6 @@ import static RDBMSA.Database.getPhonenumber;
 import static RDBMSA.Database.getSurname;
 import static RDBMSA.Database.getTime;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

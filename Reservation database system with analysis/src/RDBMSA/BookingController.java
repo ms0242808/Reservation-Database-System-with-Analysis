@@ -368,6 +368,7 @@ public class BookingController implements Initializable {
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(true);
         String NP = NPeople.getValue();
+        System.out.println(NP);
         String Dt = ((TextField)Date.getEditor()).getText();
         String T = Time.getValue();
         String FT = Ftextfield.getText();
@@ -388,7 +389,7 @@ public class BookingController implements Initializable {
         String Concode = randStr.toString();
         
         //System.out.println(Dt);
-        booktable(FT,ST,Dt,T,PT,ET,SR,"8",Concode);
+        booktable(FT,ST,NP,Dt,T,PT,ET,SR,"8",Concode);
         ConfirmLabel.setText("Confrimation code: "+Concode);
         updateProgBar(10);
         BCSee.setText("See you at " + Dt + " , " + T);

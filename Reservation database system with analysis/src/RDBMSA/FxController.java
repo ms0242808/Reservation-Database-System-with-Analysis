@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -63,7 +64,8 @@ public class FxController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         Exitmenu.setOnAction(actionEvent -> Platform.exit());
-        loadCustomerPane();  
+        loadCustomerPane();
+        //CustomerTab.setContentDisplay(ContentDisplay.TOP); set image above the text
     }    
 
     public void loadCustomerPane(){
@@ -84,9 +86,9 @@ public class FxController implements Initializable {
         }
     }
         
-    public void loadManagePane(){
+    public void loadLoginPane(){
         try {
-            Parent root3 = FXMLLoader.load(getClass().getResource("Manage.fxml"));
+            Parent root3 = FXMLLoader.load(getClass().getResource("Login.fxml"));
             SceneP.getChildren().setAll(root3);
         } catch (IOException ex) {
             Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +104,7 @@ public class FxController implements Initializable {
     @FXML
     private void ManagerMClicked(ActionEvent event) throws IOException {      
         GeneralMenu.setText("Manager/Staff");
-        loadManagePane();
+        loadLoginPane();
     }
     
     @FXML
@@ -131,6 +133,6 @@ public class FxController implements Initializable {
 
     @FXML
     private void BMTabClicked(ActionEvent event) {
-        loadManagePane();
+        loadLoginPane();
     }
 }

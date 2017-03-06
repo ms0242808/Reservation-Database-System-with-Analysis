@@ -78,8 +78,8 @@ public class Database {
     }
     
     //Customer SQL methods
-    static void booktable(String FN,String SN,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
-        String selectstat = "insert into customer (FirstName,LastName,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?)";
+    static void booktable(String FN,String SN, String NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
+        String selectstat = "insert into customer (FirstName,LastName,NumberOfDiner,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?,?)";
         open();
         
         try{
@@ -87,13 +87,14 @@ public class Database {
             PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
             prepStmt.setString(1,FN);
             prepStmt.setString(2,SN);
-            prepStmt.setString(3,Date);
-            prepStmt.setString(4,Time);
-            prepStmt.setString(5,Phone);
-            prepStmt.setString(6,Email);
-            prepStmt.setString(7,Note);
-            prepStmt.setString(8,Order);
-            prepStmt.setString(9,Code);
+            prepStmt.setString(3,NDiner);
+            prepStmt.setString(4,Date);
+            prepStmt.setString(5,Time);
+            prepStmt.setString(6,Phone);
+            prepStmt.setString(7,Email);
+            prepStmt.setString(8,Note);
+            prepStmt.setString(9,Order);
+            prepStmt.setString(10,Code);
   
             prepStmt.executeUpdate();
             connection.commit();
@@ -246,6 +247,19 @@ public class Database {
     }    
     
     //Account/manager/staff SQL methods
+    public static String getRole(int LogID){
+        String role = null;
+        try{
+            open();
+            ResultSet rs = statement.executeQuery("select Role from account where AccountID = '" + LogID + "'");
+            role = rs.getString("Role");
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        close();
+        return role;
+    }
+    
     public static int userCheck(String username){      
         String selectStatement = "select AccountID from account where UserName = ?";
         int userid = 0;

@@ -5,6 +5,7 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.getRole;
 import static RDBMSA.Database.passwordCheck;
 import static RDBMSA.Database.userCheck;
 import java.io.IOException;
@@ -14,17 +15,22 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -35,6 +41,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -96,19 +104,46 @@ public class ManageController implements Initializable {
     private TableColumn<staffList, String> SUsername;
     @FXML
     private TableColumn<staffList, String> SPassword;
-
+    @FXML
+    private Button BGraphic;
+    @FXML
+    private TextField TSearch;
+    @FXML
+    private Button BStaffview;
+    @FXML
+    private Button BCustomerview;
+    @FXML
+    private TextField TASearch;
+    @FXML
+    private Button BAAccount;
+    @FXML
+    private Button BRAccount;
+    @FXML
+    private Button BUpdate;
+    
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
     private static Connection connection = null;
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
-    public static Stage LoginStage;    
-
+    public static Stage LoginStage;  
+    @FXML
+    private Button BLOut;
+    
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        int LID = RDBMSA.LoginController.LogId;
+        String role = getRole(LID);
+        if(role.equals("M")){
+            BStaffview.setVisible(true);
+        } else{
+            BStaffview.setVisible(false);
+        }
         
         cID.setCellValueFactory(new PropertyValueFactory("CustomerID"));
         Fname.setCellValueFactory(new PropertyValueFactory("FirstName"));
@@ -121,6 +156,7 @@ public class ManageController implements Initializable {
         SRequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
         POrder.setCellValueFactory(new PropertyValueFactory("Porder"));
         Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));
+        CustomerTable();        
         
         StaffID.setCellValueFactory(new PropertyValueFactory("StaffID"));
         SFname.setCellValueFactory(new PropertyValueFactory("FirstName"));
@@ -130,98 +166,7 @@ public class ManageController implements Initializable {
         SAddress.setCellValueFactory(new PropertyValueFactory("SA"));
         SUsername.setCellValueFactory(new PropertyValueFactory("SU"));
         SPassword.setCellValueFactory(new PropertyValueFactory("SPW"));
-        loginDialog();
-    }    
-    public void loginDialog(){                
-        // Create the custom dialog.
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Manager/Staff Login");
-        dialog.setHeaderText("Manager/Staff Login");
-        
-        // Set the icon (must be included in the project).
-        //dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
-
-        // Set the button types.
-        ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-        
-        // Enable/Disable login button depending on whether a username was entered.
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);    
-        
-        // Create the username and password labels and fields.
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField username = new TextField();
-        username.setPromptText("Username");
-        PasswordField password = new PasswordField();
-        password.setPromptText("Password");
-
-        grid.add(new Label("Username:"), 0, 0);
-        grid.add(username, 1, 0);
-        grid.add(new Label("Password:"), 0, 1);
-        grid.add(password, 1, 1);
-        
-        // Do some validation (using the Java 8 lambda syntax).
-        username.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
-
-        dialog.getDialogPane().setContent(grid);
-        
-        // Request focus on the username field by default.
-        Platform.runLater(() -> username.requestFocus());
-        //dialog.showAndWait();
-        
-        // Convert the result to a username-password-pair when the login button is clicked.
-        dialog.setResultConverter(dialogButton -> {
-        if (dialogButton == loginButtonType) {
-            return new Pair<>(username.getText(), password.getText());
-        }
-        //SetCustomerVisibles();
-        try {
-            //SetCustomerVisibles();
-            //ClearFields();
-            //SetDisables();
-            Parent root1 = FXMLLoader.load(getClass().getResource("Booking.fxml"));
-            SceneP.getChildren().setAll(root1);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-        });
-        
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-        result.ifPresent(usernamePassword -> {
-            //System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-            String user = username.getText();
-            String pass = password.getText();
-            System.out.println(user + " " + pass);
-            try{
-                int login = 0;
-                int loginPass = 0;            
-                login = userCheck(user);
-                System.out.println(login);
-                loginPass = passwordCheck(login, pass);
-                System.out.println(user + " "+loginPass);            
-                if (loginPass < 0){
-                    //AccountMenu.setVisible(true);
-                    SceneP.setVisible(true);
-                    CustomerTable();
-                    System.out.println("Success!");
-                }
-                else{
-                    //check if its failed to log in, alert
-                    System.out.println("Try again.");
-                }   
-            } catch(NullPointerException e){
-                System.out.println("Catched");
-            }
-        });
-    }
+    } 
         
     public void CustomerTable(){
         CList.clear();
@@ -302,5 +247,138 @@ public class ManageController implements Initializable {
         } 
         CustomerTable.setItems(CList); 
         Database.close();
+    }
+
+    public void loadCreateAccountPane(){
+        try {
+            Parent root1 = FXMLLoader.load(getClass().getResource("AddAccount.fxml"));
+            SceneP.getChildren().setAll(root1);
+        } catch (IOException ex) {
+            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadLoginPane(){
+        try {
+            Parent root2 = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            SceneP.getChildren().setAll(root2);
+        } catch (IOException ex) {
+            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
+    private void BGraphicClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void TSearchRekeased(KeyEvent event) {
+        //TSearch.setText(null);
+        
+        FilteredList<customerList> filteredData = new FilteredList<>(CList, e -> true);
+        TSearch.setOnKeyReleased(e -> {
+        TSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super customerList>) bookings -> {
+                if (newValue == null || newValue.isEmpty())
+                {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (bookings.getFirstName().toLowerCase().contains(lowerCaseFilter))
+                {
+                    return true;
+                }
+                else if (bookings.getSurName().toLowerCase().contains(lowerCaseFilter))
+                {
+                        return true;
+                } 
+                else if (bookings.getCcode().toLowerCase().contains(lowerCaseFilter))
+                {
+                    return true;
+                }     
+ 
+            return false;
+            });
+        });
+    }); 
+        SortedList<customerList> sortedResults = new SortedList<>(filteredData);
+        sortedResults.comparatorProperty().bind(CustomerTable.comparatorProperty());
+        CustomerTable.setItems(sortedResults);
+    }
+
+    @FXML
+    private void BStaffClicked(MouseEvent event) {
+        DetailCustomerP.setVisible(false);
+        DetailAccountP.setVisible(true);
+        StaffListTable();
+    }
+
+    @FXML
+    private void TASearchReleased(KeyEvent event) {
+        //TASearch.setText(null);
+        
+        FilteredList<staffList> filteredData = new FilteredList<>(SList, e -> true);
+        TASearch.setOnKeyReleased(e -> {
+        TASearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super staffList>) accounts -> {
+                if (newValue == null || newValue.isEmpty())
+                {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (accounts.getFirstName().toLowerCase().contains(lowerCaseFilter))
+                {
+                    return true;
+                }
+                else if (accounts.getSurName().toLowerCase().contains(lowerCaseFilter))
+                {
+                        return true;
+                } 
+                else if (accounts.getSU().toLowerCase().contains(lowerCaseFilter))
+                {
+                    return true;
+                }     
+ 
+            return false;
+            });
+        });
+    }); 
+        SortedList<staffList> sortedResults = new SortedList<>(filteredData);
+        sortedResults.comparatorProperty().bind(StaffTable.comparatorProperty());
+        StaffTable.setItems(sortedResults);
+    }
+
+    @FXML
+    private void BCustomerClicked(MouseEvent event) {
+        DetailCustomerP.setVisible(true);
+        DetailAccountP.setVisible(false);
+    }
+
+    @FXML
+    private void BAAccountClicked(MouseEvent event) {
+        loadCreateAccountPane();
+    }
+
+    @FXML
+    private void BRAccountClciked(MouseEvent event) {
+    }
+
+    @FXML
+    private void BUpdateClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void BLoutClicked(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Log out Dialog");
+        alert.setHeaderText("Logging out");
+        alert.setContentText("Are you sure you want to log out?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            loadLoginPane();
+        } else{
+            // ... user chose CANCEL or closed the dialog
+        } 
     }
 }

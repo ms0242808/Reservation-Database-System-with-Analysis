@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.AddAccountController">
+   <children>
+      <Label layoutX="290.0" layoutY="40.0" text="Create new account" />
+      <VBox layoutX="140.0" layoutY="101.0" prefHeight="368.0" prefWidth="426.0">
+         <children>
+            <Label text="First name:" />
+            <TextField fx:id="TFname" />
+            <Label text="Last name:" />
+            <TextField fx:id="TLname" />
+            <Label text="Date of Birth:" />
+            <TextField fx:id="TDob" />
+            <Label text="Phone number:" />
+            <TextField fx:id="TPnumber" />
+            <Label text="Address:" />
+            <TextField fx:id="TAddress" />
+            <Label text="Username:" />
+            <TextField fx:id="TUname" />
+            <Label text="Password:" />
+            <TextField fx:id="TPword" />
+            <Label text="Category:" />
+            <RadioButton fx:id="RStaff" mnemonicParsing="false" onMouseClicked="#RStaffClicked" text="Staff" />
+            <RadioButton fx:id="RManager" mnemonicParsing="false" onMouseClicked="#RManagerClicked" text="Manager" />
+         </children>
+      </VBox>
+      <ButtonBar layoutX="387.0" layoutY="486.0" prefHeight="40.0" prefWidth="269.0">
+        <buttons>
+            <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
+          <Button fx:id="BCAccount" mnemonicParsing="false" onMouseClicked="#BCreateClicked" text="Create account" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
