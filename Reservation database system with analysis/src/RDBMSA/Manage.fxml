@@ -50,16 +50,17 @@
       <AnchorPane fx:id="DetailAccountP" prefHeight="564.0" prefWidth="719.0" visible="false">
          <children>
             <TextField fx:id="TASearch" layoutX="28.0" layoutY="16.0" onKeyReleased="#TASearchReleased" prefHeight="27.0" prefWidth="388.0" text="Search by first name, surname or username" />
-            <TableView fx:id="StaffTable" layoutX="61.0" layoutY="123.0" prefHeight="374.0" prefWidth="614.0">
+            <TableView fx:id="StaffTable" layoutX="26.0" layoutY="123.0" prefHeight="374.0" prefWidth="672.0">
                <columns>
-                  <TableColumn fx:id="StaffID" prefWidth="52.34929656982422" text="ID" />
-                  <TableColumn fx:id="SFname" prefWidth="78.40602111816406" text="Firstname" />
-                  <TableColumn fx:id="SLname" prefWidth="80.34927368164062" text="Lastname" />
-                  <TableColumn fx:id="SDob" prefWidth="102.05670166015625" text="Date of Birth" />
-                  <TableColumn fx:id="SPhone" prefWidth="66.58502197265625" text="Phone" />
-                  <TableColumn fx:id="SAddress" prefWidth="70.82080078125" text="Address" />
-                  <TableColumn fx:id="SUsername" prefWidth="77.0567626953125" text="Username" />
-                  <TableColumn fx:id="SPassword" prefWidth="79.94317626953125" text="Password" />
+                  <TableColumn fx:id="StaffID" prefWidth="38.184885025024414" text="ID" />
+                  <TableColumn fx:id="SFname" prefWidth="89.44147491455078" text="Firstname" />
+                  <TableColumn fx:id="SLname" prefWidth="75.55850219726562" text="Lastname" />
+                  <TableColumn fx:id="SDob" prefWidth="113.25668334960938" text="Date of Birth" />
+                  <TableColumn fx:id="SPhone" prefWidth="78.04519653320312" text="Phone" />
+                  <TableColumn fx:id="SAddress" prefWidth="95.04498291015625" text="Address" />
+                  <TableColumn fx:id="SUsername" prefWidth="74.3287353515625" text="Username" />
+                  <TableColumn fx:id="SPassword" prefWidth="103.67120361328125" text="Password" />
+                  <TableColumn fx:id="SRole" prefWidth="75.0" text="Role" />
                </columns>
             </TableView>
             <ButtonBar layoutX="28.0" layoutY="46.0" prefHeight="40.0" prefWidth="659.0">

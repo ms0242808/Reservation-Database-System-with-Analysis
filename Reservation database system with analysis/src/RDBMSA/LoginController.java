@@ -39,6 +39,7 @@ public class LoginController implements Initializable {
     private Button BLogin;
 
     public static int LogId = 0;
+    FxController alertwindow = new FxController();
     
     /**
      * Initializes the controller class.
@@ -46,29 +47,20 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    public void loadManagePane(){
-        try {
-            Parent root1 = FXMLLoader.load(getClass().getResource("Manage.fxml"));
-            SceneP.getChildren().setAll(root1);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
-    public void loadBookingPane(){
+    public void loadScenePane(String SceneName){
         try {
-            Parent root2 = FXMLLoader.load(getClass().getResource("Booking.fxml"));
-            SceneP.getChildren().setAll(root2);
+            Parent root1 = FXMLLoader.load(getClass().getResource(SceneName));
+            SceneP.getChildren().setAll(root1);
         } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     @FXML
     private void BCancelClicked(MouseEvent event) {
-        loadBookingPane();
+        loadScenePane("Booking.fxml");
     }
 
     @FXML
@@ -79,17 +71,14 @@ public class LoginController implements Initializable {
             int login = 0;
             int loginPass = 0;            
             login = userCheck(user);
-            loginPass = passwordCheck(login, pass);          
-            if (loginPass < 0){
+            loginPass = passwordCheck(login, pass);  
+            if (loginPass == -1){
                 LogId = login;
-                loadManagePane();
-            }
-            else{
-                //check if its failed to log in, alert
-                System.out.println("Try again.");
+                loadScenePane("Manage.fxml");
             }   
         } catch(NullPointerException e){
-            System.out.println("Catched");
+                alertwindow.AlertWarningwindow(null, null, "Please enter correct username and password.");
+                //effect on textfiled 
         }
     }  
 }

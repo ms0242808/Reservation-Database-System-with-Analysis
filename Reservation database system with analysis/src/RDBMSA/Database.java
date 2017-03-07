@@ -68,9 +68,7 @@ public class Database {
             ResultSet rs = statement.executeQuery(query);
             System.out.println("Query successfully executed");
             return rs;
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -78,10 +76,9 @@ public class Database {
     }
     
     //Customer SQL methods
-    static void booktable(String FN,String SN, String NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
+    public static void booktable(String FN,String SN, String NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
         String selectstat = "insert into customer (FirstName,LastName,NumberOfDiner,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?,?)";
-        open();
-        
+        open();        
         try{
             connection.setAutoCommit(false);
             PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
@@ -95,27 +92,11 @@ public class Database {
             prepStmt.setString(8,Note);
             prepStmt.setString(9,Order);
             prepStmt.setString(10,Code);
-  
             prepStmt.executeUpdate();
             connection.commit();
-
-            ResultSet rs = statement.executeQuery("select * from customer");
-            while(rs.next()){
-                // read the result set
-                //System.out.println("name = " + rs.getString("FirstName"));
-                //System.out.println("id = " + rs.getInt("customerID"));
-                //System.out.println("surname = " + rs.getString("LastName"));
-                //System.out.println("email = " + rs.getString("email"));
-                //System.out.println("password = " + rs.getString("password"));
-                //System.out.println("date of birth = " + rs.getString("dateOfBirth"));
-                //System.out.println("address = " + rs.getString("address1"));
-                //System.out.println("city = " + rs.getString("city"));
-                //System.out.println("phone number = " + rs.getString("phoneNumber"));       
-            }
-        }catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
-        }
-        
+        }      
         close();
     }
     
@@ -132,8 +113,7 @@ public class Database {
             while (rs.next()) {
                 userid = rs.getInt("CustomerID");
             }
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.out.println(e.getMessage());
             return -1;          
         }
@@ -148,8 +128,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select FirstName from customer where customerID = '" + cID + "' ");
             firstname = rs.getString("FirstName");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -163,8 +142,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select LastName from customer where customerID = '" + cID + "' ");
             surname = rs.getString("LastName");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -178,8 +156,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select Email from customer where customerID = '" + cID + "' ");
             email = rs.getString("Email");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -193,8 +170,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select Phone from customer where customerID = '" + cID + "' ");
             phone = rs.getString("Phone");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -208,8 +184,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select NumberOfDiner from customer where customerID = '" + cID + "' ");
             diner = rs.getString("NumberOfDiner");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -223,8 +198,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select Date from customer where customerID = '" + cID + "' ");
             date = rs.getString("Date");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -238,8 +212,7 @@ public class Database {
             ResultSet rs = statement.executeQuery("select Time from customer where customerID = '" + cID + "' ");
             time = rs.getString("Time");
             //System.out.println("Query successfully executed");
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.err.println(e.getMessage());
         }
         close();
@@ -247,6 +220,7 @@ public class Database {
     }    
     
     //Account/manager/staff SQL methods
+    //Account login methods
     public static String getRole(int LogID){
         String role = null;
         try{
@@ -272,8 +246,7 @@ public class Database {
             while (rs.next()) {
                 userid = rs.getInt("AccountID");
             }
-        }
-        catch(SQLException e){
+        } catch(SQLException e){
             System.out.println(e.getMessage());
             return -1;          
         }
@@ -295,16 +268,71 @@ public class Database {
             if(actualPassword.equals(password)){
                 close();
                 return -1;
+            } else{
+                close();       
+                return 0;
             }
-        else{
-            close();       
-            return 0;
-        }
-        } 
-        catch(SQLException e){
+        } catch(SQLException e){
             System.out.println(e.getMessage());
             close();
             return -1;          
         }
+    }
+    
+    //customer records methods
+    
+    
+    //staff records methods
+    public static void addAccount(String FN,String SN, String DOB,String Phone, String Address,String Username,String Password, String Role){
+        String selectstat = "insert into account (FirstName,LastName,DateOfBirth,Phone,Address,UserName,PassWord,Role) values(?,?,?,?,?,?,?,?)";
+        open();     
+        try{
+            connection.setAutoCommit(false);
+            PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
+            prepStmt.setString(1,FN);
+            prepStmt.setString(2,SN);
+            prepStmt.setString(3,DOB);
+            prepStmt.setString(4,Phone);
+            prepStmt.setString(5,Address);
+            prepStmt.setString(6,Username);
+            prepStmt.setString(7,Password);
+            prepStmt.setString(8,Role);
+            prepStmt.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();
+    }
+    
+    public static void updateAccount(int staffID, String fn, String sn, String dob, String phone, String address, String un, String pw, String role) {
+        String selectstat = "UPDATE account set FirstName = ?, LastName = ?, DateOfBirth = ?, Phone = ?, Address = ?, UserName = ?, PassWord = ?, Role = ? where AccountID = "+ staffID;
+        open();
+        try{
+            PreparedStatement ps = connection.prepareStatement(selectstat);
+            ps.setString(1,fn);
+            ps.setString(2,sn);
+            ps.setString(3,dob);
+            ps.setString(4,phone);
+            ps.setString(5,address);
+            ps.setString(6,un);
+            ps.setString(7,pw);
+            ps.setString(8,role);
+            ps.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();     
+    }
+    
+    public static void removeAccount(int staffID){
+        try{
+            open();
+            statement.executeUpdate("DELETE from account WHERE AccountID = '"+ staffID + "'");   
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        close();
     }
 }

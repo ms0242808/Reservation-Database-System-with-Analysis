@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -15,7 +16,7 @@
             <Label text="Username:" />
             <TextField fx:id="TUname" />
             <Label text="Password:" />
-            <TextField fx:id="TPword" />
+            <PasswordField fx:id="TPword" />
          </children>
       </VBox>
       <ButtonBar layoutX="285.0" layoutY="384.0" prefHeight="40.0" prefWidth="175.0">

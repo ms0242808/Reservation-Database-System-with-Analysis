@@ -6,8 +6,7 @@
 package RDBMSA;
 
 import static RDBMSA.Database.getRole;
-import static RDBMSA.Database.passwordCheck;
-import static RDBMSA.Database.userCheck;
+import static RDBMSA.Database.removeAccount;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -18,7 +17,6 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,17 +24,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -44,9 +37,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * FXML Controller class
@@ -105,6 +96,8 @@ public class ManageController implements Initializable {
     @FXML
     private TableColumn<staffList, String> SPassword;
     @FXML
+    private TableColumn<staffList, String> SRole;
+    @FXML
     private Button BGraphic;
     @FXML
     private TextField TSearch;
@@ -120,16 +113,23 @@ public class ManageController implements Initializable {
     private Button BRAccount;
     @FXML
     private Button BUpdate;
+    @FXML
+    private Button BLOut;
     
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
     private static Connection connection = null;
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
-    public static Stage LoginStage;  
-    @FXML
-    private Button BLOut;
-    
-    
+    FxController alertwindow = new FxController();
+    public static int staffID;
+    public static String stafffn;
+    public static String staffln;
+    public static String staffdob;
+    public static int staffphone;
+    public static String staffaddress;
+    public static String staffun;
+    public static String staffpw;
+    public static String staffr;
     
     /**
      * Initializes the controller class.
@@ -166,8 +166,29 @@ public class ManageController implements Initializable {
         SAddress.setCellValueFactory(new PropertyValueFactory("SA"));
         SUsername.setCellValueFactory(new PropertyValueFactory("SU"));
         SPassword.setCellValueFactory(new PropertyValueFactory("SPW"));
+        SRole.setCellValueFactory(new PropertyValueFactory("SROLE"));
+        
+        int AddsceneID = RDBMSA.AddAccountController.Addscene;
+        int UpdatesceneID = RDBMSA.UpdateAccountController.UAscene;
+        if(AddsceneID == 1 || UpdatesceneID == 1){
+            DetailAccountP.setVisible(true);
+            DetailCustomerP.setVisible(false);
+            StaffListTable();
+        } else{
+            DetailAccountP.setVisible(false);
+            DetailCustomerP.setVisible(true);
+        }
     } 
         
+    public void loadScenePane(String SceneName){
+        try {
+            Parent root1 = FXMLLoader.load(getClass().getResource(SceneName));
+            SceneP.getChildren().setAll(root1);
+        } catch (IOException ex) {
+            Logger.getLogger(ManageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void CustomerTable(){
         CList.clear();
         try{
@@ -209,7 +230,8 @@ public class ManageController implements Initializable {
                                            rs2.getInt("Phone"),
                                            rs2.getString("Address"),
                                            rs2.getString("UserName"),
-                                           rs2.getString("PassWord")));
+                                           rs2.getString("PassWord"),
+                                           rs2.getString("ROLE")));// add to table
                 StaffTable.setItems(this.SList);
             }
         }
@@ -247,24 +269,6 @@ public class ManageController implements Initializable {
         } 
         CustomerTable.setItems(CList); 
         Database.close();
-    }
-
-    public void loadCreateAccountPane(){
-        try {
-            Parent root1 = FXMLLoader.load(getClass().getResource("AddAccount.fxml"));
-            SceneP.getChildren().setAll(root1);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void loadLoginPane(){
-        try {
-            Parent root2 = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            SceneP.getChildren().setAll(root2);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     @FXML
@@ -356,27 +360,58 @@ public class ManageController implements Initializable {
 
     @FXML
     private void BAAccountClicked(MouseEvent event) {
-        loadCreateAccountPane();
+        loadScenePane("AddAccount.fxml");
     }
 
     @FXML
     private void BRAccountClciked(MouseEvent event) {
+        int selectedIndex = StaffTable.getSelectionModel().getSelectedIndex() + 1;
+        if (selectedIndex >= 1) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Delete selected account");
+            alert.setHeaderText("Update account database");
+            alert.setContentText("Are you sure you want to delete this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                int SID = StaffTable.getSelectionModel().getSelectedItem().getStaffID();
+                StaffTable.getItems().remove(selectedIndex - 1);
+                removeAccount(SID);
+            }
+        } else{
+            alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
+        }
     }
 
     @FXML
     private void BUpdateClicked(MouseEvent event) {
+        int selectedIndex = StaffTable.getSelectionModel().getSelectedIndex() + 1;
+        if (selectedIndex >= 1){
+            staffID = StaffTable.getSelectionModel().getSelectedItem().getStaffID();
+            stafffn = StaffTable.getSelectionModel().getSelectedItem().getFirstName();
+            staffln = StaffTable.getSelectionModel().getSelectedItem().getSurName();
+            staffdob = StaffTable.getSelectionModel().getSelectedItem().getDOB();
+            staffphone = StaffTable.getSelectionModel().getSelectedItem().getPnumber();
+            staffaddress = StaffTable.getSelectionModel().getSelectedItem().getSA();
+            staffun = StaffTable.getSelectionModel().getSelectedItem().getSU();
+            staffpw = StaffTable.getSelectionModel().getSelectedItem().getSPW();
+            staffr = StaffTable.getSelectionModel().getSelectedItem().getSROLE();
+            loadScenePane("UpdateAccount.fxml");
+        } else{
+            alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
+        } 
     }
 
     @FXML
     private void BLoutClicked(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Log out Dialog");
-        alert.setHeaderText("Logging out");
+        alert.setTitle(null);
+        alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to log out?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            loadLoginPane();
+            loadScenePane("Login.fxml");
         } else{
             // ... user chose CANCEL or closed the dialog
         } 

@@ -21,8 +21,9 @@ public class staffList {
     private final SimpleStringProperty SA;
     private final SimpleStringProperty SU;
     private final SimpleStringProperty SPW;
+    private final SimpleStringProperty SROLE;
     
-    public staffList(int ID, String FN, String  SN, String DOB, int PN, String ADD, String UN, String PW) {
+    public staffList(int ID, String FN, String  SN, String DOB, int PN, String ADD, String UN, String PW, String ROLE) {
         this.sID = new SimpleIntegerProperty(ID);
         this.SFN = new SimpleStringProperty(FN);
         this.SSN = new SimpleStringProperty(SN);
@@ -31,6 +32,7 @@ public class staffList {
         this.SA = new SimpleStringProperty(ADD);
         this.SU = new SimpleStringProperty(UN);
         this.SPW = new SimpleStringProperty(PW);
+        this.SROLE = new SimpleStringProperty(ROLE);
     }
 
     public int getStaffID() {
@@ -96,4 +98,12 @@ public class staffList {
     public void setSPW(String PW) {
         this.SPW.set(PW);
     } 
+
+    public String getSROLE(){
+        return SROLE.get();
+    }
+
+    public void setSROLE(String ROLE) {
+        this.SROLE.set(ROLE);
+    }
 }

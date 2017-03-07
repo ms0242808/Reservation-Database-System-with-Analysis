@@ -16,8 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -64,47 +64,45 @@ public class FxController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         Exitmenu.setOnAction(actionEvent -> Platform.exit());
-        loadCustomerPane();
+        loadScenePane("Booking.fxml");
         //CustomerTab.setContentDisplay(ContentDisplay.TOP); set image above the text
     }    
 
-    public void loadCustomerPane(){
+    public void loadScenePane(String SceneName){
         try {
-            Parent root1 = FXMLLoader.load(getClass().getResource("Booking.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource(SceneName));
             SceneP.getChildren().setAll(root1);
         } catch (IOException ex) {
             Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadEditBookedPane(){
-        try {
-            Parent root2 = FXMLLoader.load(getClass().getResource("EditBooking.fxml"));
-            SceneP.getChildren().setAll(root2);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-        
-    public void loadLoginPane(){
-        try {
-            Parent root3 = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            SceneP.getChildren().setAll(root3);
-        } catch (IOException ex) {
-            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
+    public void AlertWarningwindow(String title, String header, String mesg){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(mesg);
+        alert.showAndWait();
+    }
+    
+    public void AlertInforwindow(String title, String header, String mesg){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(mesg);
+        alert.showAndWait();
+    }
+    
     @FXML
     private void CustomerMClicked(ActionEvent event) {       
         GeneralMenu.setText("Customer");
-        loadCustomerPane();
+        loadScenePane("Booking.fxml");
     }
 
     @FXML
     private void ManagerMClicked(ActionEvent event) throws IOException {      
         GeneralMenu.setText("Manager/Staff");
-        loadLoginPane();
+        loadScenePane("Login.fxml");
     }
     
     @FXML
@@ -123,16 +121,16 @@ public class FxController implements Initializable {
 
     @FXML
     private void BCTabClicked(ActionEvent event) {
-        loadCustomerPane();
+        loadScenePane("Booking.fxml");
     }
 
     @FXML
     private void BETabClicked(ActionEvent event) {
-        loadEditBookedPane();
+        loadScenePane("EditBooking.fxml");
     }
 
     @FXML
     private void BMTabClicked(ActionEvent event) {
-        loadLoginPane();
+        loadScenePane("Login.fxml");
     }
 }

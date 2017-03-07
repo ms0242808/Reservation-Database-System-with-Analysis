@@ -19,7 +19,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
@@ -111,7 +110,8 @@ public class BookingController implements Initializable {
     private Button BCSee;
     @FXML
     private AnchorPane SceneP;
-
+    
+    FxController alertwindow = new FxController();
     /**
      * Initializes the controller class.
      */
@@ -196,11 +196,7 @@ public class BookingController implements Initializable {
         if(m.find() && m.group().equals(Ftextfield.getText())){
             return true;
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter valid first name");
-            alert.showAndWait();
+            alertwindow.AlertWarningwindow(null, null, "Please enter valid first name");
             return false;
         }
     }
@@ -211,11 +207,7 @@ public class BookingController implements Initializable {
         if(m.find() && m.group().equals(Stextfield.getText())){
             return true;
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter valid surname");
-            alert.showAndWait();
+            alertwindow.AlertWarningwindow(null, null, "Please enter valid surname");
             return false;
         }
     }
@@ -226,11 +218,7 @@ public class BookingController implements Initializable {
         if(m.find() && m.group().equals(Ptextfield.getText())){
             return true;
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter valid phone number");
-            alert.showAndWait();
+            alertwindow.AlertWarningwindow(null, null, "Please enter valid phone number");
             return false;
         }
     }
@@ -241,11 +229,7 @@ public class BookingController implements Initializable {
         if(m.find() && m.group().equals(Etextfield.getText())){
             return true;
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter valid Email");
-            alert.showAndWait();
+            alertwindow.AlertWarningwindow(null, null, "Please enter valid Email");
             return false;
         }
     }

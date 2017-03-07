@@ -68,6 +68,8 @@ public class EditBookingController implements Initializable {
     @FXML
     private ComboBox<String> TCBox = new ComboBox<>();
 
+    FxController alertwindow = new FxController();
+    
     /**
      * Initializes the controller class.
      */
@@ -101,11 +103,7 @@ public class EditBookingController implements Initializable {
                 TCBox.valueProperty().setValue(getTime(pn));
             }
             else {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("The phone number you inputed is wrong, please try again.");
-                alert.showAndWait();
+                alertwindow.AlertWarningwindow(null, null, "The phone number you inputed is wrong, please try again.");
                 
                 InputPane.setVisible(true);
                 DetailPane.setVisible(false);
@@ -123,7 +121,7 @@ public class EditBookingController implements Initializable {
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Cancle Booking");
         alert.setContentText("Are you sure you want to cancle booking?");
-
+                
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             InputPane.setVisible(false);
@@ -149,8 +147,6 @@ public class EditBookingController implements Initializable {
             DetailPane.setVisible(false);
             ConfirmPane.setVisible(true);
             UInfoText.setText("Booking information has updated.");
-        } else{
-            // ... user chose CANCEL or closed the dialog
         }
     }   
 }
