@@ -302,6 +302,24 @@ public class Database {
         close();     
     }
     
+    public static int countRecords() {
+        String selectStatement = "SELECT COUNT(*) FROM customer";
+        int count = 0;
+        open();
+        try{
+            ResultSet rs = statement.executeQuery(selectStatement);
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return 0;  
+        }
+        close();
+        return count;
+    }
+    
     //staff records methods
     public static void addAccount(String FN,String SN, String DOB,String Phone, String Address,String Username,String Password, String Role){
         String selectstat = "insert into account (FirstName,LastName,DateOfBirth,Phone,Address,UserName,PassWord,Role) values(?,?,?,?,?,?,?,?)";

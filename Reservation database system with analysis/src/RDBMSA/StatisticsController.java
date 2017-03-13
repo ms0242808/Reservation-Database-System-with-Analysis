@@ -5,19 +5,22 @@
  */
 package RDBMSA;
 
+import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormatSymbols;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -26,46 +29,112 @@ import javafx.scene.chart.XYChart;
  */
 public class StatisticsController implements Initializable {
     @FXML
-    private BarChart<String, Integer> barChart;
+    private AnchorPane SceneP;
     @FXML
-    private CategoryAxis xAxis;
-
-    private ObservableList<String> monthNames = FXCollections.observableArrayList();
+    private AnchorPane GraphP;
+    @FXML
+    private Button BLine;
+    @FXML
+    private Button BBar;
+    @FXML
+    private Button BPie;
+    @FXML
+    private Button BDiner;
+    @FXML
+    private Button BMonth;
+    @FXML
+    private Label LMDiner;
+    @FXML
+    private Label LLDiner;
+    @FXML
+    private Label LADiner;
+    @FXML
+    private Label LMTime;
+    @FXML
+    private Label LLTime;
+    @FXML
+    private Label LATime;
+    @FXML
+    private Label LMMonth;
+    @FXML
+    private Label LLMonth;
+    @FXML
+    private Label LAMonth;
+    
+    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        // Get an array with the English month names.
-        String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
-        // Convert it to a list and add it to our ObservableList of months.
-        monthNames.addAll(Arrays.asList(months));
+        // TODO        
+        try{
+            String CustomerQuery = "SELECT * from customer";
+            ResultSet rs2 = Database.RetSet(CustomerQuery);
+            while (rs2.next()){
+                CList.add(new customerList(rs2.getInt("CustomerID"), //doesnt need all of it
+                                           rs2.getString("Firstname"),
+                                           rs2.getString("Lastname"),
+                                           rs2.getString("NumberOfDiner"),
+                                           rs2.getString("Date"),
+                                           rs2.getString("Time"),
+                                           rs2.getString("Phone"),
+                                           rs2.getString("Email"),
+                                           rs2.getString("AdditionalRequest"),
+                                           rs2.getString("PreOrder"),
+                                           rs2.getString("ConfirmCode")));
+            }
+        } catch(Exception e){
+            //System.out.println(e);
+        } 
+    }
 
-        // Assign the month names as categories for the horizontal axis.
-        xAxis.setCategories(monthNames);
-    }    
+    @FXML
+    private void BDinerClicked(MouseEvent event) {
+    }
     
-    public void setPersonData(List<customerList> persons) {
-        // Count the number of people having their birthday in a specific month.
-        int[] monthCounter = new int[12];
+    @FXML
+    private void BMonthClicked(MouseEvent event) {
+    }
 
-        for (customerList p : persons) {
-            String str[] = p.getBdate().split("/");            
-            int month = Integer.parseInt(str[1]);//p.getBirthday().getMonthValue() - 1;
-            monthCounter[month]++;
+    @FXML
+    private void BLineClicked(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LineChart.fxml"));
+            Parent root = loader.load();
+            LineChartController con = loader.getController();
+            GraphP.getChildren().setAll(root);
+            con.setMonthLineData(CList);
+            //con.setDinerLineData(CList);
+        } catch (IOException ex) {
+            Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-
-        // Create a XYChart.Data object for each month. Add it to the series.
-        if(persons!= null && persons.size() !=0) {
-        for (int i = 0; i < monthCounter.length; i++) {
-            series.getData().add(new XYChart.Data<>(monthNames.get(i), monthCounter[i]));
+    @FXML
+    private void BBarClicked(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BarChart.fxml"));
+            Parent root = loader.load();
+            BarChartController con = loader.getController();
+            GraphP.getChildren().setAll(root);
+            con.setMonthBarData(CList);
+        } catch (IOException ex){
+            Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-
-        barChart.getData().add(series);
+    }
+    
+    @FXML
+    private void BPieClicked(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PieChart.fxml"));
+            Parent root = loader.load();
+            PieChartController con = loader.getController();
+            GraphP.getChildren().setAll(root);
+            con.setMonthPieData(CList);
+        } catch (IOException ex) {
+            Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
+        }     
     }
 }

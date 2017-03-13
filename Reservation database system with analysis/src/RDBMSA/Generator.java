@@ -23,7 +23,7 @@ public class Generator extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         viewStage = primaryStage;
-        Parent root_friend = FXMLLoader.load(getClass().getResource("fx.fxml"));
+        Parent root_friend = FXMLLoader.load(getClass().getResource("Fx.fxml"));
         Scene friendListscene = new Scene(root_friend);
         viewStage.setScene(friendListscene);
         viewStage.setResizable(false);

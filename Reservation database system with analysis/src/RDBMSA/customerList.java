@@ -19,20 +19,20 @@ public class customerList {
     private final SimpleStringProperty Nodiner;
     private final SimpleStringProperty Bdate;
     private final SimpleStringProperty Btime;
-    private final SimpleIntegerProperty pnumber;
+    private final SimpleStringProperty pnumber;
     private final SimpleStringProperty EMAIL;
     private final SimpleStringProperty SpecialR;
     private final SimpleStringProperty pOrder;
     private final SimpleStringProperty cCode;
     
-    public customerList(int cID, String FN, String  SN, String NOD, String BD, String BT, int PN, String EM, String SR, String PO, String CC) {
+    public customerList(int cID, String FN, String  SN, String NOD, String BD, String BT, String PN, String EM, String SR, String PO, String CC) {
         this.cID = new SimpleIntegerProperty(cID);
         this.Fname = new SimpleStringProperty(FN);
         this.Sname = new SimpleStringProperty(SN);
         this.Nodiner = new SimpleStringProperty(NOD);
         this.Bdate = new SimpleStringProperty(BD);        
         this.Btime = new SimpleStringProperty(BT);
-        this.pnumber = new SimpleIntegerProperty(PN);
+        this.pnumber = new SimpleStringProperty(PN);
         this.EMAIL = new SimpleStringProperty(EM);
         this.SpecialR = new SimpleStringProperty(SR);
         this.pOrder = new SimpleStringProperty(PO);
@@ -87,11 +87,11 @@ public class customerList {
         this.Btime.set(Btime);
     } 
     
-    public int getPnumber() {
+    public String getPnumber() {
         return pnumber.get();
     }
 
-    public void setPnumber(int pnumber) {
+    public void setPnumber(String pnumber) {
         this.pnumber.set(pnumber);
     }   
     

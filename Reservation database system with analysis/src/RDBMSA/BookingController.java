@@ -372,7 +372,7 @@ public class BookingController implements Initializable {
         }
         String Concode = randStr.toString();
         
-        //System.out.println(Dt);
+        //System.out.println(PT);
         booktable(FT,ST,NP,Dt,T,PT,ET,SR,"8",Concode);
         ConfirmLabel.setText("Confrimation code: "+Concode);
         updateProgBar(10);

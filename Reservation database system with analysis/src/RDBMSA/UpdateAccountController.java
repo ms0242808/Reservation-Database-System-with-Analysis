@@ -68,7 +68,7 @@ public class UpdateAccountController implements Initializable {
         TFname.setText(RDBMSA.ManageController.fn);
         TLname.setText(RDBMSA.ManageController.ln);
         TDob.setText(RDBMSA.ManageController.date);
-        TPnumber.setText(Integer.toString(RDBMSA.ManageController.phone));
+        TPnumber.setText(RDBMSA.ManageController.pnumber);
         TAddress.setText(RDBMSA.ManageController.address);
         TUname.setText(RDBMSA.ManageController.un);
         TPword.setText(RDBMSA.ManageController.pw);

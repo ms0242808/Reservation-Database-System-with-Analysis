@@ -17,18 +17,18 @@ public class staffList {
     private final SimpleStringProperty SFN;
     private final SimpleStringProperty SSN;
     private final SimpleStringProperty SDOB;
-    private final SimpleIntegerProperty SPH;
+    private final SimpleStringProperty SPH;
     private final SimpleStringProperty SA;
     private final SimpleStringProperty SU;
     private final SimpleStringProperty SPW;
     private final SimpleStringProperty SROLE;
     
-    public staffList(int ID, String FN, String  SN, String DOB, int PN, String ADD, String UN, String PW, String ROLE) {
+    public staffList(int ID, String FN, String  SN, String DOB, String PN, String ADD, String UN, String PW, String ROLE) {
         this.sID = new SimpleIntegerProperty(ID);
         this.SFN = new SimpleStringProperty(FN);
         this.SSN = new SimpleStringProperty(SN);
         this.SDOB = new SimpleStringProperty(DOB);
-        this.SPH = new SimpleIntegerProperty(PN);
+        this.SPH = new SimpleStringProperty(PN);
         this.SA = new SimpleStringProperty(ADD);
         this.SU = new SimpleStringProperty(UN);
         this.SPW = new SimpleStringProperty(PW);
@@ -67,11 +67,11 @@ public class staffList {
         this.SDOB.set(BD);
     } 
     
-    public int getPnumber() {
+    public String getPnumber() {
         return SPH.get();
     }
 
-    public void setPnumber(int pnumber) {
+    public void setPnumber(String pnumber) {
         this.SPH.set(pnumber);
     }   
     

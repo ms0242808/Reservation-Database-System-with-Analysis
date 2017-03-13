@@ -68,7 +68,7 @@ public class UpdateBookingController implements Initializable {
         TNDiner.setText(RDBMSA.ManageController.diner);
         TDate.setText(RDBMSA.ManageController.date);
         TTime.setText(RDBMSA.ManageController.ctime);
-        TPhone.setText(Integer.toString(RDBMSA.ManageController.phone));
+        TPhone.setText(RDBMSA.ManageController.pnumber);
         TEmail.setText(RDBMSA.ManageController.cemail);
         TSRequest.setText(RDBMSA.ManageController.srequest);
         TPOrder.setText(RDBMSA.ManageController.porder);

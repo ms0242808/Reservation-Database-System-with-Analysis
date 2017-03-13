@@ -25,7 +25,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -38,7 +37,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -125,11 +123,11 @@ public class ManageController implements Initializable {
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
     FxController alertwindow = new FxController();
-    public static int staffID, customerID, phone;
-    public static String fn, ln, date;
+    public static int staffID, customerID;
+    public static String fn, ln, date, pnumber;
     public static String address, un, pw, ro;
     public static String diner, ctime, cemail, srequest, porder;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -200,7 +198,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
-                                           rs2.getInt("Phone"),
+                                           rs2.getString("Phone"),
                                            rs2.getString("Email"),
                                            rs2.getString("AdditionalRequest"),
                                            rs2.getString("PreOrder"),
@@ -226,7 +224,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("FirstName"),
                                            rs2.getString("LastName"),
                                            rs2.getString("DateOfBirth"),
-                                           rs2.getInt("Phone"),
+                                           rs2.getString("Phone"),
                                            rs2.getString("Address"),
                                            rs2.getString("UserName"),
                                            rs2.getString("PassWord"),
@@ -254,7 +252,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
-                                           rs2.getInt("Phone"),
+                                           rs2.getString("Phone"),
                                            rs2.getString("Email"),
                                            rs2.getString("AdditionalRequest"),
                                            rs2.getString("PreOrder"),
@@ -269,11 +267,9 @@ public class ManageController implements Initializable {
         CustomerTable.setItems(CList); 
         Database.close();
     }
-    
+
     @FXML
-    private void BGraphicClicked(MouseEvent event) {    
-        StatisticsController controller = new StatisticsController();
-        //controller.setPersonData(CList);
+    private void BGraphicClicked(MouseEvent event) throws IOException {
         loadScenePane("Statistics.fxml");
     }
 
@@ -393,7 +389,7 @@ public class ManageController implements Initializable {
             fn = StaffTable.getSelectionModel().getSelectedItem().getFirstName();
             ln = StaffTable.getSelectionModel().getSelectedItem().getSurName();
             date = StaffTable.getSelectionModel().getSelectedItem().getDOB();
-            phone = StaffTable.getSelectionModel().getSelectedItem().getPnumber();
+            pnumber = StaffTable.getSelectionModel().getSelectedItem().getPnumber();
             address = StaffTable.getSelectionModel().getSelectedItem().getSA();
             un = StaffTable.getSelectionModel().getSelectedItem().getSU();
             pw = StaffTable.getSelectionModel().getSelectedItem().getSPW();
@@ -429,7 +425,7 @@ public class ManageController implements Initializable {
             diner = CustomerTable.getSelectionModel().getSelectedItem().getNumberofdiner();
             date = CustomerTable.getSelectionModel().getSelectedItem().getBdate();
             ctime = CustomerTable.getSelectionModel().getSelectedItem().getBtime();
-            phone = CustomerTable.getSelectionModel().getSelectedItem().getPnumber();
+            pnumber = CustomerTable.getSelectionModel().getSelectedItem().getPnumber();
             cemail = CustomerTable.getSelectionModel().getSelectedItem().getEmail();
             srequest = CustomerTable.getSelectionModel().getSelectedItem().getSrequest();
             porder = CustomerTable.getSelectionModel().getSelectedItem().getPorder();
