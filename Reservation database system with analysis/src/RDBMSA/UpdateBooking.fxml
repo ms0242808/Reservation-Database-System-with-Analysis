@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateBookingController">
+   <children>
+      <Label layoutX="384.0" layoutY="67.0" text="Update booking details" />
+      <VBox layoutX="239.0" layoutY="98.0" prefHeight="368.0" prefWidth="426.0">
+         <children>
+            <Label text="First name:" />
+            <TextField fx:id="TFname" onKeyTyped="#VFname" />
+            <Label text="Last name:" />
+            <TextField fx:id="TLname" onKeyTyped="#VLname" />
+            <Label text="Number of diner:" />
+            <TextField fx:id="TNDiner" />
+            <Label text="Date:" />
+            <TextField fx:id="TDate" />
+            <Label text="Time:" />
+            <TextField fx:id="TTime" />
+            <Label text="Contact Number:" />
+            <TextField fx:id="TPhone" onKeyTyped="#VPhone" />
+            <Label text="Email:" />
+            <TextField fx:id="TEmail" onKeyTyped="#VEmail" />
+            <Label text="Special Request:" />
+            <TextArea fx:id="TSRequest" prefHeight="200.0" prefWidth="200.0" />
+            <Label text="Pre-order:" />
+            <TextArea fx:id="TPOrder" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+      <ButtonBar layoutX="392.0" layoutY="574.0" prefHeight="40.0" prefWidth="269.0">
+         <buttons>
+            <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
+            <Button fx:id="BUpdate" mnemonicParsing="false" onAction="#validation" onMouseClicked="#BUpdateClicked" text="Update record" />
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

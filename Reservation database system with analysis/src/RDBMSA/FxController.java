@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -28,22 +25,6 @@ import javafx.scene.layout.AnchorPane;
  * @author jerry
  */
 public class FxController implements Initializable {
-    @FXML
-    private AnchorPane MenuP;
-    @FXML
-    private MenuItem Customermenu;
-    @FXML
-    private MenuItem Managermenu;
-    @FXML
-    private MenuItem Exitmenu;
-    @FXML
-    private Menu GeneralMenu;
-    @FXML
-    private Menu AccountMenu;
-    @FXML
-    private MenuItem CRMenu;
-    @FXML
-    private MenuItem SDMenu;
     @FXML
     private Button CustomerTab;
     @FXML
@@ -63,7 +44,7 @@ public class FxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Exitmenu.setOnAction(actionEvent -> Platform.exit());
+        //Exitmenu.setOnAction(actionEvent -> Platform.exit());
         loadScenePane("Booking.fxml");
         //CustomerTab.setContentDisplay(ContentDisplay.TOP); set image above the text
     }    
@@ -93,32 +74,6 @@ public class FxController implements Initializable {
         alert.showAndWait();
     }
     
-    @FXML
-    private void CustomerMClicked(ActionEvent event) {       
-        GeneralMenu.setText("Customer");
-        loadScenePane("Booking.fxml");
-    }
-
-    @FXML
-    private void ManagerMClicked(ActionEvent event) throws IOException {      
-        GeneralMenu.setText("Manager/Staff");
-        loadScenePane("Login.fxml");
-    }
-    
-    @FXML
-    private void CRMenuClicked(ActionEvent event) {
-        //DetailCustomerP.setVisible(true);
-        //DetailAccountP.setVisible(false);
-        //CustomerTable();
-    }
-
-    @FXML
-    private void SDMenuClicked(ActionEvent event) {
-        //DetailCustomerP.setVisible(false);
-        //DetailAccountP.setVisible(true);
-        //StaffListTable();
-    }
-
     @FXML
     private void BCTabClicked(ActionEvent event) {
         loadScenePane("Booking.fxml");

@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
    <children>
-      <Label layoutX="310.0" layoutY="50.0" text="Update Account" />
-      <VBox layoutX="150.0" layoutY="111.0" prefHeight="368.0" prefWidth="426.0">
+      <Label layoutX="408.0" layoutY="108.0" text="Update Account" />
+      <VBox layoutX="248.0" layoutY="169.0" prefHeight="368.0" prefWidth="426.0">
          <children>
             <Label text="First name:" />
             <TextField fx:id="TFname" onKeyTyped="#VFname" />
@@ -33,7 +33,7 @@
             <RadioButton fx:id="RManager" mnemonicParsing="false" onMouseClicked="#RManagerClicked" text="Manager Team" />
          </children>
       </VBox>
-      <ButtonBar layoutX="397.0" layoutY="496.0" prefHeight="40.0" prefWidth="269.0">
+      <ButtonBar layoutX="495.0" layoutY="554.0" prefHeight="40.0" prefWidth="269.0">
          <buttons>
             <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
             <Button fx:id="BCAccount" mnemonicParsing="false" onAction="#validation" onMouseClicked="#BUpdateClicked" text="Update account" />

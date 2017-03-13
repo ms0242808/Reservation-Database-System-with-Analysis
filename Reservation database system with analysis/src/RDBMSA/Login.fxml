@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" styleClass="root" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
    <children>
-      <Label layoutX="310.0" layoutY="166.0" text="Admission Login" />
-      <VBox layoutX="250.0" layoutY="225.0" prefHeight="91.0" prefWidth="225.0">
+      <Label layoutX="416.0" layoutY="175.0" text="Admission Login" />
+      <VBox layoutX="357.0" layoutY="234.0" prefHeight="91.0" prefWidth="225.0">
          <children>
             <Label text="Username:" />
             <TextField fx:id="TUname" />
@@ -19,7 +19,7 @@
             <PasswordField fx:id="TPword" />
          </children>
       </VBox>
-      <ButtonBar layoutX="285.0" layoutY="384.0" prefHeight="40.0" prefWidth="175.0">
+      <ButtonBar layoutX="404.0" layoutY="383.0" prefHeight="40.0" prefWidth="175.0">
         <buttons>
           <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
             <Button fx:id="BLogin" mnemonicParsing="false" onMouseClicked="#BLoginClicked" text="Login" />

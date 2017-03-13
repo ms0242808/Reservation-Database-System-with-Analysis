@@ -121,7 +121,7 @@ public class EditBookingController implements Initializable {
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Cancle Booking");
         alert.setContentText("Are you sure you want to cancle booking?");
-                
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             InputPane.setVisible(false);

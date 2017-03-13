@@ -1,47 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
    <children>
-    <AnchorPane fx:id="MenuP" minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="799.0">
-         <children>
-            <MenuBar prefHeight="29.0" prefWidth="799.0">
-              <menus>
-                <Menu fx:id="GeneralMenu" mnemonicParsing="false" text="Customer">
-                  <items>
-                    <MenuItem fx:id="Customermenu" mnemonicParsing="false" onAction="#CustomerMClicked" text="Customer" />
-                        <MenuItem fx:id="Managermenu" mnemonicParsing="false" onAction="#ManagerMClicked" text="Manager/Staff" />
-                        <MenuItem fx:id="Exitmenu" mnemonicParsing="false" text="Exit" />
-                  </items>
-                </Menu>
-                  <Menu fx:id="AccountMenu" mnemonicParsing="false" text="View">
-                    <items>
-                      <MenuItem fx:id="CRMenu" mnemonicParsing="false" onAction="#CRMenuClicked" text="Booking(Customer) Records" />
-                        <MenuItem fx:id="SDMenu" mnemonicParsing="false" onAction="#SDMenuClicked" text="Staff Details" />
-                    </items>
-                  </Menu>
-              </menus>
-            </MenuBar>
-         </children>
-      </AnchorPane>
-      <Separator layoutY="27.0" prefWidth="799.0" />
-      <AnchorPane fx:id="GeneralP" layoutY="28.0" prefHeight="572.0" prefWidth="799.0">
+      <AnchorPane fx:id="GeneralP" prefHeight="700.0" prefWidth="1024.0">
          <children>
             <Separator layoutY="88.0" prefHeight="5.0" prefWidth="82.0" />
             <Separator layoutY="180.0" prefHeight="5.0" prefWidth="82.0" />
-            <Separator layoutX="82.0" orientation="VERTICAL" prefHeight="573.0" prefWidth="6.0" />
-            <AnchorPane fx:id="SceneP" layoutX="80.0" layoutY="8.0" prefHeight="564.0" prefWidth="719.0" />
+            <Separator layoutX="82.0" orientation="VERTICAL" prefHeight="700.0" prefWidth="3.0" />
+            <AnchorPane fx:id="SceneP" layoutX="85.0" prefHeight="700.0" prefWidth="939.0" />
             <Button fx:id="CustomerTab" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#BCTabClicked" prefHeight="85.0" prefWidth="81.0" text="Book a Table" wrapText="true" />
             <Button fx:id="EditTab" layoutX="1.0" layoutY="93.0" mnemonicParsing="false" onAction="#BETabClicked" prefHeight="85.0" prefWidth="81.0" text="Edit Booking" wrapText="true" />
-            <Button layoutX="1.0" layoutY="393.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="81.0" text="View Database" wrapText="true" />
-            <Button fx:id="ManagerTab" layoutX="1.0" layoutY="486.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Staff Login" wrapText="true" />
-            <Separator layoutY="480.0" prefHeight="5.0" prefWidth="82.0" />
+            <Button layoutX="1.0" layoutY="519.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="81.0" text="View Database" wrapText="true" />
+            <Button fx:id="ManagerTab" layoutX="1.0" layoutY="612.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Staff Login" wrapText="true" />
+            <Separator layoutY="606.0" prefHeight="5.0" prefWidth="82.0" />
          </children>
       </AnchorPane>
    </children>

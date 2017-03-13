@@ -55,9 +55,9 @@ public class UpdateAccountController implements Initializable {
     @FXML
     private Button BCAccount;
 
-    String role = RDBMSA.ManageController.staffr;
-    public static int UAscene = 0;
+    String role = RDBMSA.ManageController.ro;
     int sID = RDBMSA.ManageController.staffID;
+    FxController alertwindow = new FxController();
     
     /**
      * Initializes the controller class.
@@ -65,13 +65,13 @@ public class UpdateAccountController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        TFname.setText(RDBMSA.ManageController.stafffn);
-        TLname.setText(RDBMSA.ManageController.staffln);
-        TDob.setText(RDBMSA.ManageController.staffdob);
-        TPnumber.setText(Integer.toString(RDBMSA.ManageController.staffphone));
-        TAddress.setText(RDBMSA.ManageController.staffaddress);
-        TUname.setText(RDBMSA.ManageController.staffun);
-        TPword.setText(RDBMSA.ManageController.staffpw);
+        TFname.setText(RDBMSA.ManageController.fn);
+        TLname.setText(RDBMSA.ManageController.ln);
+        TDob.setText(RDBMSA.ManageController.date);
+        TPnumber.setText(Integer.toString(RDBMSA.ManageController.phone));
+        TAddress.setText(RDBMSA.ManageController.address);
+        TUname.setText(RDBMSA.ManageController.un);
+        TPword.setText(RDBMSA.ManageController.pw);
         
         if (role.equals("M")){
             RManager.selectedProperty().setValue(Boolean.TRUE);
@@ -133,14 +133,15 @@ public class UpdateAccountController implements Initializable {
 
     @FXML
     private void BCancelClicked(MouseEvent event) {
-        UAscene = 1;
+        RDBMSA.ManageController.sceneID = 1;
         loadScenePane("Manage.fxml");
     }
 
     @FXML
     private void BUpdateClicked(MouseEvent event) {
         updateAccount(sID,TFname.getText(),TLname.getText(),TDob.getText(),TPnumber.getText(),TAddress.getText(),TUname.getText(),TPword.getText(),role);
-        UAscene = 1;
+        RDBMSA.ManageController.sceneID = 1;
+        alertwindow.AlertInforwindow(null, null, "Account details updated.");
         loadScenePane("Manage.fxml");
     }
 

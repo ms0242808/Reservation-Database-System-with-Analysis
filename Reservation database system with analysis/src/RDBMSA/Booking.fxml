@@ -13,25 +13,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" prefHeight="564.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BookingController">
+<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="939.0" styleClass="root" stylesheets="@../CSS/Booking.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BookingController">
    <children>
-      <ProgressBar fx:id="ProgBar" layoutX="6.0" layoutY="544.0" prefHeight="20.0" prefWidth="713.0" progress="0.0" />
-      <AnchorPane fx:id="CustomerP1" prefHeight="564.0" prefWidth="719.0">
+      <AnchorPane fx:id="CustomerP1" prefHeight="700.0" prefWidth="939.0">
          <children>
-            <ImageView fx:id="Crowd" fitHeight="50.0" fitWidth="50.0" layoutX="330.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="Crowd" fitHeight="50.0" fitWidth="50.0" layoutX="431.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ICONS/crowd-of-users.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="NPeople" layoutX="262.0" layoutY="75.0" onAction="#SelectedNP" prefHeight="27.0" prefWidth="198.0" promptText="Select number of diners" />
-            <DatePicker fx:id="Date" disable="true" layoutX="97.0" layoutY="152.0" onAction="#SelectedDate" />
-            <ImageView fx:id="Clock" fitHeight="50.0" fitWidth="50.0" layoutX="441.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+            <ComboBox fx:id="NPeople" layoutX="363.0" layoutY="85.0" onAction="#SelectedNP" prefHeight="27.0" prefWidth="198.0" promptText="Select number of diners" />
+            <DatePicker fx:id="Date" disable="true" layoutX="195.0" layoutY="155.0" onAction="#SelectedDate" />
+            <ImageView fx:id="Clock" fitHeight="50.0" fitWidth="50.0" layoutX="560.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../ICONS/clock.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="Time" disable="true" layoutX="503.0" layoutY="152.0" onAction="#SelectedTime" prefWidth="150.0" />
-            <AnchorPane fx:id="CustomerDP" layoutX="245.0" layoutY="214.0" prefHeight="200.0" prefWidth="221.0">
+            <ComboBox fx:id="Time" disable="true" layoutX="622.0" layoutY="153.0" onAction="#SelectedTime" prefWidth="150.0" />
+            <AnchorPane fx:id="CustomerDP" layoutX="350.0" layoutY="289.0" prefHeight="200.0" prefWidth="221.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="221.0">
                      <children>
@@ -47,28 +46,33 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <Button fx:id="BCnext1" layoutX="320.0" layoutY="493.0" mnemonicParsing="false" onAction="#valiation" onMouseClicked="#BCNextClicked" text="Next ---&gt;" />
-            <Label layoutX="346.0" layoutY="445.0" text="1/3" />
+            <Button fx:id="BCnext1" layoutX="429.0" layoutY="554.0" mnemonicParsing="false" onAction="#valiation" onMouseClicked="#BCNextClicked" text="Next ---&gt;" />
+            <Label layoutX="461.0" layoutY="609.0" text="1/3" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="CustomerP2" prefHeight="564.0" prefWidth="719.0" visible="false">
+      <AnchorPane fx:id="CustomerP2" prefHeight="700.0" prefWidth="939.0" visible="false">
          <children>
-            <Label fx:id="DLabel" layoutX="157.0" layoutY="42.0" text="Your Details:">
-               <graphic>
-                  <ImageView fx:id="Detail" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ICONS/detail.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Label>
-            <Label fx:id="DNLabel" layoutX="157.0" layoutY="72.0" text="Name:" />
-            <Label fx:id="DNPLabel" layoutX="157.0" layoutY="102.0" text="Number of diner:" />
-            <Label fx:id="DELabel" layoutX="157.0" layoutY="132.0" text="Email:" />
-            <Label fx:id="DPLabel" layoutX="157.0" layoutY="162.0" text="Phone number:" />
-            <Label fx:id="DTLabel" layoutX="157.0" layoutY="192.0" text="Time:" />
-            <Label fx:id="DDLabel" layoutX="157.0" layoutY="222.0" text="Date:" />
-            <Label fx:id="SRLabel" layoutX="472.0" layoutY="42.0" text="Special Requests:">
+            <VBox layoutX="198.0" layoutY="193.0" prefHeight="190.0" prefWidth="221.0">
+               <children>
+                  <Label fx:id="DLabel" text="Your Details:">
+                     <graphic>
+                        <ImageView fx:id="Detail" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ICONS/detail.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label fx:id="DNLabel" text="Name:" />
+                  <Label fx:id="DNPLabel" text="Number of diner:" />
+                  <Label fx:id="DELabel" text="Email:" />
+                  <Label fx:id="DPLabel" text="Phone number:" />
+                  <Label fx:id="DTLabel" text="Time:" />
+                  <Label fx:id="DDLabel" text="Date:" />
+               </children>
+            </VBox>
+            <Label fx:id="SRLabel" layoutX="579.0" layoutY="193.0" text="Special Requests:">
                <graphic>
                   <ImageView fx:id="Request" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,18 +81,19 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TextArea fx:id="SRtextarea" layoutX="472.0" layoutY="86.0" prefHeight="172.0" prefWidth="200.0" />
-            <Button fx:id="BCBack" layoutX="304.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#BCBackClicked" text="Back" />
-            <Label layoutX="366.0" layoutY="426.0" text="2/3" />
-            <Button fx:id="BCConfirm" layoutX="410.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#BCConfirmClicked" text="Confirm" />
-            <Separator layoutX="384.0" layoutY="32.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="6.0" />
+            <TextArea fx:id="SRtextarea" layoutX="579.0" layoutY="237.0" prefHeight="172.0" prefWidth="200.0" />
+            <Button fx:id="BCBack" layoutX="358.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#BCBackClicked" text="Back" />
+            <Label layoutX="450.0" layoutY="553.0" text="2/3" />
+            <Button fx:id="BCConfirm" layoutX="523.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#BCConfirmClicked" text="Confirm" />
+            <Separator layoutX="456.0" layoutY="204.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="6.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="CustomerP3" prefHeight="564.0" prefWidth="719.0" visible="false">
+      <AnchorPane fx:id="CustomerP3" prefHeight="700.0" prefWidth="939.0" visible="false">
          <children>
-            <Label fx:id="ConfirmLabel" layoutX="337.0" layoutY="332.0" text="Confirmation code:" />
-            <Button fx:id="BCSee" layoutX="343.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#BCseeClicked" text="See you soon!" />
+            <Label fx:id="ConfirmLabel" layoutX="400.0" layoutY="263.0" text="Confirmation code:" />
+            <Button fx:id="BCSee" layoutX="405.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#BCseeClicked" text="See you soon!" />
          </children>
       </AnchorPane>
+      <ProgressBar fx:id="ProgBar" layoutY="679.0" prefHeight="22.0" prefWidth="939.0" progress="0.0" />
    </children>
 </AnchorPane>

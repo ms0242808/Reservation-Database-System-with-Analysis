@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -115,21 +116,19 @@ public class ManageController implements Initializable {
     private Button BUpdate;
     @FXML
     private Button BLOut;
+    @FXML
+    private Button BBupdate;
     
+    public static int sceneID = 0;
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
     private static Connection connection = null;
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
     FxController alertwindow = new FxController();
-    public static int staffID;
-    public static String stafffn;
-    public static String staffln;
-    public static String staffdob;
-    public static int staffphone;
-    public static String staffaddress;
-    public static String staffun;
-    public static String staffpw;
-    public static String staffr;
+    public static int staffID, customerID, phone;
+    public static String fn, ln, date;
+    public static String address, un, pw, ro;
+    public static String diner, ctime, cemail, srequest, porder;
     
     /**
      * Initializes the controller class.
@@ -168,13 +167,13 @@ public class ManageController implements Initializable {
         SPassword.setCellValueFactory(new PropertyValueFactory("SPW"));
         SRole.setCellValueFactory(new PropertyValueFactory("SROLE"));
         
-        int AddsceneID = RDBMSA.AddAccountController.Addscene;
-        int UpdatesceneID = RDBMSA.UpdateAccountController.UAscene;
-        if(AddsceneID == 1 || UpdatesceneID == 1){
+        if(sceneID == 1){
+            sceneID = 0;
             DetailAccountP.setVisible(true);
             DetailCustomerP.setVisible(false);
             StaffListTable();
         } else{
+            sceneID = 0;
             DetailAccountP.setVisible(false);
             DetailCustomerP.setVisible(true);
         }
@@ -272,7 +271,10 @@ public class ManageController implements Initializable {
     }
     
     @FXML
-    private void BGraphicClicked(MouseEvent event) {
+    private void BGraphicClicked(MouseEvent event) {    
+        StatisticsController controller = new StatisticsController();
+        //controller.setPersonData(CList);
+        loadScenePane("Statistics.fxml");
     }
 
     @FXML
@@ -388,14 +390,14 @@ public class ManageController implements Initializable {
         int selectedIndex = StaffTable.getSelectionModel().getSelectedIndex() + 1;
         if (selectedIndex >= 1){
             staffID = StaffTable.getSelectionModel().getSelectedItem().getStaffID();
-            stafffn = StaffTable.getSelectionModel().getSelectedItem().getFirstName();
-            staffln = StaffTable.getSelectionModel().getSelectedItem().getSurName();
-            staffdob = StaffTable.getSelectionModel().getSelectedItem().getDOB();
-            staffphone = StaffTable.getSelectionModel().getSelectedItem().getPnumber();
-            staffaddress = StaffTable.getSelectionModel().getSelectedItem().getSA();
-            staffun = StaffTable.getSelectionModel().getSelectedItem().getSU();
-            staffpw = StaffTable.getSelectionModel().getSelectedItem().getSPW();
-            staffr = StaffTable.getSelectionModel().getSelectedItem().getSROLE();
+            fn = StaffTable.getSelectionModel().getSelectedItem().getFirstName();
+            ln = StaffTable.getSelectionModel().getSelectedItem().getSurName();
+            date = StaffTable.getSelectionModel().getSelectedItem().getDOB();
+            phone = StaffTable.getSelectionModel().getSelectedItem().getPnumber();
+            address = StaffTable.getSelectionModel().getSelectedItem().getSA();
+            un = StaffTable.getSelectionModel().getSelectedItem().getSU();
+            pw = StaffTable.getSelectionModel().getSelectedItem().getSPW();
+            ro = StaffTable.getSelectionModel().getSelectedItem().getSROLE();
             loadScenePane("UpdateAccount.fxml");
         } else{
             alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
@@ -415,5 +417,25 @@ public class ManageController implements Initializable {
         } else{
             // ... user chose CANCEL or closed the dialog
         } 
+    }
+
+    @FXML
+    private void BBUpdateClicked(MouseEvent event) {
+        int selectedIndex = CustomerTable.getSelectionModel().getSelectedIndex() + 1;
+        if (selectedIndex >= 1){
+            customerID = CustomerTable.getSelectionModel().getSelectedItem().getCustomerID();
+            fn = CustomerTable.getSelectionModel().getSelectedItem().getFirstName();
+            ln = CustomerTable.getSelectionModel().getSelectedItem().getSurName();
+            diner = CustomerTable.getSelectionModel().getSelectedItem().getNumberofdiner();
+            date = CustomerTable.getSelectionModel().getSelectedItem().getBdate();
+            ctime = CustomerTable.getSelectionModel().getSelectedItem().getBtime();
+            phone = CustomerTable.getSelectionModel().getSelectedItem().getPnumber();
+            cemail = CustomerTable.getSelectionModel().getSelectedItem().getEmail();
+            srequest = CustomerTable.getSelectionModel().getSelectedItem().getSrequest();
+            porder = CustomerTable.getSelectionModel().getSelectedItem().getPorder();
+            loadScenePane("UpdateBooking.fxml");
+        } else{
+            alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
+        }
     }
 }

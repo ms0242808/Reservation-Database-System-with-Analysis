@@ -60,7 +60,6 @@ public class AddAccountController implements Initializable {
     private Button BCAccount;
 
     public static String role;
-    public static int Addscene = 0;
     FxController alertwindow = new FxController();
     /**
      * Initializes the controller class.
@@ -196,7 +195,7 @@ public class AddAccountController implements Initializable {
 
     @FXML
     private void BCancelClicked(MouseEvent event) {
-        Addscene = 1;
+        RDBMSA.ManageController.sceneID = 1;
         loadScenePane("Manage.fxml");
     }
 
@@ -208,8 +207,8 @@ public class AddAccountController implements Initializable {
     @FXML
     private void BCreateClicked(MouseEvent event) {
         addAccount(TFname.getText(),TLname.getText(),TDob.getText(),TPnumber.getText(),TAddress.getText(),TUname.getText(),TPword.getText(),role);
+        RDBMSA.ManageController.sceneID = 1;
         alertwindow.AlertInforwindow(null, null, "Account created.");
-        Addscene = 1;
         loadScenePane("Manage.fxml");
     }
 

@@ -280,7 +280,27 @@ public class Database {
     }
     
     //customer records methods
-    
+    public static void updateBooking(int customerID, String fn, String sn, String diner, String date, String ctime, String phone, String cemail, String request, String porder) {
+        String selectstat = "UPDATE customer set FirstName = ?, LastName = ?, NumberOfDiner = ?,Date = ?, Time = ?, Phone = ?, Email = ?, AdditionalRequest = ?, PreOrder = ? where CustomerID = "+ customerID;
+        open();
+        try{
+            PreparedStatement ps = connection.prepareStatement(selectstat);
+            ps.setString(1,fn);
+            ps.setString(2,sn);
+            ps.setString(3,diner);
+            ps.setString(4,date);
+            ps.setString(5,ctime);
+            ps.setString(6,phone);
+            ps.setString(7,cemail);
+            ps.setString(8,request);
+            ps.setString(9,porder);
+            ps.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();     
+    }
     
     //staff records methods
     public static void addAccount(String FN,String SN, String DOB,String Phone, String Address,String Username,String Password, String Role){
