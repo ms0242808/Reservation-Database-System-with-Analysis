@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -7,20 +8,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
    <children>
-      <AnchorPane fx:id="GraphP" layoutX="20.0" layoutY="20.0" prefHeight="450.0" prefWidth="904.0" />
-      <ButtonBar layoutX="65.0" layoutY="593.0" prefHeight="40.0" prefWidth="288.0">
+      <AnchorPane fx:id="GraphP" layoutX="20.0" layoutY="20.0" prefHeight="450.0" prefWidth="982.0" />
+      <ButtonBar layoutX="65.0" layoutY="593.0" prefHeight="40.0" prefWidth="384.0">
         <buttons>
           <Button fx:id="BLine" mnemonicParsing="false" onMouseClicked="#BLineClicked" text="Line graph" />
             <Button fx:id="BBar" mnemonicParsing="false" onMouseClicked="#BBarClicked" text="Bar chart" />
             <Button fx:id="BPie" mnemonicParsing="false" onMouseClicked="#BPieClicked" text="Pie chart" />
+            <JFXButton fx:id="BArea" onMouseClicked="#BAreaClicked" text="Area chart" />
         </buttons>
       </ButtonBar>
-      <ButtonBar layoutX="83.0" layoutY="543.0" prefHeight="40.0" prefWidth="200.0">
+      <ButtonBar layoutX="83.0" layoutY="543.0" prefHeight="40.0" prefWidth="344.0">
         <buttons>
           <Button fx:id="BDiner" mnemonicParsing="false" onMouseClicked="#BDinerClicked" text="Diners" />
             <Button fx:id="BMonth" mnemonicParsing="false" onMouseClicked="#BMonthClicked" text="Months" />
+            <JFXButton fx:id="BTime" onMouseClicked="#BTimeClicked" text="Time(Period)" />
         </buttons>
       </ButtonBar>
       <Label layoutX="670.0" layoutY="470.0" text="Statistics:" />
@@ -48,5 +51,6 @@
             <Label fx:id="LAMonth" text="Avg. booked months:" />
          </children>
       </VBox>
+      <Button fx:id="BBack" layoutX="94.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#BBackClicked" text="Back" />
    </children>
 </AnchorPane>

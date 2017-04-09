@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" styleClass="root" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
    <children>
-      <Label layoutX="416.0" layoutY="175.0" text="Admission Login" />
-      <VBox layoutX="357.0" layoutY="234.0" prefHeight="91.0" prefWidth="225.0">
+      <VBox layoutX="392.0" layoutY="264.0" prefHeight="91.0" prefWidth="225.0">
          <children>
-            <Label text="Username:" />
-            <TextField fx:id="TUname" />
-            <Label text="Password:" />
-            <PasswordField fx:id="TPword" />
+            <JFXTextField fx:id="TUname" labelFloat="true" promptText="Username:" />
+            <JFXPasswordField fx:id="TPword" focusColor="#9752a4" labelFloat="true" promptText="Password:">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin></JFXPasswordField>
          </children>
       </VBox>
-      <ButtonBar layoutX="404.0" layoutY="383.0" prefHeight="40.0" prefWidth="175.0">
+      <ButtonBar layoutX="439.0" layoutY="413.0" prefHeight="40.0" prefWidth="175.0">
         <buttons>
-          <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
-            <Button fx:id="BLogin" mnemonicParsing="false" onMouseClicked="#BLoginClicked" text="Login" />
+            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" text="Cancel" textFill="#b51717" />
+            <JFXButton fx:id="BLogin" onMouseClicked="#BLoginClicked" text="Login" textFill="#281796" />
         </buttons>
       </ButtonBar>
+      <JFXTextField alignment="CENTER" editable="false" layoutX="451.0" layoutY="205.0" prefHeight="25.0" prefWidth="108.0" text="Admission Login" unFocusColor="RED" />
    </children>
 </AnchorPane>

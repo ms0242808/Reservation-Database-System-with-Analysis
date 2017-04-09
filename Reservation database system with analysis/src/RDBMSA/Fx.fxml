@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Separator?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
    <children>
-      <AnchorPane fx:id="GeneralP" prefHeight="700.0" prefWidth="1024.0">
+      <AnchorPane prefHeight="700.0" prefWidth="1024.0">
          <children>
-            <Separator layoutY="88.0" prefHeight="5.0" prefWidth="82.0" />
-            <Separator layoutY="180.0" prefHeight="5.0" prefWidth="82.0" />
-            <Separator layoutX="82.0" orientation="VERTICAL" prefHeight="700.0" prefWidth="3.0" />
-            <AnchorPane fx:id="SceneP" layoutX="85.0" prefHeight="700.0" prefWidth="939.0" />
-            <Button fx:id="CustomerTab" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#BCTabClicked" prefHeight="85.0" prefWidth="81.0" text="Book a Table" wrapText="true" />
-            <Button fx:id="EditTab" layoutX="1.0" layoutY="93.0" mnemonicParsing="false" onAction="#BETabClicked" prefHeight="85.0" prefWidth="81.0" text="Edit Booking" wrapText="true" />
-            <Button layoutX="1.0" layoutY="519.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="81.0" text="View Database" wrapText="true" />
-            <Button fx:id="ManagerTab" layoutX="1.0" layoutY="612.0" mnemonicParsing="false" onAction="#BMTabClicked" prefHeight="85.0" prefWidth="81.0" text="Staff Login" wrapText="true" />
-            <Separator layoutY="606.0" prefHeight="5.0" prefWidth="82.0" />
+            <VBox fx:id="LPmenu" layoutX="-99.0" layoutY="48.0" prefHeight="708.0" prefWidth="100.0" AnchorPane.bottomAnchor="190.0" AnchorPane.topAnchor="48.0">
+               <children>
+                  <JFXButton fx:id="CustomerTab" onAction="#BCTabClicked" ripplerFill="#3e7cae" text="Book a Table" />
+                  <JFXButton fx:id="EditTab" onAction="#BETabClicked" ripplerFill="#3ead9e" text="Edit Booking">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="QueueTab" onAction="#BQTabClicked" text="Online self-queue">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="ManagerTab" onAction="#BMTabClicked" ripplerFill="#bc2e2e" text="Staff Login">
+                     <VBox.margin>
+                        <Insets top="430.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="1024.0" />
+            <JFXHamburger fx:id="ham" layoutX="22.0" layoutY="6.0" prefHeight="32.0" prefWidth="37.0" />
+            <JFXDrawer fx:id="drawer" layoutX="3.0" layoutY="39.0" prefHeight="634.0" prefWidth="100.0" AnchorPane.topAnchor="39.0" />
          </children>
       </AnchorPane>
    </children>

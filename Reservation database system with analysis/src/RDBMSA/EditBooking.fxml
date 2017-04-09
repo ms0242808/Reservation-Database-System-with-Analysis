@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="939.0" styleClass="root" stylesheets="@../CSS/EditBooking.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.EditBookingController">
+<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.EditBookingController">
    <children>
-      <AnchorPane fx:id="InputPane" prefHeight="700.0" prefWidth="939.0">
+      <AnchorPane fx:id="InputPane" prefHeight="700.0" prefWidth="1024.0">
          <children>
-            <Label layoutX="275.0" layoutY="193.0" text="Please enter your phone number to edit the booking deatils." />
-            <Label layoutX="373.0" layoutY="258.0" text="Phone number:" />
-            <TextField fx:id="TPhone" layoutX="373.0" layoutY="280.0" onMouseClicked="#TPhoneClicked" text="07123456789" />
-            <Button fx:id="BNext" layoutX="391.0" layoutY="418.0" mnemonicParsing="false" onMouseClicked="#BNextClciked" text="Change my booking" />
+            <Label layoutX="333.0" layoutY="196.0" text="Please enter your phone number to edit the booking deatils." />
+            <JFXTextField fx:id="TPhone" labelFloat="true" layoutX="431.0" layoutY="283.0" onMouseClicked="#TPhoneClicked" promptText="Phone number:" text="07738273827" />
+            <JFXButton fx:id="BNext" layoutX="426.0" layoutY="420.0" onMouseClicked="#BNextClciked" text="Change my booking" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="DetailPane" prefHeight="700.0" prefWidth="939.0" visible="false">
+      <AnchorPane fx:id="DetailPane" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <Label layoutX="358.0" layoutY="116.0" text="Your booking deatils:" />
-            <VBox layoutX="358.0" layoutY="154.0" prefHeight="383.0" prefWidth="204.0">
+            <Label layoutX="450.0" layoutY="116.0" text="Your booking deatils:" />
+            <VBox layoutX="430.0" layoutY="154.0" prefHeight="361.0" prefWidth="204.0">
                <children>
-                  <Label text="First name:" />
-                  <TextField fx:id="FNText" />
-                  <Label text="Surname:" />
-                  <TextField fx:id="SNText" />
-                  <Label text="Email:" />
-                  <TextField fx:id="EText" />
-                  <Label text="Phone number:" />
-                  <TextField fx:id="PNText" />
-                  <Label text="Number of diners:" />
+                  <JFXTextField fx:id="FNText" labelFloat="true" promptText="First name:" />
+                  <JFXTextField fx:id="SNText" labelFloat="true" promptText="Surname:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin></JFXTextField>
+                  <JFXTextField fx:id="EText" labelFloat="true" promptText="Email:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin></JFXTextField>
+                  <JFXTextField fx:id="PNText" labelFloat="true" promptText="Phone number:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin></JFXTextField>
+                  <Label prefHeight="24.0" prefWidth="111.0" text="Number of diners:" />
                   <ComboBox fx:id="NDCBox" prefWidth="150.0" />
-                  <Label text="Date:" />
+                  <Label prefHeight="24.0" prefWidth="33.0" text="Date:" />
                   <DatePicker fx:id="DPicker" />
-                  <Label text="Time:" />
+                  <Label prefHeight="24.0" prefWidth="35.0" text="Time:" />
                   <ComboBox fx:id="TCBox" prefWidth="150.0" />
                </children>
             </VBox>
-            <ButtonBar layoutX="221.0" layoutY="537.0" prefHeight="40.0" prefWidth="472.0">
+            <ButtonBar layoutX="403.0" layoutY="520.0" prefHeight="40.0" prefWidth="311.0">
                <buttons>
-                  <Button fx:id="BUpadate" mnemonicParsing="false" onMouseClicked="#BUpdateClicked" text="Update information" />
-                  <Button fx:id="BCancle" mnemonicParsing="false" onMouseClicked="#BcancleClicked" text="Cancel Booking" />
+                  <JFXButton fx:id="BUpadate" onMouseClicked="#BUpdateClicked" text="Update information" />
+                  <JFXButton fx:id="BCancel" onMouseClicked="#BcancelClicked" text="Cancel Booking" />
                </buttons>
             </ButtonBar>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ConfirmPane" prefHeight="700.0" prefWidth="939.0" visible="false">
+      <AnchorPane fx:id="ConfirmPane" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <Label fx:id="UInfoText" layoutX="350.0" layoutY="350.0" text="Booking information has updated." />
+            <JFXTextField fx:id="UInfoText" editable="false" layoutX="430.0" layoutY="350.0" prefHeight="25.0" prefWidth="209.0" text="Booking information has updated." unFocusColor="#b90c0c" />
          </children>
       </AnchorPane>
    </children>

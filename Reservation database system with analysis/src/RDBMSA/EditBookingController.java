@@ -5,6 +5,7 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.getCID;
 import static RDBMSA.Database.getDate;
 import static RDBMSA.Database.getEmail;
 import static RDBMSA.Database.phoneCheck;
@@ -13,19 +14,21 @@ import static RDBMSA.Database.getNumberofdiner;
 import static RDBMSA.Database.getPhonenumber;
 import static RDBMSA.Database.getSurname;
 import static RDBMSA.Database.getTime;
+import static RDBMSA.Database.removeBooked;
+import static RDBMSA.Database.updateBooked;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -38,15 +41,15 @@ public class EditBookingController implements Initializable {
     @FXML
     private AnchorPane SceneP;
     @FXML
-    private TextField TPhone;
+    private JFXTextField TPhone;
     @FXML
-    private Button BNext;
+    private JFXButton BNext;
     @FXML
-    private Button BCancle;
+    private JFXButton BCancel;
     @FXML
-    private Button BUpadate;
+    private JFXButton BUpadate;
     @FXML
-    private Label UInfoText;
+    private JFXTextField UInfoText;
     @FXML
     private AnchorPane InputPane;
     @FXML
@@ -54,13 +57,13 @@ public class EditBookingController implements Initializable {
     @FXML
     private AnchorPane ConfirmPane;
     @FXML
-    private TextField FNText;
+    private JFXTextField FNText;
     @FXML
-    private TextField SNText;
+    private JFXTextField SNText;
     @FXML
-    private TextField EText;
+    private JFXTextField EText;
     @FXML
-    private TextField PNText;
+    private JFXTextField PNText;
     @FXML
     private ComboBox<String> NDCBox = new ComboBox<>();
     @FXML
@@ -98,7 +101,7 @@ public class EditBookingController implements Initializable {
                 SNText.setText(getSurname(pn));
                 EText.setText(getEmail(pn));
                 PNText.setText(getPhonenumber(pn));
-                NDCBox.valueProperty().setValue(getNumberofdiner(pn));
+                NDCBox.valueProperty().setValue(Integer.toString(getNumberofdiner(pn)));
                 DPicker.setPromptText(getDate(pn));
                 TCBox.valueProperty().setValue(getTime(pn));
             }
@@ -115,19 +118,21 @@ public class EditBookingController implements Initializable {
     }
 
     @FXML
-    private void BcancleClicked(MouseEvent event) {
+    private void BcancelClicked(MouseEvent event) {
         //setMessageContent to not update
+        //write cancel booking query
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Cancle Booking");
-        alert.setContentText("Are you sure you want to cancle booking?");
+        alert.setContentText("Are you sure you want to cancle this booking?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            removeBooked(TPhone.getText());
             InputPane.setVisible(false);
             DetailPane.setVisible(false);
             ConfirmPane.setVisible(true);
-            UInfoText.setText("Booking information has not change.");
+            UInfoText.setText("Booking has been cancelled.");
         } else{
             // ... user chose CANCEL or closed the dialog
         }
@@ -136,17 +141,28 @@ public class EditBookingController implements Initializable {
     @FXML
     private void BUpdateClicked(MouseEvent event) {
         // setMessageContent to update message
+        //write update query
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Update booking information");
         alert.setContentText("Are you sure  you want to update booking information?");
-
+        int cID = getCID(PNText.getText());
+        String fn = FNText.getText();
+        String sn = SNText.getText();
+        String e = EText.getText();
+        String p = PNText.getText();
+        int diner = Integer.parseInt(NDCBox.getValue());
+        LocalDate x = DPicker.getValue();
+        String date = DPicker.getConverter().toString(x);
+        String t = TCBox.getValue();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            
+            updateBooked(cID, fn, sn, 2, date, "11:00", p, e);// bug phone cannot update.
             InputPane.setVisible(false);
             DetailPane.setVisible(false);
             ConfirmPane.setVisible(true);
-            UInfoText.setText("Booking information has updated.");
+            UInfoText.setText("Booking information has been updated.");
         }
     }   
 }

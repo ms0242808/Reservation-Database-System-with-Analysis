@@ -40,6 +40,8 @@ public class Tables {
             statement.executeUpdate("drop table if exists account");
             statement.executeUpdate("create table account (AccountID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT,DateOfBirth TEXT,Phone TEXT,Address TEXT,UserName TEXT,PassWord TEXT,Role TEXT)");
         
+            statement.executeUpdate("drop table if exists queue");
+            statement.executeUpdate("create table queue (QueueID INTEGER primary key NOT NULL, Name TEXT, Phone TEXT, Diners TEXT)");
             //close connection
             close();
         }catch(SQLException e){

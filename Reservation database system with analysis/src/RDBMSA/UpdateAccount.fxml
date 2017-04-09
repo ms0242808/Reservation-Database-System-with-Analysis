@@ -1,42 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
    <children>
-      <Label layoutX="408.0" layoutY="108.0" text="Update Account" />
-      <VBox layoutX="248.0" layoutY="169.0" prefHeight="368.0" prefWidth="426.0">
+      <Label fx:id="AccountTitle" layoutX="439.0" layoutY="103.0" text="Update Account" />
+      <VBox layoutX="279.0" layoutY="164.0" prefHeight="368.0" prefWidth="426.0">
          <children>
-            <Label text="First name:" />
-            <TextField fx:id="TFname" onKeyTyped="#VFname" />
-            <Label text="Last name:" />
-            <TextField fx:id="TLname" onKeyTyped="#VLname" />
-            <Label text="Date of Birth:" />
-            <TextField fx:id="TDob" onKeyTyped="#VDob" />
-            <Label text="Phone number:" />
-            <TextField fx:id="TPnumber" onKeyTyped="#VPNumber" />
-            <Label text="Address:" />
-            <TextField fx:id="TAddress" onKeyTyped="#VAddress" />
-            <Label text="Username:" />
-            <TextField fx:id="TUname" onKeyTyped="#VUName" />
-            <Label text="Password:" />
-            <PasswordField fx:id="TPword" onKeyTyped="#VPWord" />
-            <Label text="Category:" />
-            <RadioButton fx:id="RStaff" mnemonicParsing="false" onMouseClicked="#RStaffClicked" text="Staff" />
-            <RadioButton fx:id="RManager" mnemonicParsing="false" onMouseClicked="#RManagerClicked" text="Manager Team" />
+            <JFXTextField fx:id="TFname" labelFloat="true" onKeyTyped="#VFname" promptText="First name:" />
+            <JFXTextField fx:id="TLname" labelFloat="true" onKeyTyped="#VLname" promptText="Last name:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="TDob" labelFloat="true" onKeyTyped="#VDob" promptText="Date of Birth:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="TPnumber" labelFloat="true" onKeyTyped="#VPNumber" promptText="Phone number:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="TAddress" labelFloat="true" onKeyTyped="#VAddress" promptText="Address:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="TUname" labelFloat="true" onKeyTyped="#VUName" promptText="Username:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXPasswordField fx:id="TPword" labelFloat="true" onKeyTyped="#VPWord" promptText="Password:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXPasswordField>
+            <Label text="Category:">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+            <JFXRadioButton fx:id="RStaff" onMouseClicked="#RStaffClicked" text="Staff">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="RManager" onMouseClicked="#RManagerClicked" text="Manager Team">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </JFXRadioButton>
          </children>
       </VBox>
-      <ButtonBar layoutX="495.0" layoutY="554.0" prefHeight="40.0" prefWidth="269.0">
+      <ButtonBar layoutX="526.0" layoutY="549.0" prefHeight="40.0" prefWidth="269.0">
          <buttons>
-            <Button fx:id="BCancel" mnemonicParsing="false" onMouseClicked="#BCancelClicked" text="Cancel" />
-            <Button fx:id="BCAccount" mnemonicParsing="false" onAction="#validation" onMouseClicked="#BUpdateClicked" text="Update account" />
+            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" text="Back" />
+            <JFXButton fx:id="BCAccount" onAction="#validation" onMouseClicked="#BUpdateClicked" text="Update account" />
          </buttons>
       </ButtonBar>
    </children>

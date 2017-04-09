@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="939.0" styleClass="root" stylesheets="@../CSS/Booking.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BookingController">
+<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BookingController">
    <children>
-      <AnchorPane fx:id="CustomerP1" prefHeight="700.0" prefWidth="939.0">
+      <AnchorPane fx:id="CustomerP1" prefHeight="700.0" prefWidth="1024.0">
          <children>
-            <ImageView fx:id="Crowd" fitHeight="50.0" fitWidth="50.0" layoutX="431.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ICONS/crowd-of-users.png" />
-               </image>
-            </ImageView>
-            <ComboBox fx:id="NPeople" layoutX="363.0" layoutY="85.0" onAction="#SelectedNP" prefHeight="27.0" prefWidth="198.0" promptText="Select number of diners" />
-            <DatePicker fx:id="Date" disable="true" layoutX="195.0" layoutY="155.0" onAction="#SelectedDate" />
-            <ImageView fx:id="Clock" fitHeight="50.0" fitWidth="50.0" layoutX="560.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../ICONS/clock.png" />
-               </image>
-            </ImageView>
-            <ComboBox fx:id="Time" disable="true" layoutX="622.0" layoutY="153.0" onAction="#SelectedTime" prefWidth="150.0" />
-            <AnchorPane fx:id="CustomerDP" layoutX="350.0" layoutY="289.0" prefHeight="200.0" prefWidth="221.0">
+            <AnchorPane fx:id="CustomerDP" layoutX="589.0" layoutY="200.0" prefHeight="156.0" prefWidth="221.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="221.0">
+                  <VBox prefHeight="155.0" prefWidth="221.0">
                      <children>
-                        <Label fx:id="FLabel" text="First name:" />
-                        <TextField fx:id="Ftextfield" onKeyTyped="#EditedFname" />
-                        <Label fx:id="SLabel" text="Family name:" />
-                        <TextField fx:id="Stextfield" disable="true" onKeyTyped="#EditedSname" />
-                        <Label fx:id="PLabel" text="Phone Number:" />
-                        <TextField fx:id="Ptextfield" disable="true" onKeyTyped="#EditedP" />
-                        <Label fx:id="ELabel" text="Email:" />
-                        <TextField fx:id="Etextfield" disable="true" onKeyTyped="#EditedE" />
+                        <JFXTextField fx:id="Ftextfield" labelFloat="true" onKeyTyped="#EditedFname" promptText="First Name:" unFocusColor="#3b9b9c" />
+                        <JFXTextField fx:id="Stextfield" labelFloat="true" onKeyTyped="#EditedSname" promptText="Surname:" unFocusColor="#3b9b9c">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin></JFXTextField>
+                        <JFXTextField fx:id="Ptextfield" labelFloat="true" onKeyTyped="#EditedP" promptText="Phone number:" unFocusColor="#3b9b9c">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin></JFXTextField>
+                        <JFXTextField fx:id="Etextfield" labelFloat="true" onKeyTyped="#EditedE" promptText="Email:" unFocusColor="#3b9b9c">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin></JFXTextField>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <Button fx:id="BCnext1" layoutX="429.0" layoutY="554.0" mnemonicParsing="false" onAction="#valiation" onMouseClicked="#BCNextClicked" text="Next ---&gt;" />
-            <Label layoutX="461.0" layoutY="609.0" text="1/3" />
+            <Label layoutX="485.0" layoutY="547.0" text="1/3" />
+            <JFXTimePicker fx:id="Time" defaultColor="#d04767" layoutX="236.0" layoutY="407.0" onAction="#SelectedTime" promptText="Time" />
+            <JFXDatePicker fx:id="Date" defaultColor="#d04767" layoutX="236.0" layoutY="311.0" onAction="#SelectedDate" promptText="Date" />
+            <JFXComboBox fx:id="NPeople" focusColor="#2e3e6e" labelFloat="true" layoutX="251.0" layoutY="215.0" onAction="#SelectedNP" promptText="Select diners" unFocusColor="#3b9b9c" />
+            <JFXButton fx:id="BCnext1" layoutX="463.0" layoutY="496.0" onAction="#valiation" onMouseClicked="#BCNextClicked" ripplerFill="#35dddd" text="Next" textFill="#d06868">
+               <font>
+                  <Font size="17.0" />
+               </font></JFXButton>
+            <JFXProgressBar fx:id="ProgBar" layoutX="372.0" layoutY="600.0" prefHeight="3.0" prefWidth="245.0" progress="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="CustomerP2" prefHeight="700.0" prefWidth="939.0" visible="false">
+      <AnchorPane fx:id="CustomerP2" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <VBox layoutX="198.0" layoutY="193.0" prefHeight="190.0" prefWidth="221.0">
+            <VBox layoutX="235.0" layoutY="157.0" prefHeight="190.0" prefWidth="221.0">
                <children>
                   <Label fx:id="DLabel" text="Your Details:">
                      <graphic>
@@ -72,7 +74,7 @@
                   <Label fx:id="DDLabel" text="Date:" />
                </children>
             </VBox>
-            <Label fx:id="SRLabel" layoutX="579.0" layoutY="193.0" text="Special Requests:">
+            <Label fx:id="SRLabel" layoutX="616.0" layoutY="157.0" text="Special Requests:">
                <graphic>
                   <ImageView fx:id="Request" fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -81,19 +83,18 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TextArea fx:id="SRtextarea" layoutX="579.0" layoutY="237.0" prefHeight="172.0" prefWidth="200.0" />
-            <Button fx:id="BCBack" layoutX="358.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#BCBackClicked" text="Back" />
-            <Label layoutX="450.0" layoutY="553.0" text="2/3" />
-            <Button fx:id="BCConfirm" layoutX="523.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#BCConfirmClicked" text="Confirm" />
-            <Separator layoutX="456.0" layoutY="204.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="6.0" />
+            <TextArea fx:id="SRtextarea" layoutX="616.0" layoutY="201.0" prefHeight="172.0" prefWidth="200.0" />
+            <Label layoutX="487.0" layoutY="517.0" text="2/3" />
+            <Separator layoutX="493.0" layoutY="168.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="6.0" />
+            <JFXButton fx:id="BCBack" layoutX="395.0" layoutY="512.0" onMouseClicked="#BCBackClicked" text="Back" />
+            <JFXButton fx:id="BCConfirm" layoutX="560.0" layoutY="512.0" onMouseClicked="#BCConfirmClicked" text="Confirm" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="CustomerP3" prefHeight="700.0" prefWidth="939.0" visible="false">
+      <AnchorPane fx:id="CustomerP3" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <Label fx:id="ConfirmLabel" layoutX="400.0" layoutY="263.0" text="Confirmation code:" />
-            <Button fx:id="BCSee" layoutX="405.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#BCseeClicked" text="See you soon!" />
+            <Label fx:id="ConfirmLabel" layoutX="453.0" layoutY="281.0" text="Confirmation code:" />
+            <JFXButton fx:id="BCSee" layoutX="458.0" layoutY="362.0" onMouseClicked="#BCseeClicked" ripplerFill="#2456a3" text="See you soon!" textFill="#24a473" underline="true" />
          </children>
       </AnchorPane>
-      <ProgressBar fx:id="ProgBar" layoutY="679.0" prefHeight="22.0" prefWidth="939.0" progress="0.0" />
    </children>
 </AnchorPane>

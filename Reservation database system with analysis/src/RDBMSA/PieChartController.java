@@ -5,6 +5,7 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.countRecords;
 import java.net.URL;
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
@@ -40,9 +41,13 @@ public class PieChartController implements Initializable {
         monthNames.addAll(Arrays.asList(months));
     }    
     
+    public void clearGraph(){
+        pieChartData.clear();
+    }
+    
     public void setMonthPieData(List<customerList> CList) {
         // Count the number of people having their birthday in a specific month.
-        pieChartData.clear();
+        clearGraph();
         pieChart.setTitle("Monthly booked");
         int[] monthCounter = new int[12];
         int count = 0;
@@ -57,6 +62,43 @@ public class PieChartController implements Initializable {
         for (int i = 0; i < monthCounter.length; i++) {
             //System.out.println(monthNames.get(i) + ":" + monthCounter[i]);
             pieChartData.addAll(new PieChart.Data(monthNames.get(i), monthCounter[i]));
+        }
+        pieChart.setData(pieChartData);
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty().intValue()
+                        )
+                )
+        );
+    }
+    
+    public void setDinerPieData(List<customerList> CList) {
+        // Count the number of people having their birthday in a specific month.
+        clearGraph();
+        pieChart.setTitle("Diner booked");
+        //yAxis.setLabel("Value");
+        
+        int records = countRecords();
+        int[] monthCounter = new int[12];
+        int[] dinerCounter = new int[records];
+        
+        for (customerList p : CList) {
+            String strd[] = Integer.toString(p.getNumberofdiner()).split("/");
+            int diners = Integer.parseInt(strd[0]);
+            
+            String strm[] = p.getBdate().split("/");
+            int month = Integer.parseInt(strm[1]) - 1;
+
+            dinerCounter[month] += dinerCounter[diners] + diners;
+           
+            monthCounter[month]++;
+            //System.out.println(month+": "+dinerCounter[month] );
+        }   
+        // Create a XYChart.Data object for each month. Add it to the series.    
+        for (int i = 0; i < monthCounter.length; i++) {
+            //System.out.println(monthNames.get(i) + ":" + dinerCounter[i]);
+            pieChartData.addAll(new PieChart.Data(monthNames.get(i), dinerCounter[i]));
         }
         pieChart.setData(pieChartData);
         pieChartData.forEach(data ->

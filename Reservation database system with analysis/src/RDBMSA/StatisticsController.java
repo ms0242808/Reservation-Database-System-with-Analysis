@@ -5,6 +5,10 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.avgDiner;
+import static RDBMSA.Database.maxDiner;
+import static RDBMSA.Database.minDiner;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -33,6 +37,10 @@ public class StatisticsController implements Initializable {
     @FXML
     private AnchorPane GraphP;
     @FXML
+    private JFXButton BArea;
+    @FXML
+    private JFXButton BTime;
+    @FXML
     private Button BLine;
     @FXML
     private Button BBar;
@@ -60,15 +68,24 @@ public class StatisticsController implements Initializable {
     private Label LLMonth;
     @FXML
     private Label LAMonth;
+    @FXML
+    private Button BBack;
     
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
-    
+    int stage = 0;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
+        // TODO
+        BArea.setVisible(false);
+        
+        LMDiner.setText("Max. diners: " + Integer.toString(maxDiner()));
+        LLDiner.setText("Min. diners: " + Integer.toString(minDiner()));
+        LADiner.setText("Avg. diners: " + Integer.toString(avgDiner()));
+        
         try{
             String CustomerQuery = "SELECT * from customer";
             ResultSet rs2 = Database.RetSet(CustomerQuery);
@@ -76,7 +93,7 @@ public class StatisticsController implements Initializable {
                 CList.add(new customerList(rs2.getInt("CustomerID"), //doesnt need all of it
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
-                                           rs2.getString("NumberOfDiner"),
+                                           rs2.getInt("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
                                            rs2.getString("Phone"),
@@ -92,12 +109,31 @@ public class StatisticsController implements Initializable {
 
     @FXML
     private void BDinerClicked(MouseEvent event) {
+        stage = 1;
+        BLine.setVisible(true);
+        BBar.setVisible(true);
+        BPie.setVisible(true);
+        BArea.setVisible(false);
     }
     
     @FXML
     private void BMonthClicked(MouseEvent event) {
+        stage = 2;
+        BLine.setVisible(true);
+        BBar.setVisible(true);
+        BPie.setVisible(true);
+        BArea.setVisible(false);
     }
 
+    @FXML
+    private void BTimeClicked(MouseEvent event) {
+        stage = 3;
+        BLine.setVisible(false);
+        BBar.setVisible(false);
+        BPie.setVisible(false);
+        BArea.setVisible(true);
+    }
+    
     @FXML
     private void BLineClicked(MouseEvent event) {
         try {
@@ -105,8 +141,11 @@ public class StatisticsController implements Initializable {
             Parent root = loader.load();
             LineChartController con = loader.getController();
             GraphP.getChildren().setAll(root);
-            con.setMonthLineData(CList);
-            //con.setDinerLineData(CList);
+            if(stage == 1){
+                con.setDinerLineData(CList);
+            }else if(stage == 2){
+                con.setMonthLineData(CList);
+            }
         } catch (IOException ex) {
             Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,7 +158,11 @@ public class StatisticsController implements Initializable {
             Parent root = loader.load();
             BarChartController con = loader.getController();
             GraphP.getChildren().setAll(root);
-            con.setMonthBarData(CList);
+            if(stage == 1){
+                con.setDinerBarData(CList);
+            }else if(stage == 2){
+                con.setMonthBarData(CList);
+            }
         } catch (IOException ex){
             Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,9 +175,39 @@ public class StatisticsController implements Initializable {
             Parent root = loader.load();
             PieChartController con = loader.getController();
             GraphP.getChildren().setAll(root);
-            con.setMonthPieData(CList);
+            if(stage == 1){
+                con.setDinerPieData(CList);
+            }else if(stage == 2){
+                con.setMonthPieData(CList);
+            }
         } catch (IOException ex) {
             Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
         }     
+    }
+
+    @FXML
+    private void BAreaClicked(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AreaChart.fxml"));
+            Parent root = loader.load();
+            AreaChartController con = loader.getController();
+            GraphP.getChildren().setAll(root);
+            if(stage == 3){
+                con.setTimeAreaData(CList);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    @FXML
+    private void BBackClicked(MouseEvent event) {
+        RDBMSA.ManageController.sceneID = 0;
+        try {
+            Parent root1 = FXMLLoader.load(getClass().getResource("Manage.fxml"));
+            SceneP.getChildren().setAll(root1);
+        } catch (IOException ex) {
+            Logger.getLogger(StatisticsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

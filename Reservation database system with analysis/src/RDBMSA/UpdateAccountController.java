@@ -5,7 +5,12 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.addAccount;
 import static RDBMSA.Database.updateAccount;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,10 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,55 +33,63 @@ import javafx.scene.layout.AnchorPane;
  */
 public class UpdateAccountController implements Initializable {
     @FXML
+    private Label AccountTitle;
+    @FXML
     private AnchorPane SceneP;
     @FXML
-    private TextField TFname;
+    private JFXTextField TFname;
     @FXML
-    private TextField TLname;
+    private JFXTextField TLname;
     @FXML
-    private TextField TDob;
+    private JFXTextField TDob;
     @FXML
-    private TextField TPnumber;
+    private JFXTextField TPnumber;
     @FXML
-    private TextField TAddress;
+    private JFXTextField TAddress;
     @FXML
-    private TextField TUname;
+    private JFXTextField TUname;
     @FXML
-    private PasswordField TPword;
+    private JFXPasswordField TPword;
     @FXML
-    private RadioButton RStaff;
+    private JFXRadioButton RStaff;
     @FXML
-    private RadioButton RManager;
+    private JFXRadioButton RManager;
     @FXML
-    private Button BCancel;
+    private JFXButton BCancel;
     @FXML
-    private Button BCAccount;
+    private JFXButton BCAccount;
 
     String role = RDBMSA.ManageController.ro;
     int sID = RDBMSA.ManageController.staffID;
-    FxController alertwindow = new FxController();
-    
+    int accStage = RDBMSA.ManageController.accountStage;
+    FxController fx = new FxController();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        TFname.setText(RDBMSA.ManageController.fn);
-        TLname.setText(RDBMSA.ManageController.ln);
-        TDob.setText(RDBMSA.ManageController.date);
-        TPnumber.setText(RDBMSA.ManageController.pnumber);
-        TAddress.setText(RDBMSA.ManageController.address);
-        TUname.setText(RDBMSA.ManageController.un);
-        TPword.setText(RDBMSA.ManageController.pw);
-        
-        if (role.equals("M")){
-            RManager.selectedProperty().setValue(Boolean.TRUE);
-            RStaff.selectedProperty().setValue(Boolean.FALSE);
-        } else{
-            RManager.selectedProperty().setValue(Boolean.FALSE);
-            RStaff.selectedProperty().setValue(Boolean.TRUE);
-        }
+        if(accStage == 0){
+            AccountTitle.setText("Create an account");
+            BCAccount.setText("Create account");
+        }else if(accStage == 1){
+            TFname.setText(RDBMSA.ManageController.fn);
+            TLname.setText(RDBMSA.ManageController.ln);
+            TDob.setText(RDBMSA.ManageController.date);
+            TPnumber.setText(RDBMSA.ManageController.pnumber);
+            TAddress.setText(RDBMSA.ManageController.address);
+            TUname.setText(RDBMSA.ManageController.un);
+            TPword.setText(RDBMSA.ManageController.pw);
+
+            if (role.equals("M")){
+                RManager.selectedProperty().setValue(Boolean.TRUE);
+                RStaff.selectedProperty().setValue(Boolean.FALSE);
+            } else{
+                RManager.selectedProperty().setValue(Boolean.FALSE);
+                RStaff.selectedProperty().setValue(Boolean.TRUE);
+            }
+        }    
     }    
 
     public void loadScenePane(String SceneName){
@@ -93,30 +103,37 @@ public class UpdateAccountController implements Initializable {
     
     @FXML
     private void VFname(KeyEvent event) {
+        //valiateFirstname();
     }
 
     @FXML
     private void VLname(KeyEvent event) {
+        //valiateSurname();
     }
 
     @FXML
     private void VDob(KeyEvent event) {
+        //valiateDateofBirth();
     }
 
     @FXML
     private void VPNumber(KeyEvent event) {
+        //valiatePhone();
     }
 
     @FXML
     private void VAddress(KeyEvent event) {
+        ///valiateAddress();
     }
 
     @FXML
     private void VUName(KeyEvent event) {
+        //valiateUsername();
     }
 
     @FXML
     private void VPWord(KeyEvent event) {
+        ///valiatePassword();
     }
 
     @FXML
@@ -139,13 +156,19 @@ public class UpdateAccountController implements Initializable {
 
     @FXML
     private void BUpdateClicked(MouseEvent event) {
-        updateAccount(sID,TFname.getText(),TLname.getText(),TDob.getText(),TPnumber.getText(),TAddress.getText(),TUname.getText(),TPword.getText(),role);
+        if(accStage == 0){
+            addAccount(TFname.getText(),TLname.getText(),TDob.getText(),TPnumber.getText(),TAddress.getText(),TUname.getText(),TPword.getText(),role);
+            fx.AlertInforwindow(null, null, "Account created.");
+        }else if(accStage == 1){
+            updateAccount(sID,TFname.getText(),TLname.getText(),TDob.getText(),TPnumber.getText(),TAddress.getText(),TUname.getText(),TPword.getText(),role);
+            fx.AlertInforwindow(null, null, "Account updated.");
+        }        
         RDBMSA.ManageController.sceneID = 1;
-        alertwindow.AlertInforwindow(null, null, "Account details updated.");
         loadScenePane("Manage.fxml");
     }
 
     @FXML
     private void validation(ActionEvent event) {
+       // alertwindow.AlertWarningwindow(null, null, "Pleases enter correct details.");
     }
 }

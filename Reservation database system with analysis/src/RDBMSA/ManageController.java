@@ -5,13 +5,20 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.getDate;
+import static RDBMSA.Database.getEmail;
 import static RDBMSA.Database.getRole;
 import static RDBMSA.Database.removeAccount;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -100,10 +107,7 @@ public class ManageController implements Initializable {
     private Button BGraphic;
     @FXML
     private TextField TSearch;
-    @FXML
     private Button BStaffview;
-    @FXML
-    private Button BCustomerview;
     @FXML
     private TextField TASearch;
     @FXML
@@ -111,22 +115,59 @@ public class ManageController implements Initializable {
     @FXML
     private Button BRAccount;
     @FXML
-    private Button BUpdate;
-    @FXML
     private Button BLOut;
-    @FXML
-    private Button BBupdate;
     
-    public static int sceneID = 0;
+    public static int sceneID = 2;
+    public static int accountStage = 0;
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
     private static Connection connection = null;
     private static Statement statement;
     private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
     FxController alertwindow = new FxController();
-    public static int staffID, customerID;
+    public static int staffID, customerID, diner;
     public static String fn, ln, date, pnumber;
     public static String address, un, pw, ro;
-    public static String diner, ctime, cemail, srequest, porder;
+    public static String ctime, cemail, srequest, porder;
+    private final ObservableList<customerList> todayList = FXCollections.observableArrayList();;
+    
+    @FXML
+    private AnchorPane TodaysBookedP;
+    @FXML
+    private TableView<customerList> TodaysBTable;
+    @FXML
+    private TableColumn<customerList, String> Todayfname;
+    @FXML
+    private TableColumn<customerList, String> Todaysname;
+    @FXML
+    private TableColumn<customerList, Integer> Todaydiners;
+    @FXML
+    private TableColumn<customerList, String> Todaytime;
+    @FXML
+    private TableColumn<customerList, String> Todayphone;
+    @FXML
+    private TableColumn<customerList, String> Todayrequest;
+    @FXML
+    private TableColumn<customerList, String> Todaypreorder;
+    @FXML
+    private JFXTextField TTodaySearch;
+    @FXML
+    private JFXButton BCupdate;
+    @FXML
+    private JFXButton BCToday;
+    @FXML
+    private JFXButton BCStaffview;
+    @FXML
+    private JFXButton BAUpdate;
+    @FXML
+    private JFXButton BAToday;
+    @FXML
+    private JFXButton BAAll;
+    @FXML
+    private JFXButton BTAll;
+    @FXML
+    private JFXButton BTUpdate;
+    @FXML
+    private JFXButton BTStaff;
 
     /**
      * Initializes the controller class.
@@ -137,10 +178,39 @@ public class ManageController implements Initializable {
         int LID = RDBMSA.LoginController.LogId;
         String role = getRole(LID);
         if(role.equals("M")){
-            BStaffview.setVisible(true);
+            BCStaffview.setVisible(true);
         } else{
-            BStaffview.setVisible(false);
+            BCStaffview.setVisible(false);
         }
+        
+        if(sceneID == 2){
+            sceneID = 2;
+            DetailAccountP.setVisible(false);
+            DetailCustomerP.setVisible(false);
+            TodaysBookedP.setVisible(true);
+            TodaysBookedTable();
+        } else if(sceneID == 1){
+            sceneID = 1;
+            DetailAccountP.setVisible(true);
+            DetailCustomerP.setVisible(false);
+            TodaysBookedP.setVisible(false);
+            StaffListTable();
+        }else{
+            sceneID = 0;
+            DetailAccountP.setVisible(false);
+            DetailCustomerP.setVisible(true);
+            TodaysBookedP.setVisible(false);
+            CustomerTable();
+        }
+        
+        Todayfname.setCellValueFactory(new PropertyValueFactory("FirstName"));
+        Todaysname.setCellValueFactory(new PropertyValueFactory("SurName"));
+        Todaydiners.setCellValueFactory(new PropertyValueFactory("Numberofdiner"));
+        Todaytime.setCellValueFactory(new PropertyValueFactory("Btime"));
+        Todayphone.setCellValueFactory(new PropertyValueFactory("Pnumber"));
+        Todayrequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
+        Todaypreorder.setCellValueFactory(new PropertyValueFactory("Porder"));
+        
         
         cID.setCellValueFactory(new PropertyValueFactory("CustomerID"));
         Fname.setCellValueFactory(new PropertyValueFactory("FirstName"));
@@ -153,7 +223,7 @@ public class ManageController implements Initializable {
         SRequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
         POrder.setCellValueFactory(new PropertyValueFactory("Porder"));
         Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));
-        CustomerTable();        
+        //CustomerTable();        
         
         StaffID.setCellValueFactory(new PropertyValueFactory("StaffID"));
         SFname.setCellValueFactory(new PropertyValueFactory("FirstName"));
@@ -164,17 +234,6 @@ public class ManageController implements Initializable {
         SUsername.setCellValueFactory(new PropertyValueFactory("SU"));
         SPassword.setCellValueFactory(new PropertyValueFactory("SPW"));
         SRole.setCellValueFactory(new PropertyValueFactory("SROLE"));
-        
-        if(sceneID == 1){
-            sceneID = 0;
-            DetailAccountP.setVisible(true);
-            DetailCustomerP.setVisible(false);
-            StaffListTable();
-        } else{
-            sceneID = 0;
-            DetailAccountP.setVisible(false);
-            DetailCustomerP.setVisible(true);
-        }
     } 
         
     public void loadScenePane(String SceneName){
@@ -195,7 +254,7 @@ public class ManageController implements Initializable {
                 CList.add(new customerList(rs2.getInt("CustomerID"), 
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
-                                           rs2.getString("NumberOfDiner"),
+                                           rs2.getInt("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
                                            rs2.getString("Phone"),
@@ -205,9 +264,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("ConfirmCode")));
                 CustomerTable.setItems(this.CList);
             }
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             //System.out.println(e);
         } 
         CustomerTable.setItems(CList); 
@@ -231,25 +288,26 @@ public class ManageController implements Initializable {
                                            rs2.getString("ROLE")));// add to table
                 StaffTable.setItems(this.SList);
             }
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             System.out.println(e);
         } 
         StaffTable.setItems(SList); 
         Database.close();
     }
     
-    public void CustomerSortTable(String sorttype, String sortinput){
-        CList.clear();
-        try{            
-            String CustomerQuery = "SELECT * from customer WHERE '"+ sorttype +"' = '"+ sortinput +"'";
+    public void TodaysBookedTable(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date de = new Date();
+        String today = dateFormat.format(de);
+        todayList.clear();
+        try{
+            String CustomerQuery = "SELECT * from customer WHERE Date  ='" + today + "'";
             ResultSet rs2 = Database.RetSet(CustomerQuery);
             while (rs2.next()){
-                CList.add(new customerList(rs2.getInt("CustomerID"), 
+                todayList.add(new customerList(rs2.getInt("CustomerID"), 
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
-                                           rs2.getString("NumberOfDiner"),
+                                           rs2.getInt("NumberOfDiner"),
                                            rs2.getString("Date"),
                                            rs2.getString("Time"),
                                            rs2.getString("Phone"),
@@ -257,14 +315,12 @@ public class ManageController implements Initializable {
                                            rs2.getString("AdditionalRequest"),
                                            rs2.getString("PreOrder"),
                                            rs2.getString("ConfirmCode")));
-                CustomerTable.setItems(this.CList);
+                TodaysBTable.setItems(this.todayList);
             }
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             //System.out.println(e);
         } 
-        CustomerTable.setItems(CList); 
+        TodaysBTable.setItems(todayList); 
         Database.close();
     }
 
@@ -276,89 +332,79 @@ public class ManageController implements Initializable {
     @FXML
     private void TSearchRekeased(KeyEvent event) {
         //TSearch.setText(null);
-        
         FilteredList<customerList> filteredData = new FilteredList<>(CList, e -> true);
         TSearch.setOnKeyReleased(e -> {
-        TSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            filteredData.setPredicate((Predicate<? super customerList>) bookings -> {
-                if (newValue == null || newValue.isEmpty())
-                {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (bookings.getFirstName().toLowerCase().contains(lowerCaseFilter))
-                {
-                    return true;
-                }
-                else if (bookings.getSurName().toLowerCase().contains(lowerCaseFilter))
-                {
+            TSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super customerList>) bookings -> {
+                    if (newValue == null || newValue.isEmpty()){
                         return true;
-                } 
-                else if (bookings.getCcode().toLowerCase().contains(lowerCaseFilter))
-                {
-                    return true;
-                }     
- 
-            return false;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (bookings.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    } else if (bookings.getSurName().toLowerCase().contains(lowerCaseFilter)){
+                            return true;
+                    } else if (bookings.getCcode().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }
+                        return false;
+                });
             });
-        });
-    }); 
+        }); 
         SortedList<customerList> sortedResults = new SortedList<>(filteredData);
         sortedResults.comparatorProperty().bind(CustomerTable.comparatorProperty());
         CustomerTable.setItems(sortedResults);
     }
 
     @FXML
-    private void BStaffClicked(MouseEvent event) {
-        DetailCustomerP.setVisible(false);
+    private void BCStaffClicked(MouseEvent event) {
+        sceneID = 1;
         DetailAccountP.setVisible(true);
+        DetailCustomerP.setVisible(false);
+        TodaysBookedP.setVisible(false);
         StaffListTable();
     }
 
     @FXML
     private void TASearchReleased(KeyEvent event) {
         //TASearch.setText(null);
-        
         FilteredList<staffList> filteredData = new FilteredList<>(SList, e -> true);
         TASearch.setOnKeyReleased(e -> {
-        TASearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            filteredData.setPredicate((Predicate<? super staffList>) accounts -> {
-                if (newValue == null || newValue.isEmpty())
-                {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (accounts.getFirstName().toLowerCase().contains(lowerCaseFilter))
-                {
-                    return true;
-                }
-                else if (accounts.getSurName().toLowerCase().contains(lowerCaseFilter))
-                {
+            TASearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super staffList>) accounts -> {
+                    if (newValue == null || newValue.isEmpty()){
                         return true;
-                } 
-                else if (accounts.getSU().toLowerCase().contains(lowerCaseFilter))
-                {
-                    return true;
-                }     
- 
-            return false;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (accounts.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    } else if (accounts.getSurName().toLowerCase().contains(lowerCaseFilter)){
+                            return true;
+                    } else if (accounts.getSU().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }
+                return false;
+                });
             });
-        });
-    }); 
+        }); 
         SortedList<staffList> sortedResults = new SortedList<>(filteredData);
         sortedResults.comparatorProperty().bind(StaffTable.comparatorProperty());
         StaffTable.setItems(sortedResults);
     }
 
     @FXML
-    private void BCustomerClicked(MouseEvent event) {
-        DetailCustomerP.setVisible(true);
+    private void BAAllClicked(MouseEvent event) {
+        sceneID = 0;
         DetailAccountP.setVisible(false);
+        DetailCustomerP.setVisible(true);
+        TodaysBookedP.setVisible(false);
+        CustomerTable();
     }
 
     @FXML
     private void BAAccountClicked(MouseEvent event) {
-        loadScenePane("AddAccount.fxml");
+        accountStage = 0;
+        loadScenePane("UpdateAccount.fxml");
     }
 
     @FXML
@@ -382,9 +428,10 @@ public class ManageController implements Initializable {
     }
 
     @FXML
-    private void BUpdateClicked(MouseEvent event) {
+    private void BAUpdateClicked(MouseEvent event) {
         int selectedIndex = StaffTable.getSelectionModel().getSelectedIndex() + 1;
         if (selectedIndex >= 1){
+            accountStage = 1;
             staffID = StaffTable.getSelectionModel().getSelectedItem().getStaffID();
             fn = StaffTable.getSelectionModel().getSelectedItem().getFirstName();
             ln = StaffTable.getSelectionModel().getSelectedItem().getSurName();
@@ -397,7 +444,7 @@ public class ManageController implements Initializable {
             loadScenePane("UpdateAccount.fxml");
         } else{
             alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
-        } 
+        }
     }
 
     @FXML
@@ -416,7 +463,7 @@ public class ManageController implements Initializable {
     }
 
     @FXML
-    private void BBUpdateClicked(MouseEvent event) {
+    private void BCUpdateClicked(MouseEvent event) {
         int selectedIndex = CustomerTable.getSelectionModel().getSelectedIndex() + 1;
         if (selectedIndex >= 1){
             customerID = CustomerTable.getSelectionModel().getSelectedItem().getCustomerID();
@@ -433,5 +480,90 @@ public class ManageController implements Initializable {
         } else{
             alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
         }
+    }
+
+    @FXML
+    private void TTodaySearchReleased(KeyEvent event) {
+        FilteredList<customerList> filteredData = new FilteredList<>(todayList, e -> true);
+        TTodaySearch.setOnKeyReleased(e -> {
+            TTodaySearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super customerList>) todayBooked -> {
+                    if (newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (todayBooked.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    } else if (todayBooked.getSurName().toLowerCase().contains(lowerCaseFilter)){
+                            return true;
+                    } else if (todayBooked.getPnumber().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }
+                        return false;
+                });
+            });
+        }); 
+        SortedList<customerList> sortedResults = new SortedList<>(filteredData);
+        sortedResults.comparatorProperty().bind(TodaysBTable.comparatorProperty());
+        TodaysBTable.setItems(sortedResults);
+    }
+
+    @FXML
+    private void BCTodayClicked(MouseEvent event) {
+        sceneID = 2;
+        DetailAccountP.setVisible(false);
+        DetailCustomerP.setVisible(false);
+        TodaysBookedP.setVisible(true);
+        TodaysBookedTable();
+    }
+
+    @FXML
+    private void BATodayClicked(MouseEvent event) {
+        sceneID = 2;
+        DetailAccountP.setVisible(false);
+        DetailCustomerP.setVisible(false);
+        TodaysBookedP.setVisible(true);
+        TodaysBookedTable();
+    }
+
+    @FXML
+    private void BTAllClicked(MouseEvent event) {
+        sceneID = 0;
+        DetailAccountP.setVisible(false);
+        DetailCustomerP.setVisible(true);
+        TodaysBookedP.setVisible(false);
+        CustomerTable();
+    }
+
+    @FXML
+    private void BTUpdateClicked(MouseEvent event) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date de = new Date();
+        String today = dateFormat.format(de);
+        int selectedIndex = TodaysBTable.getSelectionModel().getSelectedIndex() + 1;
+        if (selectedIndex >= 1){
+            customerID = TodaysBTable.getSelectionModel().getSelectedItem().getCustomerID();
+            fn = TodaysBTable.getSelectionModel().getSelectedItem().getFirstName();
+            ln = TodaysBTable.getSelectionModel().getSelectedItem().getSurName();
+            date = getDate(customerID);
+            diner = TodaysBTable.getSelectionModel().getSelectedItem().getNumberofdiner();
+            ctime = TodaysBTable.getSelectionModel().getSelectedItem().getBtime();
+            pnumber = TodaysBTable.getSelectionModel().getSelectedItem().getPnumber();
+            cemail = getEmail(customerID);
+            srequest = TodaysBTable.getSelectionModel().getSelectedItem().getSrequest();
+            porder = TodaysBTable.getSelectionModel().getSelectedItem().getPorder();
+            loadScenePane("UpdateBooking.fxml");
+        } else{
+            alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
+        }
+    }
+
+    @FXML
+    private void BTStaffClicked(MouseEvent event) {
+        sceneID = 1;
+        DetailAccountP.setVisible(true);
+        DetailCustomerP.setVisible(false);
+        TodaysBookedP.setVisible(false);
+        StaffListTable();
     }
 }

@@ -76,7 +76,7 @@ public class Database {
     }
     
     //Customer SQL methods
-    public static void booktable(String FN,String SN, String NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
+    public static void booktable(String FN,String SN, int NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code){
         String selectstat = "insert into customer (FirstName,LastName,NumberOfDiner,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode) values(?,?,?,?,?,?,?,?,?,?)";
         open();        
         try{
@@ -84,7 +84,7 @@ public class Database {
             PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
             prepStmt.setString(1,FN);
             prepStmt.setString(2,SN);
-            prepStmt.setString(3,NDiner);
+            prepStmt.setInt(3,NDiner);
             prepStmt.setString(4,Date);
             prepStmt.setString(5,Time);
             prepStmt.setString(6,Phone);
@@ -119,6 +119,20 @@ public class Database {
         }
         close();
         return userid;
+    }
+    
+    public static int getCID(String Phone){
+        int cID = 0;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select CustomerID from customer where Phone = '" + Phone + "' ");
+            cID = rs.getInt("CustomerID");
+            //System.out.println("Query successfully executed");
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return cID;
     }
     
     public static String getFirstname(int cID){
@@ -177,12 +191,12 @@ public class Database {
         return phone;
     }
 
-    public static String getNumberofdiner(int cID){
-        String diner = null;
+    public static int getNumberofdiner(int cID){
+        int diner = 0;
         try{
             open();            
             ResultSet rs = statement.executeQuery("select NumberOfDiner from customer where customerID = '" + cID + "' ");
-            diner = rs.getString("NumberOfDiner");
+            diner = rs.getInt("NumberOfDiner");
             //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
@@ -217,7 +231,66 @@ public class Database {
         }
         close();
         return time;
-    }    
+    }
+    
+    public static void updateBooked(int cID, String Fname, String Sname, int Diners, String Date, String Time, String Phone, String Email) {
+        String selectstat = "UPDATE customer set FirstName = ?, LastName = ?, NumberOfDiner = ?,Date = ?, Time = ?, Phone = ?, Email = ? where CustomerID = "+ cID;
+        open();
+        try{
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(selectstat);
+            ps.setString(1,Fname);
+            ps.setString(2,Sname);
+            ps.setInt(3,Diners);
+            ps.setString(4,Date);
+            ps.setString(5,Time);
+            ps.setString(6,Phone);
+            ps.setString(7,Email);
+            ps.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();     
+    }
+    
+    public static void removeBooked(String Phone){
+        try{
+            open();
+            statement.executeUpdate("DELETE from customer WHERE Phone = '"+ Phone + "'");   
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        close();
+    }
+    
+    //Online self-queue system SQL methods
+    public static void queuetable(String Name, String Phone, String Diners){
+        String selectstat = "insert into queue (Name, Phone, Diners) values(?,?,?)";
+        open();        
+        try{
+            connection.setAutoCommit(false);
+            PreparedStatement prepStmt =  connection.prepareStatement(selectstat);
+            prepStmt.setString(1,Name);
+            prepStmt.setString(2,Phone);
+            prepStmt.setString(3,Diners);
+            prepStmt.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();
+    }
+    
+    public static void removeQueue(String Phone){
+        try{
+            open();
+            statement.executeUpdate("DELETE from queue WHERE Phone = '"+ Phone + "'");   
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        close();
+    }
     
     //Account/manager/staff SQL methods
     //Account login methods
@@ -280,14 +353,14 @@ public class Database {
     }
     
     //customer records methods
-    public static void updateBooking(int customerID, String fn, String sn, String diner, String date, String ctime, String phone, String cemail, String request, String porder) {
+    public static void updateBooking(int customerID, String fn, String sn, int diner, String date, String ctime, String phone, String cemail, String request, String porder) {
         String selectstat = "UPDATE customer set FirstName = ?, LastName = ?, NumberOfDiner = ?,Date = ?, Time = ?, Phone = ?, Email = ?, AdditionalRequest = ?, PreOrder = ? where CustomerID = "+ customerID;
         open();
         try{
             PreparedStatement ps = connection.prepareStatement(selectstat);
             ps.setString(1,fn);
             ps.setString(2,sn);
-            ps.setString(3,diner);
+            ps.setInt(3,diner);
             ps.setString(4,date);
             ps.setString(5,ctime);
             ps.setString(6,phone);
@@ -309,7 +382,7 @@ public class Database {
         try{
             ResultSet rs = statement.executeQuery(selectStatement);
             while (rs.next()) {
-                count = rs.getInt(1);
+                count = rs.getInt(1)*2;
             }
         }
         catch(SQLException e){
@@ -372,5 +445,60 @@ public class Database {
             System.out.println(e);
         }
         close();
+    }
+    
+    //statistics, analysis methods
+    public static int maxDiner(){
+        String selectStatement = "SELECT MAX(NumberOfDiner) from customer";
+        int maxd = 0;
+        open();
+        try{
+            ResultSet rs = statement.executeQuery(selectStatement);
+            while (rs.next()) {
+                maxd = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return 0;  
+        }
+        close();
+        return maxd;
+    }
+    
+    public static int minDiner(){
+        String selectStatement = "SELECT MIN(NumberOfDiner) from customer";
+        int mind = 0;
+        open();
+        try{
+            ResultSet rs = statement.executeQuery(selectStatement);
+            while (rs.next()) {
+                mind = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return 0;  
+        }
+        close();
+        return mind;
+    }
+    
+    public static int avgDiner(){
+        String selectStatement = "SELECT AVG(NumberOfDiner) from customer";
+        int avgd = 0;
+        open();
+        try{
+            ResultSet rs = statement.executeQuery(selectStatement);
+            while (rs.next()) {
+                avgd = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return 0;  
+        }
+        close();
+        return avgd;
     }
 }

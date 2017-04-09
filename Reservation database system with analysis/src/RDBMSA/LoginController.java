@@ -7,6 +7,9 @@ package RDBMSA;
 
 import static RDBMSA.Database.passwordCheck;
 import static RDBMSA.Database.userCheck;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,8 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -30,16 +31,17 @@ public class LoginController implements Initializable {
     @FXML
     private AnchorPane SceneP;
     @FXML
-    private TextField TUname;
+    private JFXTextField TUname;
     @FXML
-    private TextField TPword;
+    private JFXPasswordField TPword;
     @FXML
-    private Button BCancel;
+    private JFXButton BCancel;
     @FXML
-    private Button BLogin;
-
+    private JFXButton BLogin;
+    
     public static int LogId = 0;
     FxController alertwindow = new FxController();
+    AnimationGen animationGen = new AnimationGen();
     
     /**
      * Initializes the controller class.
@@ -75,10 +77,11 @@ public class LoginController implements Initializable {
             if (loginPass == -1){
                 LogId = login;
                 loadScenePane("Manage.fxml");
-            }   
-        } catch(NullPointerException e){
-                alertwindow.AlertWarningwindow(null, null, "Please enter correct username and password.");
-                //effect on textfiled 
+                animationGen.FadeAnimationOn(SceneP, 2000, 0f, 1.0f, null);
+            }
+        } catch(NullPointerException e){ 
+            alertwindow.AlertWarningwindow(null, null, "Please enter correct username and password.");
+            //effect on textfiled 
         }
     }  
 }

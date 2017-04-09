@@ -16,7 +16,7 @@ public class customerList {
     private final SimpleIntegerProperty cID;
     private final SimpleStringProperty Fname;
     private final SimpleStringProperty Sname;
-    private final SimpleStringProperty Nodiner;
+    private final SimpleIntegerProperty Nodiner;
     private final SimpleStringProperty Bdate;
     private final SimpleStringProperty Btime;
     private final SimpleStringProperty pnumber;
@@ -25,11 +25,11 @@ public class customerList {
     private final SimpleStringProperty pOrder;
     private final SimpleStringProperty cCode;
     
-    public customerList(int cID, String FN, String  SN, String NOD, String BD, String BT, String PN, String EM, String SR, String PO, String CC) {
+    public customerList(int cID, String FN, String  SN, int NOD, String BD, String BT, String PN, String EM, String SR, String PO, String CC) {
         this.cID = new SimpleIntegerProperty(cID);
         this.Fname = new SimpleStringProperty(FN);
         this.Sname = new SimpleStringProperty(SN);
-        this.Nodiner = new SimpleStringProperty(NOD);
+        this.Nodiner = new SimpleIntegerProperty(NOD);
         this.Bdate = new SimpleStringProperty(BD);        
         this.Btime = new SimpleStringProperty(BT);
         this.pnumber = new SimpleStringProperty(PN);
@@ -63,11 +63,11 @@ public class customerList {
         this.Sname.set(Sname);
     }
     
-    public String getNumberofdiner() {
+    public int getNumberofdiner() {
         return Nodiner.get();
     }
 
-    public void setNumberofdiner(String Nodiner) {
+    public void setNumberofdiner(int Nodiner) {
         this.Nodiner.set(Nodiner);
     }
     

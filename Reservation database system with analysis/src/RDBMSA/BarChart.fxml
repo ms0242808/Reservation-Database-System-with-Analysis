@@ -3,12 +3,19 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<BarChart fx:id="barChart" prefHeight="450.0" prefWidth="904.0" stylesheets="@../CSS/Chart.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BarChartController">
-   <xAxis>
-      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-   </xAxis>
-   <yAxis>
-      <NumberAxis side="LEFT" />
-   </yAxis>
-</BarChart>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="982.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.BarChartController">
+   <children>
+      <BarChart fx:id="barChart" layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="982.0" stylesheets="@../CSS/Chart.css">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
+      <Label fx:id="LData" layoutX="75.0" layoutY="410.0" text="Move your mouse on top of any bar" />
+   </children>
+</AnchorPane>

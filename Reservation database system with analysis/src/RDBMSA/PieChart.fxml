@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.AnchorPane?>
 
 
-<PieChart fx:id="pieChart" prefHeight="450.0" prefWidth="904.0" stylesheets="@../CSS/Chart.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.PieChartController" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="982.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.PieChartController">
+   <children>
+      <PieChart fx:id="pieChart" layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="982.0" stylesheets="@../CSS/Chart.css" />
+   </children>
+</AnchorPane>

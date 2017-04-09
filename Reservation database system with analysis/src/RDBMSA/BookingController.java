@@ -6,33 +6,29 @@
 package RDBMSA;
 
 import static RDBMSA.Database.booktable;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXProgressBar;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -41,39 +37,27 @@ import javafx.util.Callback;
  */
 public class BookingController implements Initializable {
     @FXML
-    private ProgressBar ProgBar;
+    private JFXProgressBar ProgBar;
     @FXML
     private AnchorPane CustomerP1;
     @FXML
-    private ImageView Crowd;
+    private JFXComboBox<String> NPeople = new JFXComboBox<>();
     @FXML
-    private ComboBox<String> NPeople = new ComboBox<>();
+    private JFXDatePicker Date;
     @FXML
-    private DatePicker Date;
-    @FXML
-    private ImageView Clock;
-    @FXML
-    private ComboBox<String> Time = new ComboBox<>();
+    private JFXTimePicker Time;
     @FXML
     private AnchorPane CustomerDP;
     @FXML
-    private Label FLabel;
+    private JFXTextField Ftextfield;
     @FXML
-    private TextField Ftextfield;
+    private JFXTextField Stextfield;
     @FXML
-    private Label SLabel;
+    private JFXTextField Ptextfield;
     @FXML
-    private TextField Stextfield;
+    private JFXTextField Etextfield;
     @FXML
-    private Label PLabel;
-    @FXML
-    private TextField Ptextfield;
-    @FXML
-    private Label ELabel;
-    @FXML
-    private TextField Etextfield;
-    @FXML
-    private Button BCnext1;
+    private JFXButton BCnext1;
     @FXML
     private AnchorPane CustomerP2;
     @FXML
@@ -99,19 +83,19 @@ public class BookingController implements Initializable {
     @FXML
     private TextArea SRtextarea;
     @FXML
-    private Button BCBack;
+    private JFXButton BCBack;
     @FXML
-    private Button BCConfirm;
+    private JFXButton BCConfirm;
     @FXML
     private AnchorPane CustomerP3;
     @FXML
     private Label ConfirmLabel;
     @FXML
-    private Button BCSee;
+    private JFXButton BCSee;
     @FXML
     private AnchorPane SceneP;
     
-    FxController alertwindow = new FxController();
+    FxController fx = new FxController();
     /**
      * Initializes the controller class.
      */
@@ -119,10 +103,13 @@ public class BookingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         SetCustomerVisibles();
-        
+        Time.setValue(LocalTime.now());
         NPeople.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
-        Time.getItems().addAll("12.00","12.30","13.00");
-        valiadteDate();
+        fx.valiadteDate(Date);
+        fx.textFV(Ftextfield, "Enter your first name.");
+        fx.textFV(Stextfield, "Enter your surname.");
+        fx.numberFV(Ptextfield, "Numbers only.");
+        fx.textFV(Etextfield, "Enter your email address.");
     }    
 
     public void SetCustomerVisibles(){
@@ -143,7 +130,7 @@ public class BookingController implements Initializable {
     public void ClearFields(){
         NPeople.setValue(null);
         Date.setValue(null);
-        Time.setValue(null);
+        Time.setValue(LocalTime.now());
         Ftextfield.setText(null);
         Stextfield.setText(null);
         Ptextfield.setText(null);
@@ -188,70 +175,6 @@ public class BookingController implements Initializable {
         } else {
             return randomInt - 1;
         }
-    }
-    
-    private boolean valiateFirstname(){
-        Pattern p = Pattern.compile("[a-zA-Z]+");
-        Matcher m = p.matcher(Ftextfield.getText());
-        if(m.find() && m.group().equals(Ftextfield.getText())){
-            return true;
-        }else{
-            alertwindow.AlertWarningwindow(null, null, "Please enter valid first name");
-            return false;
-        }
-    }
-    
-    private boolean valiateSurname(){
-        Pattern p = Pattern.compile("[a-zA-Z]+");
-        Matcher m = p.matcher(Stextfield.getText());
-        if(m.find() && m.group().equals(Stextfield.getText())){
-            return true;
-        }else{
-            alertwindow.AlertWarningwindow(null, null, "Please enter valid surname");
-            return false;
-        }
-    }
-    
-    private boolean valiatePhone(){
-        Pattern p = Pattern.compile("[0-9]+");
-        Matcher m = p.matcher(Ptextfield.getText());
-        if(m.find() && m.group().equals(Ptextfield.getText())){
-            return true;
-        }else{
-            alertwindow.AlertWarningwindow(null, null, "Please enter valid phone number");
-            return false;
-        }
-    }
-    
-    private boolean valiateEmail(){
-        Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
-        Matcher m = p.matcher(Etextfield.getText());
-        if(m.find() && m.group().equals(Etextfield.getText())){
-            return true;
-        }else{
-            alertwindow.AlertWarningwindow(null, null, "Please enter valid Email");
-            return false;
-        }
-    }
-    
-    public void valiadteDate(){
-        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>(){
-            public DateCell call(final DatePicker datePicker){
-                return new DateCell(){
-                    public void updateItem(LocalDate item, boolean empty){
-                        super.updateItem(item, empty);
-                        DayOfWeek day = DayOfWeek.from(item);
-                        if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY){
-                            this.setTextFill(Color.BLUE);
-                        }
-                        if (item.isBefore(LocalDate.now())){
-                            this.setDisable(true);
-                        }
-                    }
-                };
-            }
-        };            
-        Date.setDayCellFactory(dayCellFactory);
     }
     
     @FXML
@@ -327,15 +250,20 @@ public class BookingController implements Initializable {
         DELabel.setText("Email: " + Etextfield.getText());
         DPLabel.setText("Contact number: " + Ptextfield.getText());
         DTLabel.setText("Time: " + Time.getValue());
-        DDLabel.setText("Date: " + ((TextField)Date.getEditor()).getText());        
+        DDLabel.setText("Date: " + Date.getValue());
     }
 
     @FXML
     private void valiation(ActionEvent event) {
-        valiateFirstname();//button valiation
-        valiateSurname();
-        valiatePhone();
-        valiateEmail();
+        String tfn = Ftextfield.getText();
+        String tsn = Stextfield.getText();
+        String tpn = Ptextfield.getText();
+        String tem = Etextfield.getText();
+        if(tfn.isEmpty() || tsn.isEmpty() || tpn.isEmpty() || tem.isEmpty()){
+            fx.AlertWarningwindow(null, null, "Have you fill in all the fields?");
+        }else{
+            fx.valiateEmail(Etextfield);
+        }
     }
 
     @FXML
@@ -351,10 +279,13 @@ public class BookingController implements Initializable {
         CustomerP1.setVisible(false);
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(true);
-        String NP = NPeople.getValue();
-        System.out.println(NP);
-        String Dt = ((TextField)Date.getEditor()).getText();
-        String T = Time.getValue();
+        int NP = Integer.parseInt(NPeople.getValue());
+        //System.out.println(NP);
+        //String Dt = ((TextField)Date.getEditor()).getText();
+        LocalDate x = Date.getValue();
+        String Dt = Date.getConverter().toString(x);
+        LocalTime y = Time.getValue();
+        String T = y.toString();
         String FT = Ftextfield.getText();
         String ST = Stextfield.getText();
         String PT = Ptextfield.getText();

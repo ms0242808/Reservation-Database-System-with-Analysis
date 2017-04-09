@@ -6,6 +6,9 @@
 package RDBMSA;
 
 import static RDBMSA.Database.updateBooking;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,9 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,30 +32,30 @@ public class UpdateBookingController implements Initializable {
     @FXML
     private AnchorPane SceneP;
     @FXML
-    private TextField TFname;
+    private JFXTextField TFname;
     @FXML
-    private TextField TLname;
+    private JFXTextField TLname;
     @FXML
-    private TextField TNDiner;
+    private JFXTextField TNDiner;
     @FXML
-    private TextField TDate;
+    private JFXTextField TDate;
     @FXML
-    private TextField TTime;
+    private JFXTextField TTime;
     @FXML
-    private TextField TPhone;
+    private JFXTextField TPhone;
     @FXML
-    private TextField TEmail;
+    private JFXTextField TEmail;
     @FXML
-    private TextArea TSRequest;
+    private JFXTextArea TSRequest;
     @FXML
-    private TextArea TPOrder;
+    private JFXTextArea TPOrder;
     @FXML
-    private Button BCancel;
+    private JFXButton BCancel;
     @FXML
-    private Button BUpdate;
+    private JFXButton BUpdate;
 
     int cID = RDBMSA.ManageController.customerID;
-    FxController alertwindow = new FxController();
+    FxController fx = new FxController();
     
     /**
      * Initializes the controller class.
@@ -65,7 +65,7 @@ public class UpdateBookingController implements Initializable {
         // TODO
         TFname.setText(RDBMSA.ManageController.fn);
         TLname.setText(RDBMSA.ManageController.ln);
-        TNDiner.setText(RDBMSA.ManageController.diner);
+        TNDiner.setText(Integer.toString(RDBMSA.ManageController.diner));
         TDate.setText(RDBMSA.ManageController.date);
         TTime.setText(RDBMSA.ManageController.ctime);
         TPhone.setText(RDBMSA.ManageController.pnumber);
@@ -94,15 +94,27 @@ public class UpdateBookingController implements Initializable {
 
     @FXML
     private void BCancelClicked(MouseEvent event) {
-        RDBMSA.ManageController.sceneID = 0;
         loadScenePane("Manage.fxml");
     }
 
     @FXML
     private void BUpdateClicked(MouseEvent event) {
-        updateBooking(cID,TFname.getText(),TLname.getText(),TNDiner.getText(),TDate.getText(),TTime.getText(),TPhone.getText(),TEmail.getText(),TSRequest.getText(),TPOrder.getText());
-        RDBMSA.ManageController.sceneID = 0;
-        alertwindow.AlertInforwindow(null, null, "Booking record updated.");
+        String fname = TFname.getText();
+        String lname = TLname.getText();
+        int diner = Integer.parseInt(TNDiner.getText());
+        String dt = TDate.getText();
+        String time = TTime.getText();
+        String ph = TPhone.getText();
+        String em = TEmail.getText();
+        String sr = TSRequest.getText();
+        String po = TPOrder.getText();
+        if(RDBMSA.ManageController.sceneID == 0){
+            RDBMSA.ManageController.sceneID = 0;
+        }else if(RDBMSA.ManageController.sceneID == 2){
+            RDBMSA.ManageController.sceneID = 2;
+        }
+        updateBooking(cID,fname,lname,diner,dt,time,ph,em,sr,po);
+        fx.AlertInforwindow(null, null, "Booking record updated.");
         loadScenePane("Manage.fxml");
     }
 
