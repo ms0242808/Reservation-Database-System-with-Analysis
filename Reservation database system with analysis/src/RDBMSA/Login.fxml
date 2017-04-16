@@ -5,26 +5,69 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../CSS/Login.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.LoginController">
    <children>
-      <VBox layoutX="392.0" layoutY="264.0" prefHeight="91.0" prefWidth="225.0">
+      <VBox layoutX="289.0" layoutY="220.0" prefHeight="91.0" prefWidth="225.0">
          <children>
-            <JFXTextField fx:id="TUname" labelFloat="true" promptText="Username:" />
-            <JFXPasswordField fx:id="TPword" focusColor="#9752a4" labelFloat="true" promptText="Password:">
+            <JFXTextField fx:id="TUname" focusColor="#2c3d6f" labelFloat="true" promptText="Username:" unFocusColor="#816ab2" />
+            <JFXPasswordField fx:id="TPword" focusColor="#5c3365" labelFloat="true" promptText="Password:" unFocusColor="#448662">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin></JFXPasswordField>
          </children>
       </VBox>
-      <ButtonBar layoutX="439.0" layoutY="413.0" prefHeight="40.0" prefWidth="175.0">
+      <ButtonBar layoutX="310.0" layoutY="341.0" prefHeight="40.0" prefWidth="175.0">
         <buttons>
-            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" text="Cancel" textFill="#b51717" />
-            <JFXButton fx:id="BLogin" onMouseClicked="#BLoginClicked" text="Login" textFill="#281796" />
+            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" styleClass="cancel-button" text="Cancel" textFill="#b51717" />
+            <JFXButton fx:id="BLogin" onMouseClicked="#BLoginClicked" styleClass="login-button" text="Login" textFill="#281796" />
         </buttons>
       </ButtonBar>
-      <JFXTextField alignment="CENTER" editable="false" layoutX="451.0" layoutY="205.0" prefHeight="25.0" prefWidth="108.0" text="Admission Login" unFocusColor="RED" />
+      <JFXTextField alignment="CENTER" editable="false" layoutX="348.0" layoutY="161.0" prefHeight="26.0" prefWidth="116.0" text="Admission Login" unFocusColor="RED" />
+      <HBox fx:id="TopFrame" alignment="TOP_RIGHT" layoutX="-1.0" layoutY="-1.0" onMouseDragged="#TopFrameMouseDragged" onMousePressed="#TopFrameMousePressed" prefHeight="45.0" prefWidth="793.0" styleClass="topframe-hbox">
+         <children>
+            <JFXButton fx:id="BBack" onAction="#BBackOnAction" prefHeight="36.0" prefWidth="56.0" styleClass="home-button" text=" ">
+               <HBox.margin>
+                  <Insets right="640.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../ICONS/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="BMinimize" onAction="#BMinimizeAction" styleClass="minimize-button" text=" ">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="23.0">
+                     <image>
+                        <Image url="@../ICONS/minimize.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="BClose" onAction="#BCloseAction" styleClass="close-button" text=" ">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="23.0">
+                     <image>
+                        <Image url="@../ICONS/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

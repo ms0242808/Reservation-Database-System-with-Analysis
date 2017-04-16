@@ -32,14 +32,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -80,8 +78,6 @@ public class ManageController implements Initializable {
     @FXML
     private TableColumn<customerList, String> Ccode;
     @FXML
-    private DatePicker sortDate;
-    @FXML
     private AnchorPane DetailAccountP;
     @FXML
     private TableView<staffList> StaffTable;
@@ -104,18 +100,17 @@ public class ManageController implements Initializable {
     @FXML
     private TableColumn<staffList, String> SRole;
     @FXML
-    private Button BGraphic;
+    private JFXButton BGraphic;
     @FXML
-    private TextField TSearch;
-    private Button BStaffview;
+    private JFXTextField TSearch;
     @FXML
-    private TextField TASearch;
+    private JFXTextField TASearch;
     @FXML
-    private Button BAAccount;
+    private JFXButton BAAccount;
     @FXML
-    private Button BRAccount;
+    private JFXButton BRAccount;
     @FXML
-    private Button BLOut;
+    private JFXButton BLOut;
     
     public static int sceneID = 2;
     public static int accountStage = 0;
@@ -168,6 +163,8 @@ public class ManageController implements Initializable {
     private JFXButton BTUpdate;
     @FXML
     private JFXButton BTStaff;
+    @FXML
+    private JFXButton BTablesetting;
 
     /**
      * Initializes the controller class.
@@ -178,28 +175,29 @@ public class ManageController implements Initializable {
         int LID = RDBMSA.LoginController.LogId;
         String role = getRole(LID);
         if(role.equals("M")){
+            sceneID = 0;
             BCStaffview.setVisible(true);
+            BTStaff.setVisible(true);
+            BTablesetting.setVisible(true);
         } else{
+            sceneID = 2;
             BCStaffview.setVisible(false);
+            BTStaff.setVisible(false);
+            BTablesetting.setVisible(false);
+            BGraphic.setVisible(false);
         }
         
         if(sceneID == 2){
             sceneID = 2;
-            DetailAccountP.setVisible(false);
-            DetailCustomerP.setVisible(false);
-            TodaysBookedP.setVisible(true);
+            setPaneVisible(false, true, false); // account, today booking, customer, table setting
             TodaysBookedTable();
         } else if(sceneID == 1){
             sceneID = 1;
-            DetailAccountP.setVisible(true);
-            DetailCustomerP.setVisible(false);
-            TodaysBookedP.setVisible(false);
+            setPaneVisible(true, false, false);
             StaffListTable();
         }else{
             sceneID = 0;
-            DetailAccountP.setVisible(false);
-            DetailCustomerP.setVisible(true);
-            TodaysBookedP.setVisible(false);
+            setPaneVisible(false, false, true);
             CustomerTable();
         }
         
@@ -243,6 +241,12 @@ public class ManageController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ManageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void setPaneVisible(Boolean a, Boolean tb, Boolean c){
+        DetailAccountP.setVisible(a);
+        TodaysBookedP.setVisible(tb);
+        DetailCustomerP.setVisible(c);
     }
     
     public void CustomerTable(){
@@ -359,9 +363,7 @@ public class ManageController implements Initializable {
     @FXML
     private void BCStaffClicked(MouseEvent event) {
         sceneID = 1;
-        DetailAccountP.setVisible(true);
-        DetailCustomerP.setVisible(false);
-        TodaysBookedP.setVisible(false);
+        setPaneVisible(true, false, false);
         StaffListTable();
     }
 
@@ -395,9 +397,7 @@ public class ManageController implements Initializable {
     @FXML
     private void BAAllClicked(MouseEvent event) {
         sceneID = 0;
-        DetailAccountP.setVisible(false);
-        DetailCustomerP.setVisible(true);
-        TodaysBookedP.setVisible(false);
+        setPaneVisible(false, false, true);
         CustomerTable();
     }
 
@@ -456,7 +456,14 @@ public class ManageController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            loadScenePane("Login.fxml");
+            RDBMSA.LoginController.LogId = 0;
+            try {
+                Parent loginroot = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                Scene loginScene = new Scene(loginroot);
+                RDBMSA.Generator.viewStage.setScene(loginScene);
+            } catch (IOException ex) {
+                Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else{
             // ... user chose CANCEL or closed the dialog
         } 
@@ -511,27 +518,21 @@ public class ManageController implements Initializable {
     @FXML
     private void BCTodayClicked(MouseEvent event) {
         sceneID = 2;
-        DetailAccountP.setVisible(false);
-        DetailCustomerP.setVisible(false);
-        TodaysBookedP.setVisible(true);
+        setPaneVisible(false, true, false);
         TodaysBookedTable();
     }
 
     @FXML
     private void BATodayClicked(MouseEvent event) {
         sceneID = 2;
-        DetailAccountP.setVisible(false);
-        DetailCustomerP.setVisible(false);
-        TodaysBookedP.setVisible(true);
+        setPaneVisible(false, true, false);
         TodaysBookedTable();
     }
 
     @FXML
     private void BTAllClicked(MouseEvent event) {
         sceneID = 0;
-        DetailAccountP.setVisible(false);
-        DetailCustomerP.setVisible(true);
-        TodaysBookedP.setVisible(false);
+        setPaneVisible(false, false, true);
         CustomerTable();
     }
 
@@ -561,9 +562,12 @@ public class ManageController implements Initializable {
     @FXML
     private void BTStaffClicked(MouseEvent event) {
         sceneID = 1;
-        DetailAccountP.setVisible(true);
-        DetailCustomerP.setVisible(false);
-        TodaysBookedP.setVisible(false);
+        setPaneVisible(true, false, false);
         StaffListTable();
+    }
+    
+    @FXML
+    private void BTablesettingClicked(MouseEvent event) {
+        loadScenePane("Tablesetting.fxml");
     }
 }

@@ -1,0 +1,140 @@
+.root {
+	/**-fx-background-image: url("bg7.jpg");
+	-fx-background-size: cover;
+	-fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );**/
+}
+
+.label {/*
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );*/
+}
+
+.search-jfx-text-field {
+    -fx-background-color: transparent;
+    -fx-font-weight: BOLD;
+    -fx-prompt-text-fill: #35b28d;
+    -fx-alignment: top-left;
+}
+
+.logout-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #aab4e2;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.tablesetting-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #83dbb2;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.updaterecrod-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #1c2f9e;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.booked-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #af1d1d;
+    -fx-pref-width: 150;
+    -fx-text-fill: WHITE;
+}
+
+.allbooked-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #268481;
+    -fx-pref-width: 160;
+    -fx-text-fill: WHITE;
+}
+
+.staff-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #af1caf;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.graphic-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #1caf1e;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.add-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #1baa9c;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.remove-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #618214;
+    -fx-pref-width: 120;
+    -fx-text-fill: WHITE;
+}
+
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 10pt;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill:  #d1cccc;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}

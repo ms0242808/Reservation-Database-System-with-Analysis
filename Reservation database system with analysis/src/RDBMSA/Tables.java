@@ -33,15 +33,28 @@ public class Tables {
             statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
       
-            // create tables: customer, account, frined, message, playlist, track, playlisy_songs and device
+            // create tables: customer, account, queue, table_time
             statement.executeUpdate("drop table if exists customer");
-            statement.executeUpdate("create table customer (CustomerID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT, NumberOfDiner TEXT,Date TEXT, Time TEXT,Phone TEXT,Email TEXT,AdditionalRequest TEXT,PreOrder TEXT,ConfirmCode TEXT)");
+            statement.executeUpdate("create table customer (CustomerID INTEGER primary key NOT NULL, FirstName TEXT ,LastName TEXT, NumberOfDiner INTEGER, Date TEXT, Time TEXT, Phone TEXT, Email TEXT, AdditionalRequest TEXT, PreOrder TEXT, ConfirmCode TEXT, Year INTEGER)");
       
             statement.executeUpdate("drop table if exists account");
-            statement.executeUpdate("create table account (AccountID INTEGER primary key NOT NULL,FirstName TEXT,LastName TEXT,DateOfBirth TEXT,Phone TEXT,Address TEXT,UserName TEXT,PassWord TEXT,Role TEXT)");
+            statement.executeUpdate("create table account (AccountID INTEGER primary key NOT NULL, FirstName TEXT, LastName TEXT, DateOfBirth TEXT, Phone TEXT, Address TEXT, UserName TEXT, PassWord TEXT, Role TEXT)");
         
             statement.executeUpdate("drop table if exists queue");
-            statement.executeUpdate("create table queue (QueueID INTEGER primary key NOT NULL, Name TEXT, Phone TEXT, Diners TEXT)");
+            statement.executeUpdate("create table queue (QueueID INTEGER primary key NOT NULL, Name TEXT, Phone TEXT, Diners TEXT, Date TEXT, Period TEXT, Inrest TEXT, ApproEtime INTEGER)");
+            
+            statement.executeUpdate("drop table if exists table_Info");
+            statement.executeUpdate("create table table_Info (TableInfoID INTEGER primary key NOT NULL, Diner TEXT, Tableset INTEGER, Maxtime TEXT)");
+            
+            statement.executeUpdate("drop table if exists availability");
+            statement.executeUpdate("create table availability (AvailabilityID INTEGER primary key NOT NULL, Tableleft INTEGER, Diner TEXT, Date TEXT, Period TEXT)");
+            
+            statement.executeUpdate("drop table if exists table_time");
+            statement.executeUpdate("create table table_time (TableTimeID INTEGER primary key NOT NULL, Date TEXT, StartTime TEXT, EndTime TEXT, Period TEXT, Diner TEXT, Approx INTEGER, Finished TEXT)");
+            
+            statement.executeUpdate("drop table if exists restaurant_Info");
+            statement.executeUpdate("create table restaurant_Info (RestaurantID INTEGER primary key NOT NULL, Name TEXT, Location TEXT, LunchStart TEXT, LunchEnd TEXT, SupperStart TEXT, SupperEnd TEXT, ContactNo INTEGER)");
+            
             //close connection
             close();
         }catch(SQLException e){

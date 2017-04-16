@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -23,10 +24,11 @@ public class Generator extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         viewStage = primaryStage;
-        Parent root_friend = FXMLLoader.load(getClass().getResource("Fx.fxml"));
-        Scene friendListscene = new Scene(root_friend);
-        viewStage.setScene(friendListscene);
+        Parent root_booking = FXMLLoader.load(getClass().getResource("Fx.fxml"));
+        Scene Bookingscene = new Scene(root_booking);
+        viewStage.setScene(Bookingscene);
         viewStage.setResizable(false);
+        viewStage.initStyle(StageStyle.UNDECORATED);
         viewStage.show();
     }
 

@@ -5,7 +5,14 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.avaTLCheck;
+import static RDBMSA.Database.avaTableCheck;
 import static RDBMSA.Database.booktable;
+import static RDBMSA.Database.tableMaxtime;
+import static RDBMSA.Database.tableSet;
+import static RDBMSA.Database.updateAvail;
+import static RDBMSA.Database.bookTableT;
+import static RDBMSA.Database.getMaxDiner;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -15,6 +22,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -29,6 +37,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.mail.Session;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.PasswordAuthentication;
+import javax.mail.internet.MimeMessage;
 
 /**
  * FXML Controller class
@@ -41,7 +57,7 @@ public class BookingController implements Initializable {
     @FXML
     private AnchorPane CustomerP1;
     @FXML
-    private JFXComboBox<String> NPeople = new JFXComboBox<>();
+    private JFXComboBox<String> NPeople ;
     @FXML
     private JFXDatePicker Date;
     @FXML
@@ -96,6 +112,11 @@ public class BookingController implements Initializable {
     private AnchorPane SceneP;
     
     FxController fx = new FxController();
+    String pd = null;
+    String approxET = null;
+    String endT = null;
+    int periodH;
+    int periodM;
     /**
      * Initializes the controller class.
      */
@@ -104,7 +125,12 @@ public class BookingController implements Initializable {
         // TODO
         SetCustomerVisibles();
         Time.setValue(LocalTime.now());
-        NPeople.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
+        
+        for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
+            NPeople.getItems().add(Integer.toString(i+1));
+        }
+        
+        
         fx.valiadteDate(Date);
         fx.textFV(Ftextfield, "Enter your first name.");
         fx.textFV(Stextfield, "Enter your surname.");
@@ -128,7 +154,7 @@ public class BookingController implements Initializable {
     }
 
     public void ClearFields(){
-        NPeople.setValue(null);
+        NPeople.setValue("1");
         Date.setValue(null);
         Time.setValue(LocalTime.now());
         Ftextfield.setText(null);
@@ -139,7 +165,7 @@ public class BookingController implements Initializable {
     }
     
     public void SetDisables(){
-        Date.setDisable(true);
+        NPeople.setDisable(true);
         Time.setDisable(true);
         CustomerDP.setDisable(true);
         BCnext1.setDisable(true);
@@ -177,13 +203,43 @@ public class BookingController implements Initializable {
         }
     }
     
+    public void sendConfirmEmail(String mesg, String to){
+        String host="smtp.gmail.com";
+        String from = "jrjonlinefood@gmail.com";
+        String password = "Foodcourt123";
+        
+        Properties props = new Properties();
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");	
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        
+        Session session = Session.getDefaultInstance(props,new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        try{
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Restaurant Booking Confirmation Email");
+            message.setText(mesg);
+            Transport.send(message);
+        } catch (MessagingException e){         
+            throw new RuntimeException(e);
+        }
+    }
+    
     @FXML
     private void SelectedNP(ActionEvent event) {
         //String npvalue = NPeople.getValue();
         //System.out.println(npvalue);
         if(NPeople.getValue() != null){
-            Date.setDisable(false);
-            updateProgBar(0);
+            Time.setDisable(false);
+            updateProgBar(1);
         }
     }
 
@@ -192,16 +248,56 @@ public class BookingController implements Initializable {
         //System.out.println("1");
         if(Date.getValue() != null){
             //System.out.println(Date.getValue());
-            Time.setDisable(false);
-            updateProgBar(1);
+            NPeople.setDisable(false);
+            updateProgBar(0);
         }
     }
 
     @FXML
     private void SelectedTime(ActionEvent event) {
+        String period = null;
+        int nH = LocalTime.now().getHour();
+        int nM = LocalTime.now().getMinute();
+        int timeH = Time.getValue().getHour();
+        int timeM = Time.getValue().getMinute();
         if(Time.getValue() != null){
-            CustomerDP.setDisable(false);
-            updateProgBar(2);
+            String selectedDate = Date.getConverter().toString(Date.getValue());
+            if(RDBMSA.FxController.today.equals(selectedDate)){
+                if(timeH <= nH && timeM < nM){
+                    fx.AlertInforwindow(null, null, "Did you selected time in past?");
+                    CustomerDP.setDisable(true);
+                }
+            }
+
+            if(timeH <= 16 && timeH >= 10){
+                period = "lunch";
+            } else if(timeH <= 23 && timeH >= 17){
+                period = "dinner";
+            }
+            int np = Integer.parseInt(NPeople.getValue());
+            String numberP = null;
+            if ( (np & 1) == 0 ) { 
+                for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
+                    if(np == i+1 || np == i+2){
+                        numberP = Integer.toString(i) + "-" + Integer.toString(i+1);
+                    }
+                }
+            } else { 
+                for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
+                    if(np == i+1 || np == i+2){
+                        numberP = Integer.toString(i+1) + "-" + Integer.toString(i+2);
+                    }
+                }
+            }
+
+            int avaCheck = avaTLCheck(numberP,selectedDate,period);
+            if(avaCheck > 0 || avaCheck == -2){
+                CustomerDP.setDisable(false);
+                updateProgBar(2);
+            }else if(avaCheck == 0){
+                fx.AlertInforwindow(null, null, period +" period is fully booked, please select another time, date or diners");
+                CustomerDP.setDisable(true);
+            }
         }
     }
 
@@ -280,10 +376,12 @@ public class BookingController implements Initializable {
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(true);
         int NP = Integer.parseInt(NPeople.getValue());
+        String din = NPeople.getValue();
         //System.out.println(NP);
         //String Dt = ((TextField)Date.getEditor()).getText();
         LocalDate x = Date.getValue();
-        String Dt = Date.getConverter().toString(x);
+        String Dt = Date.getConverter().toString(x);        
+        String yrb = Integer.toString(x.getYear());
         LocalTime y = Time.getValue();
         String T = y.toString();
         String FT = Ftextfield.getText();
@@ -304,16 +402,86 @@ public class BookingController implements Initializable {
         String Concode = randStr.toString();
         
         //System.out.println(PT);
-        booktable(FT,ST,NP,Dt,T,PT,ET,SR,"8",Concode);
+        //update customer booking
+        booktable(FT,ST,NP,Dt,T,PT,ET,SR,"8",Concode,yrb);
+        
+        //update availability.
+        String tp[] = y.toString().split(":");
+        periodH = Integer.parseInt(tp[0]); // hr
+        periodM = Integer.parseInt(tp[1]); // min
+        if ( (NP & 1) == 0 ) { 
+            for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
+                if(NP == i+1 || NP == i+2){
+                    din = Integer.toString(i) + "-" + Integer.toString(i+1);
+                }
+            }
+        } else { 
+            for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
+                if(NP == i+1 || NP == i+2){
+                    din = Integer.toString(i+1) + "-" + Integer.toString(i+2);
+                }
+            }
+        }
+        int aid = 0;
+        if(periodH <= 16 && periodH >= 10){
+            pd = "lunch";
+            aid = avaTableCheck(din, Dt, pd);
+        } else if(periodH <= 23 && periodH >= 17){
+            pd = "dinner";
+            aid = avaTableCheck(din, Dt, pd);
+        }
+        
+        int atl = avaTLCheck(din, Dt, pd);
+        if(atl > 0){
+            atl = atl - 1;
+            updateAvail(aid, atl, din, Dt, pd);
+        }else{
+            int ts = tableSet(din) - 1;
+            updateAvail(aid, ts, din, Dt, pd);
+        }
+        
+        //update table_time
+        String maxT[] = tableMaxtime(din).split(":");
+        int maxhour = Integer.parseInt(maxT[0]);
+        int maxmin = Integer.parseInt(maxT[1]);
+        int endH = periodH + maxhour;
+        int endM = periodM + maxmin;
+        String em = null;      
+        if(endM >= 60){
+            endH = endH + 1;
+            endM = endM - 60;
+        }     
+        if(endM < 10){
+            em = "0" + Integer.toString(endM);
+        }else if(endM >= 10){
+            em = Integer.toString(endM);
+        }
+        endT = Integer.toString(endH) + ":" + em;
+        approxET = Integer.toString(endH) + em;
+        bookTableT(Dt, T, endT, pd, din, Integer.parseInt(approxET),"F");
+        
+        //send confirmation email
+        String newLine = System.getProperty("line.separator");
+        String message = "Hello " + FT + " " + ST + "," + newLine +
+                "Here is your booking confirmation deatils: " + newLine +
+                "Booking reference: " + Concode + newLine + 
+                "Number of diners booked: " + NP + newLine + 
+                "Time: " + Dt + newLine + 
+                "Date: " + T + newLine + 
+                "Additional requests: " + SR + newLine +
+                "We are looking forward to see you soon!";
+        sendConfirmEmail(message, ET);
+        
+        // next page
         ConfirmLabel.setText("Confrimation code: "+Concode);
         updateProgBar(10);
         BCSee.setText("See you at " + Dt + " , " + T);
     }
-
+    
     @FXML
     private void BCseeClicked(MouseEvent event) {
         SetCustomerVisibles();
-        //ClearFields();
-        //SetDisables();
+        ClearFields();
+        SetDisables();
     }    
 }

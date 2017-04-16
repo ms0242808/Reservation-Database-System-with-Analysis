@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
    <children>
+      <JFXButton fx:id="BBack" buttonType="RAISED" layoutX="931.0" layoutY="623.0" onMouseClicked="#BBackClicked" ripplerFill="RED" text="Back" />
       <AnchorPane fx:id="GraphP" layoutX="20.0" layoutY="20.0" prefHeight="450.0" prefWidth="982.0" />
-      <ButtonBar layoutX="65.0" layoutY="593.0" prefHeight="40.0" prefWidth="384.0">
+      <ButtonBar layoutX="107.0" layoutY="467.0" prefHeight="40.0" prefWidth="340.0">
         <buttons>
-          <Button fx:id="BLine" mnemonicParsing="false" onMouseClicked="#BLineClicked" text="Line graph" />
-            <Button fx:id="BBar" mnemonicParsing="false" onMouseClicked="#BBarClicked" text="Bar chart" />
-            <Button fx:id="BPie" mnemonicParsing="false" onMouseClicked="#BPieClicked" text="Pie chart" />
-            <JFXButton fx:id="BArea" onMouseClicked="#BAreaClicked" text="Area chart" />
+            <JFXButton fx:id="BDiner" buttonType="RAISED" onMouseClicked="#BDinerClicked" ripplerFill="#8c0f90" text="Diners" />
+            <JFXButton fx:id="BMonth" buttonType="RAISED" onMouseClicked="#BMonthClicked" ripplerFill="#117db8" text="Months" />
+            <JFXButton fx:id="BTime" buttonType="RAISED" onMouseClicked="#BTimeClicked" ripplerFill="#4ad9ad" text="Time(Period)" />
         </buttons>
       </ButtonBar>
-      <ButtonBar layoutX="83.0" layoutY="543.0" prefHeight="40.0" prefWidth="344.0">
+      <ButtonBar layoutX="89.0" layoutY="511.0" prefHeight="40.0" prefWidth="384.0">
         <buttons>
-          <Button fx:id="BDiner" mnemonicParsing="false" onMouseClicked="#BDinerClicked" text="Diners" />
-            <Button fx:id="BMonth" mnemonicParsing="false" onMouseClicked="#BMonthClicked" text="Months" />
-            <JFXButton fx:id="BTime" onMouseClicked="#BTimeClicked" text="Time(Period)" />
+            <JFXButton fx:id="BLine" onMouseClicked="#BLineClicked" ripplerFill="#ff9500" text="Line graph" />
+            <JFXButton fx:id="BBar" onMouseClicked="#BBarClicked" ripplerFill="#00f7ff" text="Bar chart" />
+            <JFXButton fx:id="BPie" onMouseClicked="#BPieClicked" ripplerFill="#0d00ff" text="Pie chart" />
+            <JFXButton fx:id="BArea" onMouseClicked="#BAreaClicked" ripplerFill="#ff00f3" text="Area chart" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="670.0" layoutY="470.0" text="Statistics:" />
-      <VBox layoutX="549.0" layoutY="490.0" prefHeight="174.0" prefWidth="162.0">
+      <Label layoutX="779.0" layoutY="463.0" text="Statistics:" />
+      <VBox layoutX="658.0" layoutY="483.0" prefHeight="174.0" prefWidth="162.0">
          <children>
             <Label text="Diners" />
             <Separator prefWidth="200.0" />
@@ -42,7 +45,7 @@
             <Label fx:id="LATime" text="Avg. booked time:" />
          </children>
       </VBox>
-      <VBox layoutX="738.0" layoutY="490.0" prefHeight="200.0" prefWidth="173.0">
+      <VBox layoutX="847.0" layoutY="483.0" prefHeight="127.0" prefWidth="173.0">
          <children>
             <Label text="Months" />
             <Separator prefWidth="200.0" />
@@ -51,6 +54,29 @@
             <Label fx:id="LAMonth" text="Avg. booked months:" />
          </children>
       </VBox>
-      <Button fx:id="BBack" layoutX="94.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#BBackClicked" text="Back" />
+      <ButtonBar layoutX="73.0" layoutY="547.0" prefHeight="40.0" prefWidth="416.0">
+         <buttons>
+            <JFXButton fx:id="BPyr1" onMouseClicked="#BPyr1Clicked" ripplerFill="#38650e" text="2 years" />
+            <JFXButton fx:id="BPyr" onMouseClicked="#BPyrClicked" ripplerFill="#0f635a" text="a year" />
+            <JFXButton fx:id="BCyr" onMouseClicked="#BCyrClicked" ripplerFill="#350f63" text="this year" />
+            <JFXButton fx:id="BAyr" onMouseClicked="#BAyrClicked" ripplerFill="#611010" text="2 yrs - yr" />
+         </buttons>
+      </ButtonBar>
+      <HBox layoutX="160.0" layoutY="592.0" prefHeight="40.0" prefWidth="180.0">
+         <children>
+            <JFXTextField fx:id="TFBeforY" labelFloat="true" onKeyReleased="#TFBeforYClicked" prefHeight="25.0" prefWidth="100.0" promptText="Input year:" />
+            <JFXButton fx:id="BBeforeG" onMouseClicked="#BBeforeGClicked" text="Generate" />
+         </children>
+      </HBox>
+      <JFXTextField fx:id="TFFromY" labelFloat="true" layoutX="160.0" layoutY="625.0" onKeyReleased="#TFFromYClicked" prefHeight="25.0" prefWidth="100.0" promptText="From:" />
+      <JFXTextField fx:id="TFToY" labelFloat="true" layoutX="297.0" layoutY="625.0" onKeyReleased="#TFToYClicked" prefHeight="25.0" prefWidth="110.0" promptText="To:" />
+      <JFXButton fx:id="BFTG" layoutX="412.0" layoutY="625.0" onMouseClicked="#BFTGClicked" text="Generate" />
+      <Label layoutX="274.0" layoutY="669.0" text="-" />
+      <HBox fx:id="MonthBox" layoutX="340.0" layoutY="592.0" prefHeight="40.0" prefWidth="180.0">
+         <children>
+            <JFXComboBox fx:id="CBDates" labelFloat="true" onAction="#CBDatesClicked" promptText="Month:" />
+            <JFXButton fx:id="BDateG" onMouseClicked="#BDateGClicked" text="Generate" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

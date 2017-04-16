@@ -1,0 +1,67 @@
+.topframe-hbox {
+	-fx-border-color: #352370;
+}
+
+.jfx-hamburger {
+	/**-fx-background-color: lightgrey;**/
+}
+
+.jfx-hamburger StackPane {
+	-fx-background-color: #326DC7;
+}
+
+.close-button {
+     -fx-graphic: url("close.png");
+}
+
+.close-button:hover {
+    -fx-graphic: url("close_hover.png");
+}
+
+.minimize-button {
+	-fx-graphic: url("minimize.png");
+}
+
+.minimize-button:hover {
+	-fx-graphic: url("minimize_hover.png");
+}
+
+.database-button {
+	-fx-graphic: url("database.png");
+}
+
+.database-button:hover {
+	-fx-graphic: url("database_hover.png");
+}
+
+.user-button {
+	-fx-graphic: url("user.png");
+}
+
+.user-button:hover {
+	-fx-graphic: url("user_hover.png");
+}
+
+.booking-button {
+	-fx-graphic: url("recipe.png");
+}
+
+.booking-button:hover {
+	-fx-graphic: url("recipe_hover.png");
+}
+
+.editbooked-button {
+	-fx-graphic: url("new-file.png");
+}
+
+.editbooked-button:hover {
+	-fx-graphic: url("new-file_hover.png");
+}
+
+.selfqueue-button {
+	-fx-graphic: url("tube-queue.png");
+}
+
+.selfqueue-button:hover {
+	-fx-graphic: url("tube-queue_hover.png");
+}

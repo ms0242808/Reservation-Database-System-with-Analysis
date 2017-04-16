@@ -5,6 +5,7 @@
  */
 package RDBMSA;
 
+import static RDBMSA.Database.avaTLCheck;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDrawer;
@@ -15,10 +16,13 @@ import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,11 +35,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -47,13 +55,11 @@ import javafx.util.Callback;
  */
 public class FxController implements Initializable {
     @FXML
-    private JFXButton CustomerTab;
+    private JFXButton BCustomer;
     @FXML
-    private JFXButton EditTab;
+    private JFXButton BEdit;
     @FXML
-    private JFXButton QueueTab;
-    @FXML
-    private JFXButton ManagerTab;
+    private JFXButton BQueue;
     @FXML
     private AnchorPane SceneP;
     @FXML
@@ -62,7 +68,28 @@ public class FxController implements Initializable {
     private JFXHamburger ham;
     @FXML
     private JFXDrawer drawer;
-   
+    
+    public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static Date de = new Date();
+    public static String today = dateFormat.format(de);
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+    public static String spane = "Booking.fxml";
+    public static String nameUser = "Hello";
+    
+    @FXML
+    private JFXButton BLogin;
+    @FXML
+    private JFXButton BMinimize;
+    @FXML
+    private JFXButton BClose;
+    @FXML
+    private HBox TopFrame;
+    @FXML
+    private JFXTextField UserTF;
+    @FXML
+    private JFXButton BDatabase;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -71,12 +98,44 @@ public class FxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //Exitmenu.setOnAction(actionEvent -> Platform.exit());
-        loadScenePane("Booking.fxml");
+        int userLogedID = RDBMSA.LoginController.LogId;
+        
+        if(userLogedID > 0){
+            UserTF.setVisible(true);
+            UserTF.setText(nameUser);
+            BDatabase.setVisible(true);
+            BLogin.setVisible(false);
+            AddToolTip("View Booking records", BDatabase);
+        }else{
+            UserTF.setVisible(false);
+            BDatabase.setVisible(false);
+            BLogin.setVisible(true);
+        }
+        
+        loadScenePane(spane);
+        BLogin.setText(null);
+        BMinimize.setText(null);
+        BClose.setText(null);
+        
         MenuAnimation();
         drawer.setSidePane(LPmenu);
+        
+        AddToolTip("Close", BClose);
+        AddToolTip("Minimize", BMinimize);
+        AddToolTip("Staff/Manager Login", BLogin);
+        AddToolTip("Book a table", BCustomer);
+        AddToolTip("Edit Booking", BEdit);
+        AddToolTip("Online Self-Queue", BQueue);
+        
+        LPmenu.backgroundProperty().set(Background.EMPTY);
         LPmenu.setStyle("-fx-background-color: transparent;");
         //CustomerTab.setContentDisplay(ContentDisplay.TOP); set image above the text
+    }
+    
+    public void AddToolTip(String tipMesg, JFXButton butt){
+        Tooltip addTip = new Tooltip();
+        addTip.setText(tipMesg);
+        butt.setTooltip(addTip);
     }
     
     private void MenuAnimation() {
@@ -252,22 +311,77 @@ public class FxController implements Initializable {
     }
     
     @FXML
-    private void BCTabClicked(ActionEvent event) {
+    private void BCClicked(ActionEvent event) {
         loadScenePane("Booking.fxml");
     }
 
     @FXML
-    private void BETabClicked(ActionEvent event) {
+    private void BEClicked(ActionEvent event) {
         loadScenePane("EditBooking.fxml");
     }
 
     @FXML
-    private void BQTabClicked(ActionEvent event) {
-        loadScenePane("Queue.fxml");
+    private void BLoginOnAction(ActionEvent event) {
+        try {
+            Parent loginroot = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene loginScene = new Scene(loginroot);
+            RDBMSA.Generator.viewStage.setScene(loginScene);
+        } catch (IOException ex) {
+            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
-    private void BMTabClicked(ActionEvent event) {
-        loadScenePane("Login.fxml");
+    private void BQClicked(ActionEvent event) {
+        //check period availability to set online-queue open or close
+        int nH = LocalTime.now().getHour();
+        String period = null;
+        int ocCheck = 1;
+        int i=0;
+        if(nH <= 16 && nH >= 10){
+            period = "lunch";
+        } else if(nH <= 23 && nH >= 17){
+            period = "dinner";
+        }
+        while(ocCheck != -2){
+            String odd = Integer.toString(i+1);
+            String even = Integer.toString(i+2);
+            String set = odd + "-" + even;
+            i++;
+            ocCheck= avaTLCheck(set,today,period);
+        }
+        if(ocCheck == -2){
+            AlertInforwindow(null, null, "There are still some table left for current " + period + " section, book it quickly.");
+            loadScenePane("Booking.fxml");
+        }else{
+            loadScenePane("Queue.fxml");
+        }
+    }
+
+    @FXML
+    private void BMinimizeAction(ActionEvent event) {
+        RDBMSA.Generator.viewStage.setIconified(true);
+    }
+
+    @FXML
+    private void BCloseAction(ActionEvent event) {
+        RDBMSA.Generator.viewStage.close();
+    }
+
+    @FXML
+    private void TopFrameMouseDragged(MouseEvent event) {
+        RDBMSA.Generator.viewStage.setX(event.getScreenX() + xOffset);
+        RDBMSA.Generator.viewStage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    private void TopFrameMousePressed(MouseEvent event) {
+        xOffset = RDBMSA.Generator.viewStage.getX() - event.getScreenX();
+        yOffset = RDBMSA.Generator.viewStage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    private void BDatabaseAction(ActionEvent event) {
+        loadScenePane("Manage.fxml");
     }
 }

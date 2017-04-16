@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/UpdateForm.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateAccountController">
    <children>
       <Label fx:id="AccountTitle" layoutX="439.0" layoutY="103.0" text="Update Account" />
       <VBox layoutX="279.0" layoutY="164.0" prefHeight="368.0" prefWidth="426.0">
@@ -50,22 +50,22 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Label>
-            <JFXRadioButton fx:id="RStaff" onMouseClicked="#RStaffClicked" text="Staff">
+            <JFXRadioButton fx:id="RStaff" onMouseClicked="#RStaffClicked" styleClass="staff-radio-button-title-label" text="Staff">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="RManager" onMouseClicked="#RManagerClicked" text="Manager Team">
+            <JFXRadioButton fx:id="RManager" onMouseClicked="#RManagerClicked" styleClass="manager-radio-button-title-label" text="Manager Team">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </JFXRadioButton>
          </children>
       </VBox>
-      <ButtonBar layoutX="526.0" layoutY="549.0" prefHeight="40.0" prefWidth="269.0">
+      <ButtonBar layoutX="516.0" layoutY="549.0" prefHeight="40.0" prefWidth="279.0">
          <buttons>
-            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" text="Back" />
-            <JFXButton fx:id="BCAccount" onAction="#validation" onMouseClicked="#BUpdateClicked" text="Update account" />
+            <JFXButton fx:id="BCancel" onMouseClicked="#BCancelClicked" styleClass="cancel-button" text="Back" />
+            <JFXButton fx:id="BCAccount" onAction="#validation" onMouseClicked="#BUpdateClicked" styleClass="update-button" text="Update account" />
          </buttons>
       </ButtonBar>
    </children>

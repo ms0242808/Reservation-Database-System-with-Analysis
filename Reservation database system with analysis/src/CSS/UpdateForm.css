@@ -1,0 +1,58 @@
+.root {
+	/**-fx-background-image: url("bg7.jpg");
+	-fx-background-size: cover;
+	-fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );**/
+}
+
+.label {/*
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );*/
+}
+
+.jfx-text-field, .jfx-password-field, .jfx-text-area {
+    -fx-background-color: transparent;
+    -fx-font-weight: BOLD;
+    -fx-prompt-text-fill: #5c62ce;
+    -fx-alignment: top-left;
+    -jfx-focus-color: #3a2360;
+    -jfx-unfocus-color: #4d4d4d;
+}
+
+.update-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #1c2f9e;
+    -fx-pref-width: 160;
+    -fx-text-fill: WHITE;
+}
+
+.cancel-button {
+    -fx-padding: 0.3em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #7a216a;
+    -fx-pref-width: 160;
+    -fx-text-fill: WHITE;
+}
+
+.staff-radio-button-title-label {
+    -fx-font-size: 14px;
+    -fx-padding: 14.0 0.0 -20.0 0.0;
+    -fx-text-fill: #28a086;
+    -jfx-selected-color: #28a086;
+    -jfx-unselected-color: #212121;
+}
+
+.manager-radio-button-title-label {
+    -fx-font-size: 14px;
+    -fx-padding: 14.0 0.0 -20.0 0.0;
+    -fx-text-fill: #a83c26;
+    -jfx-selected-color: #a83c26;
+    -jfx-unselected-color: #212121;
+}

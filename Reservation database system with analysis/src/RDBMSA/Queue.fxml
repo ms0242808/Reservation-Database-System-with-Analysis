@@ -5,14 +5,15 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.QueueController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/Queue.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.QueueController">
    <children>
-      <JFXTextField fx:id="LName" labelFloat="true" layoutX="371.0" layoutY="18.0" prefHeight="25.0" prefWidth="250.0" promptText="Name:" />
-      <JFXTextField fx:id="LPhone" labelFloat="true" layoutX="371.0" layoutY="75.0" prefHeight="25.0" prefWidth="250.0" promptText="Phone number:" />
-      <JFXTextField fx:id="LDiner" labelFloat="true" layoutX="371.0" layoutY="131.0" prefHeight="25.0" prefWidth="250.0" promptText="Number of diners:" />
-      <JFXListView fx:id="QueueList" layoutX="205.0" layoutY="183.0" prefHeight="400.0" prefWidth="600.0" />
-      <JFXButton fx:id="BJoin" layoutX="693.0" layoutY="69.0" onMouseClicked="#BJoinClicked" text="Join the queue" />
-      <JFXTextField fx:id="LQPhone" labelFloat="true" layoutX="361.0" layoutY="598.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter your phone number:" />
-      <JFXButton fx:id="BCancel" layoutX="425.0" layoutY="645.0" onMouseClicked="#BCancelClicked" text="Cancel my queue" />
+      <JFXTextField fx:id="LName" labelFloat="true" layoutX="129.0" layoutY="319.0" prefHeight="25.0" prefWidth="250.0" promptText="Name:" />
+      <JFXTextField fx:id="LPhone" labelFloat="true" layoutX="129.0" layoutY="385.0" prefHeight="25.0" prefWidth="250.0" promptText="Phone number:" />
+      <JFXTextField fx:id="LDiner" labelFloat="true" layoutX="129.0" layoutY="451.0" prefHeight="25.0" prefWidth="250.0" promptText="Number of diners:" />
+      <JFXListView fx:id="QueueList" layoutX="579.0" layoutY="82.0" prefHeight="400.0" prefWidth="318.0" />
+      <JFXButton fx:id="BJoin" layoutX="196.0" layoutY="511.0" onMouseClicked="#BJoinClicked" styleClass="join-button" text="Join the queue" />
+      <JFXTextField fx:id="LQPhone" labelFloat="true" layoutX="600.0" layoutY="536.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter your phone number:" />
+      <JFXButton fx:id="BCancel" layoutX="670.0" layoutY="596.0" onMouseClicked="#BCancelClicked" styleClass="cancel-button" text="Cancel my queue" />
+      <JFXListView fx:id="AvaList" layoutX="28.0" layoutY="82.0" prefHeight="183.0" prefWidth="458.0" />
    </children>
 </AnchorPane>

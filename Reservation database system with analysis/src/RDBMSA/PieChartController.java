@@ -7,6 +7,8 @@ package RDBMSA;
 
 import static RDBMSA.Database.countRecords;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +32,7 @@ public class PieChartController implements Initializable {
 
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    String[] dateCounter = new String[31];
     /**
      * Initializes the controller class.
      */
@@ -39,6 +42,10 @@ public class PieChartController implements Initializable {
         String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
         // Convert it to a list and add it to our ObservableList of months.
         monthNames.addAll(Arrays.asList(months));
+        
+        for(int i=0; i<dateCounter.length; i++){
+            dateCounter[i] = Integer.toString(i+1);
+        }
     }    
     
     public void clearGraph(){
@@ -48,59 +55,79 @@ public class PieChartController implements Initializable {
     public void setMonthPieData(List<customerList> CList) {
         // Count the number of people having their birthday in a specific month.
         clearGraph();
-        pieChart.setTitle("Monthly booked");
+       
         int[] monthCounter = new int[12];
-        int count = 0;
-        for (customerList p : CList) {
-            String str[] = p.getBdate().split("/");
-            int month = Integer.parseInt(str[1]) - 1;
-            count = 1 + monthCounter[month]++;
-            //System.out.println(month + ": "+ count);
-        }   
+        int tyr = RDBMSA.StatisticsController.tyr;
 
-        // Create a XYChart.Data object for each month. Add it to the series.        
+        try {
+            String yearDinerQuery = "SELECT Date from customer WHERE Year = '" + tyr + "' ";
+            ResultSet rs2 = Database.RetSet(yearDinerQuery);
+            while (rs2.next()){
+                String str[] = rs2.getString("Date").split("/");
+                int month = Integer.parseInt(str[1]) - 1;
+                int count = 1 + monthCounter[month]++;
+                //System.out.println(month + ": "+ count);
+            }
+        } catch (SQLException ex) {
+            //System.out.println(ex);
+        }
+            
         for (int i = 0; i < monthCounter.length; i++) {
             //System.out.println(monthNames.get(i) + ":" + monthCounter[i]);
             pieChartData.addAll(new PieChart.Data(monthNames.get(i), monthCounter[i]));
+            monthCounter[i] = 0;
         }
+        
         pieChart.setData(pieChartData);
+        pieChart.setTitle(tyr+" Diner booked");
+        
         pieChartData.forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.getName(), " ", data.pieValueProperty().intValue()
-                        )
+            data.nameProperty().bind(
+                Bindings.concat(
+                    data.getName(), " ", data.pieValueProperty().intValue()
                 )
+            )
         );
     }
     
     public void setDinerPieData(List<customerList> CList) {
         // Count the number of people having their birthday in a specific month.
         clearGraph();
-        pieChart.setTitle("Diner booked");
         //yAxis.setLabel("Value");
         
         int records = countRecords();
         int[] monthCounter = new int[12];
         int[] dinerCounter = new int[records];
+        int tyr = RDBMSA.StatisticsController.tyr;
         
-        for (customerList p : CList) {
-            String strd[] = Integer.toString(p.getNumberofdiner()).split("/");
-            int diners = Integer.parseInt(strd[0]);
-            
-            String strm[] = p.getBdate().split("/");
-            int month = Integer.parseInt(strm[1]) - 1;
+        try {
+            String yearDinerQuery = "SELECT NumberOfDiner,Date from customer WHERE Year = '" + tyr + "' ";
+            ResultSet rs2 = Database.RetSet(yearDinerQuery);
+                while (rs2.next()){
+                    String strd[] = Integer.toString(rs2.getInt("NumberOfDiner")).split("/");
+                    int diners = Integer.parseInt(strd[0]);
 
-            dinerCounter[month] += dinerCounter[diners] + diners;
-           
-            monthCounter[month]++;
-            //System.out.println(month+": "+dinerCounter[month] );
-        }   
-        // Create a XYChart.Data object for each month. Add it to the series.    
+                    String strm[] = rs2.getString("Date").split("/");
+                    int month = Integer.parseInt(strm[1]) - 1;
+
+                    dinerCounter[month] += dinerCounter[diners] + diners;
+
+                    monthCounter[month]++;
+                    //System.out.println(tim + ": " + dinerCounter[tim]);
+                }
+        } catch (SQLException ex) {
+            //System.out.println(ex);
+        } 
+  
         for (int i = 0; i < monthCounter.length; i++) {
             //System.out.println(monthNames.get(i) + ":" + dinerCounter[i]);
             pieChartData.addAll(new PieChart.Data(monthNames.get(i), dinerCounter[i]));
+            dinerCounter[i] = 0;
         }
+        
         pieChart.setData(pieChartData);
+        pieChart.setTitle(tyr+" Diner booked");
+        
         pieChartData.forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(

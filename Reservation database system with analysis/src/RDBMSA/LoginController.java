@@ -15,12 +15,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -42,6 +45,17 @@ public class LoginController implements Initializable {
     public static int LogId = 0;
     FxController alertwindow = new FxController();
     AnimationGen animationGen = new AnimationGen();
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+    
+    @FXML
+    private HBox TopFrame;
+    @FXML
+    private JFXButton BBack;
+    @FXML
+    private JFXButton BMinimize;
+    @FXML
+    private JFXButton BClose;
     
     /**
      * Initializes the controller class.
@@ -53,8 +67,10 @@ public class LoginController implements Initializable {
     
     public void loadScenePane(String SceneName){
         try {
-            Parent root1 = FXMLLoader.load(getClass().getResource(SceneName));
-            SceneP.getChildren().setAll(root1);
+            RDBMSA.FxController.spane = SceneName;
+            Parent root1 = FXMLLoader.load(getClass().getResource("Fx.fxml"));
+            Scene pScene = new Scene(root1);
+            RDBMSA.Generator.viewStage.setScene(pScene);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,6 +91,7 @@ public class LoginController implements Initializable {
             login = userCheck(user);
             loginPass = passwordCheck(login, pass);  
             if (loginPass == -1){
+                RDBMSA.FxController.nameUser = "Welcome back! " + user;
                 LogId = login;
                 loadScenePane("Manage.fxml");
                 animationGen.FadeAnimationOn(SceneP, 2000, 0f, 1.0f, null);
@@ -83,5 +100,41 @@ public class LoginController implements Initializable {
             alertwindow.AlertWarningwindow(null, null, "Please enter correct username and password.");
             //effect on textfiled 
         }
+        
     }  
+
+    @FXML
+    private void BBackOnAction(ActionEvent event) {
+        RDBMSA.FxController.spane = "Booking.fxml";
+        try {
+            Parent Bookingroot = FXMLLoader.load(getClass().getResource("Fx.fxml"));
+            
+            Scene bookingScene = new Scene(Bookingroot);
+            RDBMSA.Generator.viewStage.setScene(bookingScene);
+        } catch (IOException ex) {
+            Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void BMinimizeAction(ActionEvent event) {
+        RDBMSA.Generator.viewStage.setIconified(true);
+    }
+
+    @FXML
+    private void BCloseAction(ActionEvent event) {
+        RDBMSA.Generator.viewStage.close();
+    }
+
+    @FXML
+    private void TopFrameMouseDragged(MouseEvent event) {
+        RDBMSA.Generator.viewStage.setX(event.getScreenX() + xOffset);
+        RDBMSA.Generator.viewStage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    private void TopFrameMousePressed(MouseEvent event) {
+        xOffset = RDBMSA.Generator.viewStage.getX() - event.getScreenX();
+        yOffset = RDBMSA.Generator.viewStage.getY() - event.getScreenY();
+    }
 }

@@ -3,37 +3,114 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.FxController">
    <children>
-      <AnchorPane prefHeight="700.0" prefWidth="1024.0">
+      <AnchorPane prefHeight="700.0" prefWidth="1024.0" stylesheets="@../CSS/Fx.css">
          <children>
-            <VBox fx:id="LPmenu" layoutX="-99.0" layoutY="48.0" prefHeight="708.0" prefWidth="100.0" AnchorPane.bottomAnchor="190.0" AnchorPane.topAnchor="48.0">
+            <AnchorPane fx:id="SceneP" layoutY="41.0" prefHeight="660.0" prefWidth="1024.0" />
+            <JFXHamburger fx:id="ham" layoutX="38.0" layoutY="47.0" prefHeight="32.0" prefWidth="37.0" />
+            <JFXDrawer fx:id="drawer" layoutX="19.0" layoutY="89.0" prefHeight="306.0" prefWidth="74.0" />
+            <HBox fx:id="TopFrame" alignment="TOP_RIGHT" layoutX="-1.0" layoutY="-1.0" onMouseDragged="#TopFrameMouseDragged" onMousePressed="#TopFrameMousePressed" prefHeight="45.0" prefWidth="1027.0" styleClass="topframe-hbox">
                <children>
-                  <JFXButton fx:id="CustomerTab" onAction="#BCTabClicked" ripplerFill="#3e7cae" text="Book a Table" />
-                  <JFXButton fx:id="EditTab" onAction="#BETabClicked" ripplerFill="#3ead9e" text="Edit Booking">
+                  <JFXButton fx:id="BLogin" onAction="#BLoginOnAction" prefHeight="36.0" prefWidth="56.0" styleClass="user-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../ICONS/user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXTextField fx:id="UserTF" editable="false" text="Welcome Back! Bro">
+                     <HBox.margin>
+                        <Insets right="10.0" top="8.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton fx:id="BDatabase" onAction="#BDatabaseAction" styleClass="database-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../ICONS/database.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="630.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="BMinimize" onAction="#BMinimizeAction" styleClass="minimize-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0">
+                           <image>
+                              <Image url="@../ICONS/minimize.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="BClose" onAction="#BCloseAction" styleClass="close-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0">
+                           <image>
+                              <Image url="@../ICONS/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <VBox fx:id="LPmenu" alignment="CENTER" layoutX="-115.0" layoutY="86.0" prefHeight="320.0" prefWidth="114.0">
+               <children>
+                  <JFXButton fx:id="BCustomer" onAction="#BCClicked" ripplerFill="#3e7cae" styleClass="booking-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="45.0">
+                           <image>
+                              <Image url="@../ICONS/recipe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
+                  <JFXButton fx:id="BEdit" onAction="#BEClicked" ripplerFill="#3ead9e" styleClass="editbooked-button" text=" ">
                      <VBox.margin>
                         <Insets top="50.0" />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../ICONS/new-file.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="QueueTab" onAction="#BQTabClicked" text="Online self-queue">
+                  <JFXButton fx:id="BQueue" onAction="#BQClicked" styleClass="selfqueue-button" text=" ">
                      <VBox.margin>
                         <Insets top="50.0" />
                      </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="ManagerTab" onAction="#BMTabClicked" ripplerFill="#bc2e2e" text="Staff Login">
-                     <VBox.margin>
-                        <Insets top="430.0" />
-                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../ICONS/tube-queue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </JFXButton>
                </children>
             </VBox>
-            <AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="1024.0" />
-            <JFXHamburger fx:id="ham" layoutX="22.0" layoutY="6.0" prefHeight="32.0" prefWidth="37.0" />
-            <JFXDrawer fx:id="drawer" layoutX="3.0" layoutY="39.0" prefHeight="634.0" prefWidth="100.0" AnchorPane.topAnchor="39.0" />
          </children>
       </AnchorPane>
    </children>

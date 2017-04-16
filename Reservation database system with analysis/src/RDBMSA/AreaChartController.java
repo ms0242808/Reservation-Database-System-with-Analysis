@@ -7,8 +7,11 @@ package RDBMSA;
 
 import static RDBMSA.Database.countRecords;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -51,42 +54,54 @@ public class AreaChartController implements Initializable {
     }
     
     public void setTimeAreaData(List<customerList> CList) {
-        clearGraph();      
+        clearGraph();    
+        
         int records = countRecords();
         int[] dinerCounter = new int[records];
-        for (customerList p : CList) {
-            //String stry[] = p.getBdate().split("/");
-            //int yr = Integer.parseInt(stry[2]);
-            //System.out.println(yr);
+        String[] yearCounter = new String[50];
+        int tyr = RDBMSA.StatisticsController.tyr;
+        int ylength = RDBMSA.StatisticsController.yearlength;
+        XYChart.Series<Integer, Integer>[] series = Stream.<XYChart.Series<Integer, Integer>>generate(XYChart.Series::new).limit(20).toArray(XYChart.Series[]::new);
+        
+        for(int y = RDBMSA.StatisticsController.xy; y <= ylength; y++){
+            yearCounter[y] = Integer.toString(tyr);
+            //System.out.println(yearCounter[y]);           
+            try {
+                String yearDinerQuery = "SELECT NumberOfDiner,Time from customer WHERE Year = '" + tyr + "' ";
+                ResultSet rs2 = Database.RetSet(yearDinerQuery);
+                while (rs2.next()){
+                    String d[] = Integer.toString(rs2.getInt("NumberOfDiner")).split("/");
+                    int din = Integer.parseInt(d[0]);
 
-            String strd[] = Integer.toString(p.getNumberofdiner()).split("/");
-            int diners = Integer.parseInt(strd[0]);
-            
-            String str[] = p.getBtime().split(":");
-            int t = Integer.parseInt(str[0]);
-            
-            dinerCounter[t] += dinerCounter[diners] + diners;
-            //System.out.println(t+ ": "+dinerCounter[t]);
-        } 
-        
-        //XYChart.Series<Integer, Integer>[] series = Stream.<XYChart.Series<String, Number>>generate(XYChart.Series::new).limit(2).toArray(XYChart.Series[]::new);
-        XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
-        series.setName("Number of records");
-        for (int i = 0; i < timeCounter.length; i++) {       
-            series.getData().add(new XYChart.Data(timeCounter[i], dinerCounter[i]));
-        }
-        
-        areaChart.getData().add(series);
-        
-        for(final XYChart.Data<Integer, Integer> data : series.getData()){
-            data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler(){
-                @Override
-                public void handle(Event event) {
-                    String x;
-                    x = "Time: " + data.getXValue() + ", Number of records: "+ String.valueOf(data.getYValue());
-                    LData.setText(x);
+                    String t[] = rs2.getString("Time").split(":");
+                    int tim = Integer.parseInt(t[0]);
+                    dinerCounter[tim] += dinerCounter[din] + din;
+                    //System.out.println(tim + ": " + dinerCounter[tim]);
                 }
-            });    
-        }
+            } catch (SQLException ex) {
+                //System.out.println(ex);
+            }
+            
+            series[y].setName(yearCounter[y]);
+            
+            for (int i = 0; i < timeCounter.length; i++) {       
+                series[y].getData().add(new XYChart.Data(timeCounter[i], dinerCounter[i]));
+                dinerCounter[i] = 0;
+            }
+        
+            areaChart.getData().add(series[y]);
+            
+            for(final XYChart.Data<Integer, Integer> data : series[y].getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler(){
+                    @Override
+                    public void handle(Event event) {
+                        String x = null;
+                        x ="Time: " + data.getXValue() + ", Number of records: "+ String.valueOf(data.getYValue());
+                        LData.setText(x);
+                    }
+                });    
+            }           
+            tyr = tyr - 1;
+        }       
     }
 }
