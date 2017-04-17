@@ -434,7 +434,7 @@ public class StatisticsController implements Initializable {
         if(Integer.parseInt(endYr) == Integer.parseInt(dateFormat.format(todays_date))){
             yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr);
         }else {
-            yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr) + 2;
+            yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr) + 1;
         }
         loadC();
     }
