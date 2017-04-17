@@ -1,7 +1,7 @@
 .root {
-	/*-fx-background-image: url("bg2.jpg"); /* 2>3>1>6>4>5 
+	/*-fx-background-image: url("login.jpg"); /* 2>3>1>6>4>5 */
 	-fx-background-size: cover;
-	-fx-font-size: 14px;
+	/*-fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );*/
@@ -15,8 +15,20 @@
 }
 
 .jfx-progress-bar {
-    -fx-progress-color: #eea10b;
-    -fx-stroke-width: 50;
+    -fx-pref-height: 7.0;
+}
+
+.jfx-progress-bar > .track, .jfx-progress-bar > .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.jfx-progress-bar > .track {
+    -fx-background-color: #a03050; /*track bar background color*/
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color: #3e9b84;
 }
 
 .next-button {

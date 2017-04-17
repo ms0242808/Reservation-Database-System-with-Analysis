@@ -22,10 +22,10 @@ public class customerList {
     private final SimpleStringProperty pnumber;
     private final SimpleStringProperty EMAIL;
     private final SimpleStringProperty SpecialR;
-    private final SimpleStringProperty pOrder;
+    private final SimpleStringProperty Period;
     private final SimpleStringProperty cCode;
     
-    public customerList(int cID, String FN, String  SN, int NOD, String BD, String BT, String PN, String EM, String SR, String PO, String CC) {
+    public customerList(int cID, String FN, String  SN, int NOD, String BD, String BT, String PN, String EM, String SR, String PD, String CC) {
         this.cID = new SimpleIntegerProperty(cID);
         this.Fname = new SimpleStringProperty(FN);
         this.Sname = new SimpleStringProperty(SN);
@@ -35,7 +35,7 @@ public class customerList {
         this.pnumber = new SimpleStringProperty(PN);
         this.EMAIL = new SimpleStringProperty(EM);
         this.SpecialR = new SimpleStringProperty(SR);
-        this.pOrder = new SimpleStringProperty(PO);
+        this.Period = new SimpleStringProperty(PD);
         this.cCode = new SimpleStringProperty(CC);
     }
 
@@ -111,12 +111,12 @@ public class customerList {
         this.SpecialR.set(SpecialR);
     }
     
-    public String getPorder() {
-        return pOrder.get();
+    public String getPeriod() {
+        return Period.get();
     }
 
-    public void setPorder(String pOrder) {
-        this.pOrder.set(pOrder);
+    public void setPeriod(String Period) {
+        this.Period.set(Period);
     }
     
     public String getCcode() {

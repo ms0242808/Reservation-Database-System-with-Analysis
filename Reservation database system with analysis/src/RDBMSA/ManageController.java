@@ -74,7 +74,7 @@ public class ManageController implements Initializable {
     @FXML
     private TableColumn<customerList, String> SRequest;
     @FXML
-    private TableColumn<customerList, String> POrder;
+    private TableColumn<customerList, String> PErd;
     @FXML
     private TableColumn<customerList, String> Ccode;
     @FXML
@@ -122,7 +122,7 @@ public class ManageController implements Initializable {
     public static int staffID, customerID, diner;
     public static String fn, ln, date, pnumber;
     public static String address, un, pw, ro;
-    public static String ctime, cemail, srequest, porder;
+    public static String ctime, cemail, srequest, perd;
     private final ObservableList<customerList> todayList = FXCollections.observableArrayList();;
     
     @FXML
@@ -142,7 +142,7 @@ public class ManageController implements Initializable {
     @FXML
     private TableColumn<customerList, String> Todayrequest;
     @FXML
-    private TableColumn<customerList, String> Todaypreorder;
+    private TableColumn<customerList, String> Todayperiod;
     @FXML
     private JFXTextField TTodaySearch;
     @FXML
@@ -207,7 +207,7 @@ public class ManageController implements Initializable {
         Todaytime.setCellValueFactory(new PropertyValueFactory("Btime"));
         Todayphone.setCellValueFactory(new PropertyValueFactory("Pnumber"));
         Todayrequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
-        Todaypreorder.setCellValueFactory(new PropertyValueFactory("Porder"));
+        Todayperiod.setCellValueFactory(new PropertyValueFactory("Period"));
         
         
         cID.setCellValueFactory(new PropertyValueFactory("CustomerID"));
@@ -219,7 +219,7 @@ public class ManageController implements Initializable {
         Pnumber.setCellValueFactory(new PropertyValueFactory("Pnumber"));
         eMail.setCellValueFactory(new PropertyValueFactory("Email"));
         SRequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
-        POrder.setCellValueFactory(new PropertyValueFactory("Porder"));
+        PErd.setCellValueFactory(new PropertyValueFactory("Period"));
         Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));
         //CustomerTable();        
         
@@ -264,7 +264,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("Phone"),
                                            rs2.getString("Email"),
                                            rs2.getString("AdditionalRequest"),
-                                           rs2.getString("PreOrder"),
+                                           rs2.getString("Period"),
                                            rs2.getString("ConfirmCode")));
                 CustomerTable.setItems(this.CList);
             }
@@ -317,7 +317,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("Phone"),
                                            rs2.getString("Email"),
                                            rs2.getString("AdditionalRequest"),
-                                           rs2.getString("PreOrder"),
+                                           rs2.getString("Period"),
                                            rs2.getString("ConfirmCode")));
                 TodaysBTable.setItems(this.todayList);
             }
@@ -334,7 +334,7 @@ public class ManageController implements Initializable {
     }
 
     @FXML
-    private void TSearchRekeased(KeyEvent event) {
+    private void TSearchReleased(KeyEvent event) {
         //TSearch.setText(null);
         FilteredList<customerList> filteredData = new FilteredList<>(CList, e -> true);
         TSearch.setOnKeyReleased(e -> {
@@ -482,7 +482,7 @@ public class ManageController implements Initializable {
             pnumber = CustomerTable.getSelectionModel().getSelectedItem().getPnumber();
             cemail = CustomerTable.getSelectionModel().getSelectedItem().getEmail();
             srequest = CustomerTable.getSelectionModel().getSelectedItem().getSrequest();
-            porder = CustomerTable.getSelectionModel().getSelectedItem().getPorder();
+            perd = CustomerTable.getSelectionModel().getSelectedItem().getPeriod();
             loadScenePane("UpdateBooking.fxml");
         } else{
             alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
@@ -552,7 +552,7 @@ public class ManageController implements Initializable {
             pnumber = TodaysBTable.getSelectionModel().getSelectedItem().getPnumber();
             cemail = getEmail(customerID);
             srequest = TodaysBTable.getSelectionModel().getSelectedItem().getSrequest();
-            porder = TodaysBTable.getSelectionModel().getSelectedItem().getPorder();
+            perd = TodaysBTable.getSelectionModel().getSelectedItem().getPeriod();
             loadScenePane("UpdateBooking.fxml");
         } else{
             alertwindow.AlertWarningwindow(null, null, "Please select a person in the table.");
@@ -569,5 +569,20 @@ public class ManageController implements Initializable {
     @FXML
     private void BTablesettingClicked(MouseEvent event) {
         loadScenePane("Tablesetting.fxml");
+    }
+
+    @FXML
+    private void TSearchClicked(MouseEvent event) {
+        TSearch.setText(null);
+    }
+
+    @FXML
+    private void TASearchClicked(MouseEvent event) {
+        TASearch.setText(null);
+    }
+
+    @FXML
+    private void TTodaySearchClicked(MouseEvent event) {
+        TTodaySearch.setText(null);
     }
 }

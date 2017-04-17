@@ -82,7 +82,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TextArea fx:id="SRtextarea" layoutX="616.0" layoutY="201.0" prefHeight="172.0" prefWidth="200.0" />
+            <TextArea fx:id="SRtextarea" layoutX="616.0" layoutY="201.0" prefHeight="172.0" prefWidth="200.0" text="N/A" />
             <Label layoutX="487.0" layoutY="517.0" text="2/3" />
             <Separator layoutX="493.0" layoutY="168.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="6.0" />
             <JFXButton fx:id="BCBack" layoutX="365.0" layoutY="507.0" onMouseClicked="#BCBackClicked" styleClass="back-button" text="Back" />

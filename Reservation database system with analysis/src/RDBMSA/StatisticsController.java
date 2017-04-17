@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -115,6 +116,16 @@ public class StatisticsController implements Initializable {
     private JFXButton BDateG;
     @FXML
     private HBox MonthBox;
+    @FXML
+    private ButtonBar CategoryBar;
+    @FXML
+    private ButtonBar ChartBar;
+    @FXML
+    private ButtonBar YearBar;
+    @FXML
+    private HBox SingleYear;
+    @FXML
+    private HBox MutilYear;
 
     /**
      * Initializes the controller class.
@@ -122,11 +133,15 @@ public class StatisticsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        BArea.setVisible(false);
+        ChartBar.setDisable(true);
+        YearBar.setDisable(true);
+        SingleYear.setDisable(true);
+        MutilYear.setDisable(true);
+        BArea.setDisable(true);
         BBeforeG.setDisable(true);
         BFTG.setDisable(true);
         TFToY.setDisable(true);
-        MonthBox.setVisible(false);
+        MonthBox.setDisable(true);
         CBDates.getItems().addAll(dname);
         
         tyr = Integer.parseInt(dateFormat.format(todays_date));
@@ -245,11 +260,15 @@ public class StatisticsController implements Initializable {
     @FXML
     private void BDinerClicked(MouseEvent event) {
         stage = 1;
-        BLine.setVisible(true);
-        BBar.setVisible(true);
-        BPie.setVisible(true);
-        BArea.setVisible(false);
-        MonthBox.setVisible(true);
+        ChartBar.setDisable(false);
+        YearBar.setDisable(false);
+        SingleYear.setDisable(false);
+        MutilYear.setDisable(false);
+        BLine.setDisable(false);
+        BBar.setDisable(false);
+        BPie.setDisable(false);
+        BArea.setDisable(true);
+        MonthBox.setDisable(false);
         BDateG.setDisable(true);
         loadC();
     }
@@ -257,23 +276,31 @@ public class StatisticsController implements Initializable {
     @FXML
     private void BMonthClicked(MouseEvent event) {
         stage = 2;
-        BLine.setVisible(true);
-        BBar.setVisible(true);
-        BPie.setVisible(true);
-        BArea.setVisible(false);
-        MonthBox.setVisible(false);
+        ChartBar.setDisable(false);
+        YearBar.setDisable(false);
+        SingleYear.setDisable(false);
+        MutilYear.setDisable(false);
+        BLine.setDisable(false);
+        BBar.setDisable(false);
+        BPie.setDisable(false);
+        BArea.setDisable(true);
+        MonthBox.setDisable(true);
         loadC();
     }
 
     @FXML
     private void BTimeClicked(MouseEvent event) {
         stage = 3;
-        BAyr.setVisible(true);
-        BLine.setVisible(false);
-        BBar.setVisible(false);
-        BPie.setVisible(false);
-        BArea.setVisible(true);
-        MonthBox.setVisible(false);
+        ChartBar.setDisable(false);
+        YearBar.setDisable(false);
+        SingleYear.setDisable(false);
+        MutilYear.setDisable(false);
+        BAyr.setDisable(false);
+        BLine.setDisable(true);
+        BBar.setDisable(true);
+        BPie.setDisable(true);
+        BArea.setDisable(false);
+        MonthBox.setDisable(true);
         loadC();
     }
     
@@ -407,7 +434,7 @@ public class StatisticsController implements Initializable {
         if(Integer.parseInt(endYr) == Integer.parseInt(dateFormat.format(todays_date))){
             yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr);
         }else {
-            yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr) + 1;
+            yearlength = Integer.parseInt(endYr) - Integer.parseInt(startYr) + 2;
         }
         loadC();
     }
@@ -431,5 +458,20 @@ public class StatisticsController implements Initializable {
         }else{
             BDateG.setDisable(false);
         }    
+    }
+
+    @FXML
+    private void TFBeforYMouseClicked(MouseEvent event) {
+        TFBeforY.setText(null);
+    }
+
+    @FXML
+    private void TFFromYMouseClicked(MouseEvent event) {
+        TFFromY.setText(null);
+    }
+
+    @FXML
+    private void TFToYMouseClicked(MouseEvent event) {
+        TFToY.setText(null);
     }
 }

@@ -48,8 +48,6 @@ public class UpdateBookingController implements Initializable {
     @FXML
     private JFXTextArea TSRequest;
     @FXML
-    private JFXTextArea TPOrder;
-    @FXML
     private JFXButton BCancel;
     @FXML
     private JFXButton BUpdate;
@@ -71,7 +69,6 @@ public class UpdateBookingController implements Initializable {
         TPhone.setText(RDBMSA.ManageController.pnumber);
         TEmail.setText(RDBMSA.ManageController.cemail);
         TSRequest.setText(RDBMSA.ManageController.srequest);
-        TPOrder.setText(RDBMSA.ManageController.porder);
     }    
 
     public void loadScenePane(String SceneName){
@@ -107,13 +104,22 @@ public class UpdateBookingController implements Initializable {
         String ph = TPhone.getText();
         String em = TEmail.getText();
         String sr = TSRequest.getText();
-        String po = TPOrder.getText();
         if(RDBMSA.ManageController.sceneID == 0){
             RDBMSA.ManageController.sceneID = 0;
         }else if(RDBMSA.ManageController.sceneID == 2){
             RDBMSA.ManageController.sceneID = 2;
         }
-        updateBooking(cID,fname,lname,diner,dt,time,ph,em,sr,po);
+        String pd = "lunch";
+        String tp[] = time.toString().split(":");
+        int periodH = Integer.parseInt(tp[0]); // hr
+        int periodM = Integer.parseInt(tp[1]); // min
+        int aid = 0;
+        if(periodH <= 16 && periodH >= 10){
+            pd = "lunch";
+        } else if(periodH <= 23 && periodH >= 17){
+            pd = "dinner";
+        }
+        updateBooking(cID,fname,lname,diner,dt,time,ph,em,sr,pd);
         fx.AlertInforwindow(null, null, "Booking record updated.");
         loadScenePane("Manage.fxml");
     }

@@ -10,7 +10,7 @@ import static RDBMSA.Database.avaTableCheck;
 import static RDBMSA.Database.booktable;
 import static RDBMSA.Database.tableMaxtime;
 import static RDBMSA.Database.tableSet;
-import static RDBMSA.Database.updateAvail;
+import static RDBMSA.Database.bookAvail;
 import static RDBMSA.Database.bookTableT;
 import static RDBMSA.Database.getMaxDiner;
 import com.jfoenix.controls.JFXButton;
@@ -161,7 +161,7 @@ public class BookingController implements Initializable {
         Stextfield.setText(null);
         Ptextfield.setText(null);
         Etextfield.setText(null);
-        SRtextarea.setText(null);
+        SRtextarea.setText("N/A");
     }
     
     public void SetDisables(){
@@ -403,12 +403,21 @@ public class BookingController implements Initializable {
         
         //System.out.println(PT);
         //update customer booking
-        booktable(FT,ST,NP,Dt,T,PT,ET,SR,"8",Concode,yrb);
-        
-        //update availability.
         String tp[] = y.toString().split(":");
         periodH = Integer.parseInt(tp[0]); // hr
         periodM = Integer.parseInt(tp[1]); // min
+        int aid = 0;
+        if(periodH <= 16 && periodH >= 10){
+            pd = "lunch";
+            aid = avaTableCheck(din, Dt, pd);
+        } else if(periodH <= 23 && periodH >= 17){
+            pd = "dinner";
+            aid = avaTableCheck(din, Dt, pd);
+        }
+        
+        booktable(FT,ST,NP,Dt,T,PT,ET,SR,pd,Concode,yrb);
+        
+        //update availability.      
         if ( (NP & 1) == 0 ) { 
             for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
                 if(NP == i+1 || NP == i+2){
@@ -422,22 +431,14 @@ public class BookingController implements Initializable {
                 }
             }
         }
-        int aid = 0;
-        if(periodH <= 16 && periodH >= 10){
-            pd = "lunch";
-            aid = avaTableCheck(din, Dt, pd);
-        } else if(periodH <= 23 && periodH >= 17){
-            pd = "dinner";
-            aid = avaTableCheck(din, Dt, pd);
-        }
         
         int atl = avaTLCheck(din, Dt, pd);
         if(atl > 0){
             atl = atl - 1;
-            updateAvail(aid, atl, din, Dt, pd);
+            bookAvail(aid, atl, din, Dt, pd);
         }else{
             int ts = tableSet(din) - 1;
-            updateAvail(aid, ts, din, Dt, pd);
+            bookAvail(aid, ts, din, Dt, pd);
         }
         
         //update table_time

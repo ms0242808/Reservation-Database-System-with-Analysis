@@ -116,8 +116,8 @@ public class Database {
         return tl;
     }
     
-    public static void booktable(String FN,String SN, int NDiner,String Date,String Time,String Phone, String Email,String Note,String Order, String Code, String Yr){
-        String selectstat = "insert into customer (FirstName,LastName,NumberOfDiner,Date,Time,Phone,Email,AdditionalRequest,PreOrder,ConfirmCode,Year) values(?,?,?,?,?,?,?,?,?,?,?)";
+    public static void booktable(String FN,String SN, int NDiner,String Date,String Time,String Phone, String Email,String Note,String Period, String Code, String Yr){
+        String selectstat = "insert into customer (FirstName,LastName,NumberOfDiner,Date,Time,Phone,Email,AdditionalRequest,Period,ConfirmCode,Year) values(?,?,?,?,?,?,?,?,?,?,?)";
         open();        
         try{
             connection.setAutoCommit(false);
@@ -130,7 +130,7 @@ public class Database {
             prepStmt.setString(6,Phone);
             prepStmt.setString(7,Email);
             prepStmt.setString(8,Note);
-            prepStmt.setString(9,Order);
+            prepStmt.setString(9,Period);
             prepStmt.setString(10,Code);
             prepStmt.setString(11,Yr);
             prepStmt.executeUpdate();
@@ -181,12 +181,12 @@ public class Database {
         return ts;
     }
     
-    public static void updateAvail(int aid, int tl, String din, String dt, String period){
+    public static void bookAvail(int aid, int tl, String din, String dt, String period){
         String stat1 = "insert into availability (Tableleft, Diner, Date, Period) values (?,?,?,?)";
         String stat2 = "UPDATE availability set Tableleft = ?, Diner = ?, Date = ?, Period = ? WHERE AvailabilityID = '" + aid + "'";
         String selectstat = null;
         
-        if(aid == 0){
+        if(aid <= 0){
             selectstat = stat1;
         }else if(aid > 0){
             selectstat = stat2;
@@ -376,6 +376,20 @@ public class Database {
         return time;
     }
     
+    public static String getPeriod(int cID){
+        String period = null;
+        try{
+            open();            
+            ResultSet rs = statement.executeQuery("select Period from customer WHERE CustomerID = '" + cID + "' ");
+            period = rs.getString("Period");
+            //System.out.println("Query successfully executed");
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        close();
+        return period;
+    }
+    
     public static void updateBooked(int cID, String Fname, String Sname, int Diners, String Date, String Time, String Email, String code) {
         String selectstat = "UPDATE customer set FirstName = ?, LastName = ?, NumberOfDiner = ?,Date = ?, Time = ?, Email = ? WHERE CustomerID = '" + cID + "' AND ConfirmCode = '" + code + "'";
         open();
@@ -394,6 +408,43 @@ public class Database {
             System.err.println(e.getMessage());
         }      
         close();     
+    }
+    
+    public static void updateAvail(int aid, int tl, String din, String dt, String period){
+        String stat1 = "insert into availability (Tableleft, Diner, Date, Period) values (?,?,?,?)";
+        String stat2 = "UPDATE availability set Tableleft = ?, Diner = ?, Date = ?, Period = ? WHERE AvailabilityID = '" + aid + "' AND Diner = '" + din + "' AND Date = '" + dt + "' AND Period = '" + period +"'";
+        String selectstat = null;
+        
+        if(aid == 0){
+            selectstat = stat1;
+        }else if(aid > 0){
+            selectstat = stat2;
+        }
+        
+        open();
+        try{
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(selectstat);
+            ps.setInt(1,tl);
+            ps.setString(2,din);
+            ps.setString(3,dt);
+            ps.setString(4,period);
+            ps.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        }      
+        close();
+    }
+    
+    public static void removeTableT(String dt, String startT, String diner, String period){
+        try{
+            open();
+            statement.executeUpdate("DELETE from table_time WHERE Date = '" + dt + "' AND StartTime = '" + startT + "' AND Diner = '" + diner + "' AND Period = '" + period + "'");
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        close();
     }
     
     public static void removeBooked(String Phone){
