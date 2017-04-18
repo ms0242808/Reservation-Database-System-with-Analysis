@@ -5,7 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/Queue.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.QueueController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" styleClass="root" stylesheets="@../CSS/Queue.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.QueueController">
    <children>
       <JFXTextField fx:id="LName" labelFloat="true" layoutX="129.0" layoutY="319.0" prefHeight="25.0" prefWidth="250.0" promptText="Name:" />
       <JFXTextField fx:id="LPhone" labelFloat="true" layoutX="129.0" layoutY="385.0" prefHeight="25.0" prefWidth="250.0" promptText="Phone number:" />

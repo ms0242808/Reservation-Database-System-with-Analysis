@@ -15,9 +15,45 @@
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="1024.0" stylesheets="@../CSS/Fx.css">
          <children>
-            <AnchorPane fx:id="SceneP" layoutY="41.0" prefHeight="660.0" prefWidth="1024.0" />
+            <AnchorPane fx:id="SceneP" layoutY="-1.0" prefHeight="700.0" prefWidth="1024.0" />
             <JFXHamburger fx:id="ham" layoutX="38.0" layoutY="47.0" prefHeight="32.0" prefWidth="37.0" />
             <JFXDrawer fx:id="drawer" layoutX="19.0" layoutY="89.0" prefHeight="306.0" prefWidth="74.0" />
+            <VBox fx:id="LPmenu" alignment="CENTER" layoutX="-115.0" layoutY="86.0" prefHeight="320.0" prefWidth="114.0">
+               <children>
+                  <JFXButton fx:id="BCustomer" onAction="#BCClicked" ripplerFill="#3e7cae" styleClass="booking-button" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="45.0">
+                           <image>
+                              <Image url="@../ICONS/recipe.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
+                  <JFXButton fx:id="BEdit" onAction="#BEClicked" ripplerFill="#3ead9e" styleClass="editbooked-button" text=" ">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../ICONS/new-file.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="BQueue" onAction="#BQClicked" styleClass="selfqueue-button" text=" ">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../ICONS/tube-queue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
             <HBox fx:id="TopFrame" alignment="TOP_RIGHT" layoutX="-1.0" layoutY="-1.0" onMouseDragged="#TopFrameMouseDragged" onMousePressed="#TopFrameMousePressed" prefHeight="45.0" prefWidth="1027.0" styleClass="topframe-hbox">
                <children>
                   <JFXButton fx:id="BLogin" onAction="#BLoginOnAction" prefHeight="36.0" prefWidth="56.0" styleClass="user-button" text=" ">
@@ -75,42 +111,6 @@
                   </JFXButton>
                </children>
             </HBox>
-            <VBox fx:id="LPmenu" alignment="CENTER" layoutX="-115.0" layoutY="86.0" prefHeight="320.0" prefWidth="114.0">
-               <children>
-                  <JFXButton fx:id="BCustomer" onAction="#BCClicked" ripplerFill="#3e7cae" styleClass="booking-button" text=" ">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="45.0">
-                           <image>
-                              <Image url="@../ICONS/recipe.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></JFXButton>
-                  <JFXButton fx:id="BEdit" onAction="#BEClicked" ripplerFill="#3ead9e" styleClass="editbooked-button" text=" ">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0">
-                           <image>
-                              <Image url="@../ICONS/new-file.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="BQueue" onAction="#BQClicked" styleClass="selfqueue-button" text=" ">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0">
-                           <image>
-                              <Image url="@../ICONS/tube-queue.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </VBox>
          </children>
       </AnchorPane>
    </children>

@@ -1,3 +1,8 @@
+.root {
+    -fx-background-image: url("1.jpg");
+    -fx-background-size: cover;
+}
+
 .diners-button {
     -fx-padding: 0.3em 0.57em;
     -fx-font-size: 14px;

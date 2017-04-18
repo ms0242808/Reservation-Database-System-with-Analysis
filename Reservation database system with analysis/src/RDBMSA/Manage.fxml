@@ -7,11 +7,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="SceneP" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/Manage.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.ManageController">
+<AnchorPane fx:id="SceneP" prefHeight="700.0" prefWidth="1024.0" styleClass="root" stylesheets="@../CSS/Manage.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.ManageController">
    <children>
       <AnchorPane fx:id="DetailCustomerP" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <ButtonBar layoutX="100.0" layoutY="81.0" prefHeight="40.0" prefWidth="616.0">
+            <ButtonBar layoutX="100.0" layoutY="105.0" prefHeight="40.0" prefWidth="616.0">
               <buttons>
                   <JFXButton fx:id="BCupdate" onMouseClicked="#BCUpdateClicked" styleClass="updaterecrod-button" text="Update record" />
                   <JFXButton fx:id="BCToday" onMouseClicked="#BCTodayClicked" styleClass="booked-button" text="View Today's Booking" />
@@ -19,7 +19,7 @@
                   <JFXButton fx:id="BGraphic" onMouseClicked="#BGraphicClicked" styleClass="graphic-button" text="Graphic" />
               </buttons>
             </ButtonBar>
-            <AnchorPane layoutX="5.0" layoutY="126.0" prefHeight="530.0" prefWidth="1015.0">
+            <AnchorPane layoutX="5.0" layoutY="152.0" prefHeight="530.0" prefWidth="1015.0">
                <children>
                   <TableView fx:id="CustomerTable" layoutX="-2.0" layoutY="1.0" prefHeight="527.0" prefWidth="1017.0">
                      <columns>
@@ -41,12 +41,12 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <JFXTextField fx:id="TSearch" labelFloat="true" layoutX="120.0" layoutY="51.0" onKeyReleased="#TSearchReleased" onMouseClicked="#TSearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search by first name, surname or confirmation code" />
+            <JFXTextField fx:id="TSearch" labelFloat="true" layoutX="120.0" layoutY="65.0" onKeyReleased="#TSearchReleased" onMouseClicked="#TSearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search by first name, surname or confirmation code" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="DetailAccountP" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <TableView fx:id="StaffTable" layoutX="11.0" layoutY="130.0" prefHeight="522.0" prefWidth="1004.0">
+            <TableView fx:id="StaffTable" layoutX="11.0" layoutY="166.0" prefHeight="522.0" prefWidth="1004.0">
                <columns>
                   <TableColumn fx:id="StaffID" prefWidth="70.67055130004883" text="ID" />
                   <TableColumn fx:id="SFname" prefWidth="111.26116180419922" text="Firstname" />
@@ -62,7 +62,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ButtonBar layoutX="73.0" layoutY="81.0" prefHeight="40.0" prefWidth="901.0">
+            <ButtonBar layoutX="73.0" layoutY="105.0" prefHeight="40.0" prefWidth="901.0">
               <buttons>
                   <JFXButton fx:id="BAAccount" onMouseClicked="#BAAccountClicked" styleClass="add-button" text="Add new account" />
                   <JFXButton fx:id="BRAccount" onMouseClicked="#BRAccountClciked" styleClass="remove-button" text="Remove an account" />
@@ -71,13 +71,13 @@
                   <JFXButton fx:id="BAAll" onMouseClicked="#BAAllClicked" styleClass="allbooked-button" text="View all booking records" />
               </buttons>
             </ButtonBar>
-            <JFXTextField fx:id="TASearch" labelFloat="true" layoutX="120.0" layoutY="51.0" onKeyReleased="#TASearchReleased" onMouseClicked="#TASearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search by first name, surname or username" />
+            <JFXTextField fx:id="TASearch" labelFloat="true" layoutX="120.0" layoutY="65.0" onKeyReleased="#TASearchReleased" onMouseClicked="#TASearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search by first name, surname or username" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="TodaysBookedP" prefHeight="700.0" prefWidth="1024.0">
          <children>
-            <JFXTextField fx:id="TTodaySearch" labelFloat="true" layoutX="120.0" layoutY="51.0" onKeyReleased="#TTodaySearchReleased" onMouseClicked="#TTodaySearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search today's booking" />
-            <TableView fx:id="TodaysBTable" layoutX="5.0" layoutY="126.0" prefHeight="527.0" prefWidth="1015.0">
+            <JFXTextField fx:id="TTodaySearch" labelFloat="true" layoutX="120.0" layoutY="65.0" onKeyReleased="#TTodaySearchReleased" onMouseClicked="#TTodaySearchClicked" prefHeight="27.0" prefWidth="596.0" promptText="Search:" styleClass="search-jfx-text-field" text="Search today's booking" />
+            <TableView fx:id="TodaysBTable" layoutX="5.0" layoutY="162.0" prefHeight="527.0" prefWidth="1015.0">
               <columns>
                 <TableColumn fx:id="Todayfname" prefWidth="75.0" text="First name" />
                   <TableColumn fx:id="Todaysname" prefWidth="75.0" text="Surname" />
@@ -91,7 +91,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ButtonBar layoutX="102.0" layoutY="81.0" prefHeight="40.0" prefWidth="521.0">
+            <ButtonBar layoutX="102.0" layoutY="105.0" prefHeight="40.0" prefWidth="521.0">
               <buttons>
                   <JFXButton fx:id="BTAll" onMouseClicked="#BTAllClicked" styleClass="allbooked-button" text="View all booking records" />
                   <JFXButton fx:id="BTUpdate" onMouseClicked="#BTUpdateClicked" styleClass="updaterecrod-button" text="Update record" />
@@ -100,7 +100,7 @@
             </ButtonBar>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="BLOut" layoutX="894.0" layoutY="19.0" onMouseClicked="#BLoutClicked" styleClass="logout-button" text="Log out" />
-      <JFXButton fx:id="BTablesetting" layoutX="755.0" layoutY="19.0" onMouseClicked="#BTablesettingClicked" styleClass="tablesetting-button" text="Table settings" />
+      <JFXButton fx:id="BLOut" layoutX="894.0" layoutY="55.0" onMouseClicked="#BLoutClicked" styleClass="logout-button" text="Log out" />
+      <JFXButton fx:id="BTablesetting" layoutX="755.0" layoutY="55.0" onMouseClicked="#BTablesettingClicked" styleClass="tablesetting-button" text="Table settings" />
    </children>
 </AnchorPane>

@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/UpdateForm.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateBookingController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" styleClass="root" stylesheets="@../CSS/UpdateForm.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.UpdateBookingController">
    <children>
-      <Label layoutX="437.0" layoutY="67.0" text="Update booking details" />
+      <Label layoutX="437.0" layoutY="67.0" text="Update booking details" AnchorPane.topAnchor="45.0" />
       <VBox layoutX="292.0" layoutY="88.0" prefHeight="456.0" prefWidth="431.0">
          <children>
             <JFXTextField fx:id="TFname" labelFloat="true" onKeyTyped="#VFname" promptText="First name:">

@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1024.0" stylesheets="@../CSS/Chart.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
+<AnchorPane fx:id="SceneP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" stylesheets="@../CSS/Chart.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RDBMSA.StatisticsController">
    <children>
-      <JFXButton fx:id="BBack" buttonType="RAISED" layoutX="931.0" layoutY="623.0" onMouseClicked="#BBackClicked" ripplerFill="RED" styleClass="back-button" text="Back" />
-      <AnchorPane fx:id="GraphP" layoutX="20.0" layoutY="13.0" prefHeight="450.0" prefWidth="982.0" />
-      <ButtonBar fx:id="CategoryBar" layoutX="107.0" layoutY="462.0" prefHeight="40.0" prefWidth="341.0">
+      <JFXButton fx:id="BBack" buttonType="RAISED" layoutX="931.0" layoutY="640.0" onMouseClicked="#BBackClicked" ripplerFill="RED" styleClass="back-button" text="Back" />
+      <AnchorPane fx:id="GraphP" layoutX="20.0" layoutY="29.0" prefHeight="435.0" prefWidth="982.0" AnchorPane.topAnchor="45.0" />
+      <ButtonBar fx:id="CategoryBar" layoutX="107.0" layoutY="482.0" prefHeight="40.0" prefWidth="341.0">
         <buttons>
             <JFXButton fx:id="BDiner" buttonType="RAISED" onMouseClicked="#BDinerClicked" ripplerFill="#8c0f90" styleClass="diners-button" text="Diners" />
             <JFXButton fx:id="BMonth" buttonType="RAISED" onMouseClicked="#BMonthClicked" ripplerFill="#117db8" styleClass="months-button" text="Months" />
             <JFXButton fx:id="BTime" buttonType="RAISED" onMouseClicked="#BTimeClicked" ripplerFill="#4ad9ad" styleClass="times-button" text="Time(Period)" />
         </buttons>
       </ButtonBar>
-      <ButtonBar fx:id="ChartBar" layoutX="84.0" layoutY="497.0" prefHeight="40.0" prefWidth="398.0">
+      <ButtonBar fx:id="ChartBar" layoutX="84.0" layoutY="517.0" prefHeight="40.0" prefWidth="398.0">
         <buttons>
             <JFXButton fx:id="BLine" onMouseClicked="#BLineClicked" ripplerFill="#ff9500" styleClass="line-button" text="Line graph" />
             <JFXButton fx:id="BBar" onMouseClicked="#BBarClicked" ripplerFill="#00f7ff" styleClass="bar-button" text="Bar chart" />
@@ -30,8 +30,8 @@
             <JFXButton fx:id="BArea" onMouseClicked="#BAreaClicked" ripplerFill="#ff00f3" styleClass="area-button" text="Area chart" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="779.0" layoutY="463.0" text="Statistics:" />
-      <VBox layoutX="658.0" layoutY="483.0" prefHeight="174.0" prefWidth="162.0">
+      <Label layoutX="779.0" layoutY="483.0" text="Statistics:" />
+      <VBox layoutX="658.0" layoutY="503.0" prefHeight="174.0" prefWidth="162.0">
          <children>
             <Label text="Diners" />
             <Separator prefWidth="200.0" />
@@ -46,7 +46,7 @@
             <Label fx:id="LATime" text="Avg. booked time:" />
          </children>
       </VBox>
-      <VBox layoutX="847.0" layoutY="483.0" prefHeight="127.0" prefWidth="173.0">
+      <VBox layoutX="847.0" layoutY="503.0" prefHeight="127.0" prefWidth="173.0">
          <children>
             <Label text="Months" />
             <Separator prefWidth="200.0" />
@@ -55,7 +55,7 @@
             <Label fx:id="LAMonth" text="Avg. booked months:" />
          </children>
       </VBox>
-      <ButtonBar fx:id="YearBar" layoutX="73.0" layoutY="530.0" prefHeight="40.0" prefWidth="416.0">
+      <ButtonBar fx:id="YearBar" layoutX="73.0" layoutY="550.0" prefHeight="40.0" prefWidth="416.0">
          <buttons>
             <JFXButton fx:id="BPyr1" onMouseClicked="#BPyr1Clicked" ripplerFill="#38650e" styleClass="twoyears-button" text="2 years" />
             <JFXButton fx:id="BPyr" onMouseClicked="#BPyrClicked" ripplerFill="#0f635a" styleClass="oneyear-button" text="a year" />
@@ -63,7 +63,7 @@
             <JFXButton fx:id="BAyr" onMouseClicked="#BAyrClicked" ripplerFill="#611010" styleClass="allyear-button" text="2 yrs - yr" />
          </buttons>
       </ButtonBar>
-      <HBox fx:id="SingleYear" layoutX="120.0" layoutY="573.0" prefHeight="40.0" prefWidth="180.0">
+      <HBox fx:id="SingleYear" layoutX="120.0" layoutY="593.0" prefHeight="40.0" prefWidth="180.0">
          <children>
             <JFXTextField fx:id="TFBeforY" labelFloat="true" onKeyReleased="#TFBeforYClicked" onMouseClicked="#TFBeforYMouseClicked" prefHeight="25.0" prefWidth="100.0" promptText="Input year:" />
             <JFXButton fx:id="BBeforeG" onMouseClicked="#BBeforeGClicked" styleClass="generate-button" text="Generate">
@@ -72,7 +72,7 @@
                </HBox.margin></JFXButton>
          </children>
       </HBox>
-      <HBox fx:id="MonthBox" layoutX="340.0" layoutY="573.0" prefHeight="40.0" prefWidth="180.0">
+      <HBox fx:id="MonthBox" layoutX="340.0" layoutY="593.0" prefHeight="40.0" prefWidth="180.0">
          <children>
             <JFXComboBox fx:id="CBDates" labelFloat="true" onAction="#CBDatesClicked" promptText="Month:" visibleRowCount="30" />
             <JFXButton fx:id="BDateG" onMouseClicked="#BDateGClicked" styleClass="generate-button" text="Generate">
@@ -81,7 +81,7 @@
                </HBox.margin></JFXButton>
          </children>
       </HBox>
-      <HBox fx:id="MutilYear" layoutX="168.0" layoutY="609.0" prefHeight="38.0" prefWidth="307.0">
+      <HBox fx:id="MutilYear" layoutX="168.0" layoutY="629.0" prefHeight="38.0" prefWidth="307.0">
          <children>
             <JFXTextField fx:id="TFFromY" labelFloat="true" onKeyReleased="#TFFromYClicked" onMouseClicked="#TFFromYMouseClicked" prefHeight="25.0" prefWidth="100.0" promptText="From:">
                <HBox.margin>

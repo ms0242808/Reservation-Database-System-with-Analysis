@@ -129,7 +129,7 @@ public class BookingController implements Initializable {
         for(int i=0; i< Integer.parseInt(getMaxDiner()); i++){
             NPeople.getItems().add(Integer.toString(i+1));
         }
-        
+        NPeople.setValue("1");
         
         fx.valiadteDate(Date);
         fx.textFV(Ftextfield, "Enter your first name.");
