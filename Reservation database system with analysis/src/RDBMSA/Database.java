@@ -51,7 +51,6 @@ public class Database {
         try{
             connection.close();
         } catch (Exception e){
-            // this shouldn't happen
             System.out.println(e);
         }
     }
@@ -61,9 +60,6 @@ public class Database {
     {
         try
         {
-        //    connection = DriverManager.getConnection("jdbc:sqlite:myDatabaseNew.db");
-        //    statement = connection.createStatement();
-        //    statement.setQueryTimeout(20);
             open();
             ResultSet rs = statement.executeQuery(query);
             System.out.println("Query successfully executed");
@@ -82,8 +78,6 @@ public class Database {
         open();
         try{
             PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
-            //prepStmt.setString(1,diner);
-            //prepStmt.setString(1,dt);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
                 String mDiner[] = rs.getString("Diner").split("-");
@@ -147,8 +141,6 @@ public class Database {
         open();
         try{
             PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
-            //prepStmt.setString(1,diner);
-            //prepStmt.setString(1,dt);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
                 aid = rs.getInt("AvailabilityID");
@@ -167,8 +159,6 @@ public class Database {
         open();
         try{
             PreparedStatement prepStmt =  connection.prepareStatement(selectStatement);
-            //prepStmt.setString(1,diner);
-            //prepStmt.setString(1,dt);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
                 ts = rs.getInt("Tableset");
@@ -215,7 +205,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery(selectStatement);
             maxt = rs.getString("Maxtime");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -270,7 +259,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select CustomerID from customer where Phone = '" + Phone + "' ");
             cID = rs.getInt("CustomerID");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -284,7 +272,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select FirstName from customer WHERE CustomerID = '" + cID + "' ");
             firstname = rs.getString("FirstName");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -298,7 +285,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select LastName from customer WHERE CustomerID = '" + cID + "' ");
             surname = rs.getString("LastName");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -312,7 +298,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select Email from customer where CustomerID = '" + cID + "' ");
             email = rs.getString("Email");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -326,7 +311,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select Phone from customer where CustomerID = '" + cID + "' ");
             phone = rs.getString("Phone");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -340,7 +324,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select NumberOfDiner from customer where CustomerID = '" + cID + "' ");
             diner = rs.getInt("NumberOfDiner");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -354,7 +337,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select Date from customer where CustomerID = '" + cID + "' ");
             date = rs.getString("Date");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -368,7 +350,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select Time from customer WHERE CustomerID = '" + cID + "' ");
             time = rs.getString("Time");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -382,7 +363,6 @@ public class Database {
             open();            
             ResultSet rs = statement.executeQuery("select Period from customer WHERE CustomerID = '" + cID + "' ");
             period = rs.getString("Period");
-            //System.out.println("Query successfully executed");
         } catch(SQLException e){
             System.err.println(e.getMessage());
         }

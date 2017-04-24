@@ -111,20 +111,6 @@ public class ManageController implements Initializable {
     private JFXButton BRAccount;
     @FXML
     private JFXButton BLOut;
-    
-    public static int sceneID = 2;
-    public static int accountStage = 0;
-    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
-    private static Connection connection = null;
-    private static Statement statement;
-    private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
-    FxController alertwindow = new FxController();
-    public static int staffID, customerID, diner;
-    public static String fn, ln, date, pnumber;
-    public static String address, un, pw, ro;
-    public static String ctime, cemail, srequest, perd;
-    private final ObservableList<customerList> todayList = FXCollections.observableArrayList();;
-    
     @FXML
     private AnchorPane TodaysBookedP;
     @FXML
@@ -165,6 +151,19 @@ public class ManageController implements Initializable {
     private JFXButton BTStaff;
     @FXML
     private JFXButton BTablesetting;
+    
+    public static int sceneID = 2;
+    public static int accountStage = 0;
+    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
+    private static Connection connection = null;
+    private static Statement statement;
+    private final ObservableList<staffList> SList = FXCollections.observableArrayList();;
+    FxController alertwindow = new FxController();
+    public static int staffID, customerID, diner;
+    public static String fn, ln, date, pnumber;
+    public static String address, un, pw, ro;
+    public static String ctime, cemail, srequest, perd;
+    private final ObservableList<customerList> todayList = FXCollections.observableArrayList();;
 
     /**
      * Initializes the controller class.
@@ -189,7 +188,7 @@ public class ManageController implements Initializable {
         
         if(sceneID == 2){
             sceneID = 2;
-            setPaneVisible(false, true, false); // account, today booking, customer, table setting
+            setPaneVisible(false, true, false);
             TodaysBookedTable();
         } else if(sceneID == 1){
             sceneID = 1;
@@ -220,8 +219,7 @@ public class ManageController implements Initializable {
         eMail.setCellValueFactory(new PropertyValueFactory("Email"));
         SRequest.setCellValueFactory(new PropertyValueFactory("Srequest"));
         PErd.setCellValueFactory(new PropertyValueFactory("Period"));
-        Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));
-        //CustomerTable();        
+        Ccode.setCellValueFactory(new PropertyValueFactory("Ccode"));      
         
         StaffID.setCellValueFactory(new PropertyValueFactory("StaffID"));
         SFname.setCellValueFactory(new PropertyValueFactory("FirstName"));
@@ -289,7 +287,7 @@ public class ManageController implements Initializable {
                                            rs2.getString("Address"),
                                            rs2.getString("UserName"),
                                            rs2.getString("PassWord"),
-                                           rs2.getString("ROLE")));// add to table
+                                           rs2.getString("ROLE")));
                 StaffTable.setItems(this.SList);
             }
         }catch (Exception e){
@@ -335,7 +333,6 @@ public class ManageController implements Initializable {
 
     @FXML
     private void TSearchReleased(KeyEvent event) {
-        //TSearch.setText(null);
         FilteredList<customerList> filteredData = new FilteredList<>(CList, e -> true);
         TSearch.setOnKeyReleased(e -> {
             TSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -369,7 +366,6 @@ public class ManageController implements Initializable {
 
     @FXML
     private void TASearchReleased(KeyEvent event) {
-        //TASearch.setText(null);
         FilteredList<staffList> filteredData = new FilteredList<>(SList, e -> true);
         TASearch.setOnKeyReleased(e -> {
             TASearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -465,7 +461,7 @@ public class ManageController implements Initializable {
                 Logger.getLogger(FxController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else{
-            // ... user chose CANCEL or closed the dialog
+            
         } 
     }
 

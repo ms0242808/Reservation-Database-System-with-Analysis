@@ -66,20 +66,6 @@ public class StatisticsController implements Initializable {
     private Label LADiner;
     @FXML
     private JFXButton BBack;
-    
-    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
-    int stage = 0;
-    int chartstage = 0;
-    public static int yearlength = 0;
-    public static int xy = 0;
-    public static Date todays_date = new Date();
-    public static DateFormat dateFormat = new SimpleDateFormat("yyyy");
-    public static int tyr;
-    public static int months = 1;
-    public static String cbdate = null;
-    String[] dname = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    FxController fx = new FxController();
-    
     @FXML
     private JFXButton BPyr;
     @FXML
@@ -114,6 +100,19 @@ public class StatisticsController implements Initializable {
     private HBox SingleYear;
     @FXML
     private HBox MutilYear;
+    
+    private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
+    int stage = 0;
+    int chartstage = 0;
+    public static int yearlength = 0;
+    public static int xy = 0;
+    public static Date todays_date = new Date();
+    public static DateFormat dateFormat = new SimpleDateFormat("yyyy");
+    public static int tyr;
+    public static int months = 1;
+    public static String cbdate = null;
+    String[] dname = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    FxController fx = new FxController();
 
     /**
      * Initializes the controller class.
@@ -146,7 +145,7 @@ public class StatisticsController implements Initializable {
             String CustomerQuery = "SELECT * from customer";
             ResultSet rs2 = Database.RetSet(CustomerQuery);
             while (rs2.next()){
-                CList.add(new customerList(rs2.getInt("CustomerID"), //doesnt need all of it
+                CList.add(new customerList(rs2.getInt("CustomerID"),
                                            rs2.getString("Firstname"),
                                            rs2.getString("Lastname"),
                                            rs2.getInt("NumberOfDiner"),

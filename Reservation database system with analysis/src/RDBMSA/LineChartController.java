@@ -40,12 +40,12 @@ public class LineChartController implements Initializable {
     private NumberAxis yAxis;
     @FXML
     private CategoryAxis xAxis;
+    @FXML
+    private Label LData;
 
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
     String[] dateCounter = new String[31];
-    
-    @FXML
-    private Label LData;
+
     /**
      * Initializes the controller class.
      */
@@ -66,7 +66,6 @@ public class LineChartController implements Initializable {
     }
     
     public void setMonthLineData(List<customerList> CList) {
-        // Count the number of people having their birthday in a specific month.
         clearGraph();
         lineChart.setTitle("Monthly booked");
         xAxis.setLabel("Month");
@@ -85,8 +84,6 @@ public class LineChartController implements Initializable {
                     String str[] = rs2.getString("Date").split("/");
                     int month = Integer.parseInt(str[1]) - 1;
                     int count = 1 + monthCounter[month]++;
-                    //System.out.println(tyr+" "+month + ": "+ count);
-                    //System.out.println("break");
                 }
             } catch (SQLException ex) {
                     //System.out.println(ex);
@@ -94,8 +91,7 @@ public class LineChartController implements Initializable {
 
             series[y].setName(Integer.toString(tyr));
   
-            for (int i = 0; i < monthCounter.length; i++) {
-                //System.out.println(monthNames.get(i) + ":" + monthCounter[i]);
+            for (int i = 0; i < monthCounter.length; i++) {;
                 series[y].getData().add(new XYChart.Data<>(monthNames.get(i), monthCounter[i]));
                 monthCounter[i] = 0;
             }  
@@ -118,10 +114,9 @@ public class LineChartController implements Initializable {
     }
     
     public void setDinerLineData(List<customerList> CList) {
-        // Count the number of people having their birthday in a specific month.
         clearGraph();
-        lineChart.setTitle("Diner booked");
-        xAxis.setLabel("Number of records");       
+        lineChart.setTitle("Number of Diners booked");
+        xAxis.setLabel("Number of diners");       
         
         int records = countRecords();
         int[] monthCounter = new int[12];
@@ -144,7 +139,6 @@ public class LineChartController implements Initializable {
                         dinerCounter[month] += dinerCounter[diners] + diners;
 
                         monthCounter[month]++;
-                        //System.out.println(tim + ": " + dinerCounter[tim]);
                     }
             } catch (SQLException ex) {
                 //System.out.println(ex);
@@ -153,7 +147,6 @@ public class LineChartController implements Initializable {
             series[y].setName(Integer.toString(tyr));
                     
             for (int i = 0; i < monthCounter.length; i++) {
-                //System.out.println(monthNames.get(i) + ":" + dinerCounter[i]);
                 series[y].getData().add(new XYChart.Data<>(monthNames.get(i), dinerCounter[i]));
                 dinerCounter[i] = 0;
             }
@@ -176,10 +169,9 @@ public class LineChartController implements Initializable {
     }
     
     public void setDatesLineData(List<customerList> CList) {
-        // Count the number of people having their birthday in a specific month.
         clearGraph();
-        lineChart.setTitle("Diner booked ("+ Integer.toString(RDBMSA.StatisticsController.tyr) + ", " + RDBMSA.StatisticsController.cbdate+")");
-        xAxis.setLabel("Number of records");       
+        lineChart.setTitle("Number of Diner booked ("+ Integer.toString(RDBMSA.StatisticsController.tyr) + ", " + RDBMSA.StatisticsController.cbdate+")");
+        xAxis.setLabel("Number of diners");       
         
         int records = countRecords();
         int[] dinerCounter = new int[records];
@@ -205,8 +197,6 @@ public class LineChartController implements Initializable {
                         if(month==RDBMSA.StatisticsController.months){
                             dinerCounter[dates] += dinerCounter[diners] + diners;
                         }
-
-                        //System.out.println(dates + ": " + dinerCounter[dates]);
                     }
             } catch (SQLException ex) {
                 //System.out.println(ex);
@@ -215,7 +205,6 @@ public class LineChartController implements Initializable {
             series[y].setName(Integer.toString(tyr));
                     
             for (int i = 0; i < dateCounter.length; i++) {
-                //System.out.println(monthNames.get(i) + ":" + dinerCounter[i]);
                 series[y].getData().add(new XYChart.Data<>(dateCounter[i], dinerCounter[i]));
                 dinerCounter[i] = 0;
             }

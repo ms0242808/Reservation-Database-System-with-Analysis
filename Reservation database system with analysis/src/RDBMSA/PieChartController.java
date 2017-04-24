@@ -33,6 +33,7 @@ public class PieChartController implements Initializable {
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     String[] dateCounter = new String[31];
+    
     /**
      * Initializes the controller class.
      */
@@ -53,7 +54,6 @@ public class PieChartController implements Initializable {
     }
     
     public void setMonthPieData(List<customerList> CList) {
-        // Count the number of people having their birthday in a specific month.
         clearGraph();
        
         int[] monthCounter = new int[12];
@@ -66,14 +66,12 @@ public class PieChartController implements Initializable {
                 String str[] = rs2.getString("Date").split("/");
                 int month = Integer.parseInt(str[1]) - 1;
                 int count = 1 + monthCounter[month]++;
-                //System.out.println(month + ": "+ count);
             }
         } catch (SQLException ex) {
             //System.out.println(ex);
         }
             
         for (int i = 0; i < monthCounter.length; i++) {
-            //System.out.println(monthNames.get(i) + ":" + monthCounter[i]);
             pieChartData.addAll(new PieChart.Data(monthNames.get(i), monthCounter[i]));
             monthCounter[i] = 0;
         }
@@ -91,9 +89,7 @@ public class PieChartController implements Initializable {
     }
     
     public void setDinerPieData(List<customerList> CList) {
-        // Count the number of people having their birthday in a specific month.
         clearGraph();
-        //yAxis.setLabel("Value");
         
         int records = countRecords();
         int[] monthCounter = new int[12];
@@ -113,14 +109,12 @@ public class PieChartController implements Initializable {
                     dinerCounter[month] += dinerCounter[diners] + diners;
 
                     monthCounter[month]++;
-                    //System.out.println(tim + ": " + dinerCounter[tim]);
                 }
         } catch (SQLException ex) {
             //System.out.println(ex);
         } 
   
         for (int i = 0; i < monthCounter.length; i++) {
-            //System.out.println(monthNames.get(i) + ":" + dinerCounter[i]);
             pieChartData.addAll(new PieChart.Data(monthNames.get(i), dinerCounter[i]));
             dinerCounter[i] = 0;
         }

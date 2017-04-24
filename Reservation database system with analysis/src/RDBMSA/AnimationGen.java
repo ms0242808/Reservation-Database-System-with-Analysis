@@ -19,25 +19,6 @@ import javafx.util.Duration;
  */
 public class AnimationGen {
     
-    public void RotationOn(Node node, int duration, double angle, int cycleCount) {
-        RotateTransition rotateTransition =
-                new RotateTransition(Duration.millis(duration), node);
-        rotateTransition.setByAngle(angle);
-        rotateTransition.setCycleCount(cycleCount);
-        rotateTransition.setAutoReverse(true);
-        rotateTransition.play();
-    }
-
-    public void TranslateAnimationOn(Node node, int duration, double from, double to) {
-        TranslateTransition translateTransition =
-                new TranslateTransition(Duration.millis(duration), node);
-        translateTransition.setFromX(from);
-        translateTransition.setToX(to);
-        translateTransition.setCycleCount(1);
-        translateTransition.setAutoReverse(true);
-        translateTransition.play();
-    }
-
     public void FadeAnimationOn(Node node, int duration, double from, double to, EventHandler<ActionEvent> eventHandler) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), node);
         fadeTransition.setOnFinished(eventHandler);

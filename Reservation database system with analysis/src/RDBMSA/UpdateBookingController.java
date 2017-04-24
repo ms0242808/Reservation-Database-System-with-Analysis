@@ -82,10 +82,12 @@ public class UpdateBookingController implements Initializable {
     
     @FXML
     private void VFname(KeyEvent event) {
+        fx.textFV(TFname, "Enter first name.");
     }
 
     @FXML
     private void VLname(KeyEvent event) {
+        fx.textFV(TLname, "Enter surname.");
     }
 
 
@@ -130,10 +132,12 @@ public class UpdateBookingController implements Initializable {
 
     @FXML
     private void VPhone(KeyEvent event) {
+        fx.numberFV(TPhone, "Number's only");
     }
 
     @FXML
     private void VEmail(KeyEvent event) {
+        fx.textFV(TEmail, "Enter email");
     }
     
 }

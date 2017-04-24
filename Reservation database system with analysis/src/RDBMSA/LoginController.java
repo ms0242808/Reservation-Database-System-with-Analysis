@@ -41,13 +41,6 @@ public class LoginController implements Initializable {
     private JFXButton BCancel;
     @FXML
     private JFXButton BLogin;
-    
-    public static int LogId = 0;
-    FxController alertwindow = new FxController();
-    AnimationGen animationGen = new AnimationGen();
-    private static double xOffset = 0;
-    private static double yOffset = 0;
-    
     @FXML
     private HBox TopFrame;
     @FXML
@@ -57,6 +50,12 @@ public class LoginController implements Initializable {
     @FXML
     private JFXButton BClose;
     
+    public static int LogId = 0;
+    FxController alertwindow = new FxController();
+    AnimationGen animationGen = new AnimationGen();
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+ 
     /**
      * Initializes the controller class.
      */
@@ -98,7 +97,6 @@ public class LoginController implements Initializable {
             }
         } catch(NullPointerException e){ 
             alertwindow.AlertWarningwindow(null, null, "Please enter correct username and password.");
-            //effect on textfiled 
         }
         
     }  

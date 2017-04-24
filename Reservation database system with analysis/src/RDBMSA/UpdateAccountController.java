@@ -103,37 +103,37 @@ public class UpdateAccountController implements Initializable {
     
     @FXML
     private void VFname(KeyEvent event) {
-        //valiateFirstname();
+        fx.textFV(TFname, "Enter first name.");
     }
 
     @FXML
     private void VLname(KeyEvent event) {
-        //valiateSurname();
+        fx.textFV(TLname, "Enter suranme");
     }
 
     @FXML
     private void VDob(KeyEvent event) {
-        //valiateDateofBirth();
+        fx.textFV(TDob, "Enter date of birth");
     }
 
     @FXML
     private void VPNumber(KeyEvent event) {
-        //valiatePhone();
+        fx.numberFV(TPnumber, "Number's only");
     }
 
     @FXML
     private void VAddress(KeyEvent event) {
-        ///valiateAddress();
+        fx.textFV(TAddress, "Enter address");
     }
 
     @FXML
     private void VUName(KeyEvent event) {
-        //valiateUsername();
+        fx.textFV(TUname, "Enter username");
     }
 
     @FXML
     private void VPWord(KeyEvent event) {
-        ///valiatePassword();
+        
     }
 
     @FXML
@@ -169,6 +169,5 @@ public class UpdateAccountController implements Initializable {
 
     @FXML
     private void validation(ActionEvent event) {
-       // alertwindow.AlertWarningwindow(null, null, "Pleases enter correct details.");
     }
 }

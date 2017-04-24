@@ -51,10 +51,7 @@ public class Tables {
             
             statement.executeUpdate("drop table if exists table_time");
             statement.executeUpdate("create table table_time (TableTimeID INTEGER primary key NOT NULL, Date TEXT, StartTime TEXT, EndTime TEXT, Period TEXT, Diner TEXT, Approx INTEGER, Finished TEXT)");
-            
-            statement.executeUpdate("drop table if exists restaurant_Info");
-            statement.executeUpdate("create table restaurant_Info (RestaurantID INTEGER primary key NOT NULL, Name TEXT, Location TEXT, LunchStart TEXT, LunchEnd TEXT, SupperStart TEXT, SupperEnd TEXT, ContactNo INTEGER)");
-            
+                       
             //close connection
             close();
         }catch(SQLException e){

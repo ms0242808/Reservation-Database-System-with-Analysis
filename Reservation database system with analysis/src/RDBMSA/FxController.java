@@ -68,15 +68,6 @@ public class FxController implements Initializable {
     private JFXHamburger ham;
     @FXML
     private JFXDrawer drawer;
-    
-    public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    public static Date de = new Date();
-    public static String today = dateFormat.format(de);
-    private static double xOffset = 0;
-    private static double yOffset = 0;
-    public static String spane = "Booking.fxml";
-    public static String nameUser = "Hello";
-    
     @FXML
     private JFXButton BLogin;
     @FXML
@@ -89,6 +80,14 @@ public class FxController implements Initializable {
     private JFXTextField UserTF;
     @FXML
     private JFXButton BDatabase;
+    
+    public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static Date de = new Date();
+    public static String today = dateFormat.format(de);
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+    public static String spane = "Booking.fxml";
+    public static String nameUser = "Hello";
     
     /**
      * Initializes the controller class.
@@ -129,7 +128,6 @@ public class FxController implements Initializable {
         
         LPmenu.backgroundProperty().set(Background.EMPTY);
         LPmenu.setStyle("-fx-background-color: transparent;");
-        //CustomerTab.setContentDisplay(ContentDisplay.TOP); set image above the text
     }
     
     public void AddToolTip(String tipMesg, JFXButton butt){
@@ -142,7 +140,6 @@ public class FxController implements Initializable {
         HamburgerBackArrowBasicTransition burger2 = new HamburgerBackArrowBasicTransition(ham);
         burger2.setRate(-1);
         
-        //set 2 images rather than button, add transparent, change general pane size
         ham.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             burger2.setRate(burger2.getRate()*-1);
             burger2.play();
@@ -177,20 +174,6 @@ public class FxController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(mesg);
         alert.showAndWait();
-    }
-    
-    public void setRedEffect(JFXTextField tf){
-        //DropShadow red = new DropShadow(); // change effect, no shadow
-        //red.setColor(javafx.scene.paint.Color.RED);
-        ////tf.setEffect(red);
-        //tf.setStyle("-fx-text-fill: red");
-    }
-    
-    public void setGreenEffect(JFXTextField tf){
-        //DropShadow green = new DropShadow();
-        //green.setColor(javafx.scene.paint.Color.GREEN);
-        //tf.setEffect(green);
-        //tf.setStyle("-fx-text-fill: green");
     }  
     
     public void textFV(JFXTextField tf, String mesg){
@@ -222,18 +205,6 @@ public class FxController implements Initializable {
         });
     }
 
-    /**
-    public boolean valiatePhone(JFXTextField tf){
-        Pattern p = Pattern.compile("[0-9]+");
-        Matcher m = p.matcher(tf.getText());
-        if(m.find() && m.group().equals(tf.getText())){
-            return true;
-        }else{
-            AlertWarningwindow(null, null, "Please enter valid phone number");
-            return false;
-        }
-    }
-    **/
     public boolean valiateDateofBirth(JFXTextField dob){
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         df.setLenient(false);
@@ -241,12 +212,10 @@ public class FxController implements Initializable {
         try {
             df.parse(dob.getText());
             valid = true;
-            //setGreenEffect(TDob);
         } catch (ParseException e) { 
             // valid will still be false
         }
         if (!valid) {
-            //setRedEffect(TDob);
             AlertWarningwindow(null, null, "Please enter the date of birth in DD/MM/YYYY.");
             return false;
         }
@@ -257,23 +226,19 @@ public class FxController implements Initializable {
         Pattern p = Pattern.compile("\\d+\\s+(([a-zA-Z])+|([a-zA-Z]+\\s+[a-zA-Z]+))\\s+[a-zA-Z]*");//[0-9]+([,.][0-9]{1,2})?
         Matcher m = p.matcher(address.getText());
         if(m.find() && m.group().equals(address.getText())){
-            //setGreenEffect(TAddress);
             return true;
         }else{
-            //setRedEffect(TAddress);
             AlertWarningwindow(null, null, "Please enter the correct address.");
             return false;
         }
     }
     
-    public boolean valiatePassword(JFXTextField password){//limit 6 digits, max 20 digits, need to test
+    public boolean valiatePassword(JFXTextField password){//limit 6 digits, max 20 digits
         Pattern p = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");//[a-zA-Z0-9]+[@#$%^&+=].{7,14}
         Matcher m = p.matcher(password.getText());
         if(m.find() && m.group().equals(password.getText())){
-            //setGreenEffect(TPword);
             return true;
         }else{
-            //setRedEffect(TPword);
             AlertWarningwindow(null, null, "Please enter valid Password.");
             return false;
         }
@@ -333,7 +298,6 @@ public class FxController implements Initializable {
     
     @FXML
     private void BQClicked(ActionEvent event) {
-        //check period availability to set online-queue open or close
         int nH = LocalTime.now().getHour();
         String period = null;
         int ocCheck = 1;

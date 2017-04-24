@@ -85,7 +85,7 @@
                   <TableColumn fx:id="Todaytime" prefWidth="75.0" text="Time" />
                   <TableColumn fx:id="Todayphone" prefWidth="75.0" text="Phone" />
                   <TableColumn fx:id="Todayrequest" prefWidth="75.0" text="Requests" />
-                  <TableColumn fx:id="Todayperiod" prefWidth="75.0" text="Pre-order" />
+                  <TableColumn fx:id="Todayperiod" prefWidth="75.0" text="Period" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -52,7 +52,9 @@ public class QueueController implements Initializable {
     private JFXTextField LQPhone;
     @FXML
     private JFXButton BCancel;
-
+    @FXML
+    private JFXListView AvaList;
+    
     private final ObservableList QList = FXCollections.observableArrayList();
     private final ObservableList AList = FXCollections.observableArrayList();
     FxController fx = new FxController();
@@ -74,9 +76,6 @@ public class QueueController implements Initializable {
     int EnterH = 0;
     int EnterM = 0;
     String EnterTime;
-    
-    @FXML
-    private JFXListView AvaList;
     
     /**
      * Initializes the controller class.
@@ -217,7 +216,6 @@ public class QueueController implements Initializable {
             FindPeriod();
             
             String TsetQuery = "SELECT Diner from table_Info";
-            //find smallest end time by date, period
             ResultSet rs1 = Database.RetSet(TsetQuery);
             while (rs1.next()){
                 diner_set = rs1.getString("Diner");

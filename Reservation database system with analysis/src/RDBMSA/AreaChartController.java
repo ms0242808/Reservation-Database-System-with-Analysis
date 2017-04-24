@@ -40,12 +40,10 @@ public class AreaChartController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //areaChart.setTitle("Time - Diners");
         String x = null;
         for(int i=0; i<timeCounter.length; i++){
             x = Integer.toString(i) + ":00 - " + Integer.toString(i) + ":59";
             timeCounter[i] = x;
-            //System.out.println(timeCounter[i]);
         }
     }    
     
@@ -65,7 +63,7 @@ public class AreaChartController implements Initializable {
         
         for(int y = RDBMSA.StatisticsController.xy; y <= ylength; y++){
             yearCounter[y] = Integer.toString(tyr);
-            //System.out.println(yearCounter[y]);           
+                      
             try {
                 String yearDinerQuery = "SELECT NumberOfDiner,Time from customer WHERE Year = '" + tyr + "' ";
                 ResultSet rs2 = Database.RetSet(yearDinerQuery);
@@ -76,7 +74,7 @@ public class AreaChartController implements Initializable {
                     String t[] = rs2.getString("Time").split(":");
                     int tim = Integer.parseInt(t[0]);
                     dinerCounter[tim] += dinerCounter[din] + din;
-                    //System.out.println(tim + ": " + dinerCounter[tim]);
+                    
                 }
             } catch (SQLException ex) {
                 //System.out.println(ex);

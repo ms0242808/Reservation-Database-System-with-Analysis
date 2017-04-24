@@ -43,11 +43,11 @@ public class TablesettingController implements Initializable {
     private JFXTextField TFmaxtime;
     @FXML
     private JFXButton BTableUpdate;
-
-    FxController fx = new FxController();
     @FXML
     private JFXButton BTableBack;
     
+    FxController fx = new FxController();
+        
     /**
      * Initializes the controller class.
      */

@@ -81,15 +81,14 @@ public class EditBookingController implements Initializable {
     private JFXDatePicker DPicker;
     @FXML
     private JFXTimePicker TPicker;
+    @FXML
+    private JFXTextField TCode;
     
     FxController fx = new FxController();
     String phone = null;
     String reference = null;
     int pn = 0;
-    
-    @FXML
-    private JFXTextField TCode;
-   
+     
     /**
      * Initializes the controller class.
      */
@@ -161,7 +160,6 @@ public class EditBookingController implements Initializable {
 
     @FXML
     private void BcancelClicked(MouseEvent event) {
-        //setMessageContent to not update
         //write cancel booking query
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
@@ -176,7 +174,7 @@ public class EditBookingController implements Initializable {
             ConfirmPane.setVisible(true);
             UInfoText.setText("Booking has been cancelled.");
         } else{
-            // ... user chose CANCEL or closed the dialog
+            
         }
     }
 
@@ -242,8 +240,7 @@ public class EditBookingController implements Initializable {
             reference = TCode.getText();
             
             removeTableT(origDate, getTime(pn), origDin, origPeriod);
-            updateBooked(cID, fn, sn, diner, date, t, e, reference);// update period, ava, table_time
-            //if diner or date or period changed, update availability table
+            updateBooked(cID, fn, sn, diner, date, t, e, reference);
             orgAtl = orgAtl + 1;
             updateAvail(orgAid, orgAtl, origDin, origDate, origPeriod);
             if(editAtl > 0){

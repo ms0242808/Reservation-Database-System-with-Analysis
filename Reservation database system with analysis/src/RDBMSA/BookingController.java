@@ -117,6 +117,7 @@ public class BookingController implements Initializable {
     String endT = null;
     int periodH;
     int periodM;
+    
     /**
      * Initializes the controller class.
      */
@@ -145,12 +146,9 @@ public class BookingController implements Initializable {
         ProgBar.setProgress(0);
         ClearFields();
         SetDisables();
-        //ManagerP.setVisible(false);
-        //AccountMenu.setVisible(false);
         CustomerP1.setVisible(true);
         CustomerP2.setVisible(false);
         CustomerP3.setVisible(false);
-        //GeneralMenu.setText("Customer");
     }
 
     public void ClearFields(){
@@ -235,8 +233,6 @@ public class BookingController implements Initializable {
     
     @FXML
     private void SelectedNP(ActionEvent event) {
-        //String npvalue = NPeople.getValue();
-        //System.out.println(npvalue);
         if(NPeople.getValue() != null){
             Time.setDisable(false);
             updateProgBar(1);
@@ -245,9 +241,7 @@ public class BookingController implements Initializable {
 
     @FXML
     private void SelectedDate(ActionEvent event) {
-        //System.out.println("1");
         if(Date.getValue() != null){
-            //System.out.println(Date.getValue());
             NPeople.setDisable(false);
             updateProgBar(0);
         }
@@ -377,8 +371,6 @@ public class BookingController implements Initializable {
         CustomerP3.setVisible(true);
         int NP = Integer.parseInt(NPeople.getValue());
         String din = NPeople.getValue();
-        //System.out.println(NP);
-        //String Dt = ((TextField)Date.getEditor()).getText();
         LocalDate x = Date.getValue();
         String Dt = Date.getConverter().toString(x);        
         String yrb = Integer.toString(x.getYear());
@@ -389,7 +381,6 @@ public class BookingController implements Initializable {
         String PT = Ptextfield.getText();
         String ET = Etextfield.getText();
         String SR = SRtextarea.getText();
-        //preorder food
         
         String CHAR_LIST ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         int random = 10;
@@ -401,7 +392,6 @@ public class BookingController implements Initializable {
         }
         String Concode = randStr.toString();
         
-        //System.out.println(PT);
         //update customer booking
         String tp[] = y.toString().split(":");
         periodH = Integer.parseInt(tp[0]); // hr
