@@ -3,6 +3,13 @@
     -fx-background-size: cover;
 }
 
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5a1c63;
+}
+
 .diners-button {
     -fx-padding: 0.3em 0.57em;
     -fx-font-size: 14px;

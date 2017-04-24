@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -48,9 +47,7 @@ public class TablesettingController implements Initializable {
     FxController fx = new FxController();
     @FXML
     private JFXButton BTableBack;
-    @FXML
     private JFXButton BTdinerAdd;
-    @FXML
     private JFXButton BTdinerEdit;
     
     /**
@@ -105,13 +102,5 @@ public class TablesettingController implements Initializable {
     @FXML
     private void BTableBackClicked(MouseEvent event) {
         loadScenePane("Manage.fxml");
-    }
-
-    @FXML
-    private void BTdinerAddClicked(MouseEvent event) {
-    }
-
-    @FXML
-    private void BTdinerEditClicked(MouseEvent event) {
     }
 }

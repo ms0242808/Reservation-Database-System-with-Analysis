@@ -95,8 +95,8 @@
       </AnchorPane>
       <AnchorPane fx:id="CustomerP3" prefHeight="700.0" prefWidth="1024.0" visible="false">
          <children>
-            <Label fx:id="ConfirmLabel" layoutX="453.0" layoutY="281.0" text="Booking Reference:" />
-            <JFXButton fx:id="BCSee" layoutX="408.0" layoutY="360.0" onMouseClicked="#BCseeClicked" prefHeight="38.0" prefWidth="191.0" ripplerFill="#2456a3" styleClass="see-button" text="See you soon!" textFill="#24a473" underline="true" />
+            <Label fx:id="ConfirmLabel" layoutX="385.0" layoutY="281.0" text="Booking Reference:" />
+            <JFXButton fx:id="BCSee" layoutX="358.0" layoutY="360.0" onMouseClicked="#BCseeClicked" prefHeight="38.0" prefWidth="285.0" ripplerFill="#2456a3" styleClass="see-button" text="See you soon!" textFill="#24a473" underline="true" />
          </children>
       </AnchorPane>
       <JFXProgressBar fx:id="ProgBar" layoutX="395.0" layoutY="600.0" prefHeight="3.0" prefWidth="245.0" progress="0.0" styleClass="jfx-progress-bar" />

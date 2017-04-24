@@ -1,6 +1,7 @@
 .root {
 	-fx-background-image: url("3.jpg"); /* 2>3>1>6>4>5 */
 	-fx-background-size: cover;
+    -fx-opacity: 0.8;
 }
 
 .label {
@@ -54,6 +55,6 @@
     -fx-font-size: 14px;
     -jfx-button-type: RAISED;
     -fx-background-color: #5dcc9f;
-    -fx-pref-width: 200;
+    -fx-pref-width: 300;
     -fx-text-fill: WHITE;
 }

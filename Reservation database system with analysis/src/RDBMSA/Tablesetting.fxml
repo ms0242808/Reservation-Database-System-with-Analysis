@@ -39,24 +39,6 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="BTdinerAdd" layoutX="660.0" layoutY="236.0" onMouseClicked="#BTdinerAddClicked" prefHeight="30.0" prefWidth="30.0" text=" ">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../ICONS/add.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="BTdinerEdit" layoutX="712.0" layoutY="235.0" onMouseClicked="#BTdinerEditClicked" prefHeight="30.0" prefWidth="30.0" text=" ">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../ICONS/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
          </children>
       </AnchorPane>
    </children>

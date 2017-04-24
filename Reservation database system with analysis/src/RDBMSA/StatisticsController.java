@@ -65,18 +65,6 @@ public class StatisticsController implements Initializable {
     @FXML
     private Label LADiner;
     @FXML
-    private Label LMTime;
-    @FXML
-    private Label LLTime;
-    @FXML
-    private Label LATime;
-    @FXML
-    private Label LMMonth;
-    @FXML
-    private Label LLMonth;
-    @FXML
-    private Label LAMonth;
-    @FXML
     private JFXButton BBack;
     
     private final ObservableList<customerList> CList = FXCollections.observableArrayList();;
