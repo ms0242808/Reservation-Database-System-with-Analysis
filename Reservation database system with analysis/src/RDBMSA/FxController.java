@@ -338,16 +338,16 @@ public class FxController implements Initializable {
         String period = null;
         int ocCheck = 1;
         int i=0;
-        if(nH <= 16 && nH >= 10){
+        if(nH <= 16 && nH >= 10){//
             period = "lunch";
         } else if(nH <= 23 && nH >= 17){
             period = "dinner";
         }
-        while(ocCheck != -2){
+        while(i != 10){
             String odd = Integer.toString(i+1);
             String even = Integer.toString(i+2);
             String set = odd + "-" + even;
-            i++;
+            i = i + 2;
             ocCheck= avaTLCheck(set,today,period);
         }
         if(ocCheck == -2){

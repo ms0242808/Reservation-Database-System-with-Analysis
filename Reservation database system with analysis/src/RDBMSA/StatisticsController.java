@@ -165,6 +165,7 @@ public class StatisticsController implements Initializable {
 
     public void lineC(){
         chartstage = 0;
+        MutilYear.setDisable(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LineChart.fxml"));
             Parent root = loader.load();
@@ -184,6 +185,7 @@ public class StatisticsController implements Initializable {
     
     public void barC(){
         chartstage = 1;
+        MutilYear.setDisable(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BarChart.fxml"));
             Parent root = loader.load();
@@ -203,6 +205,7 @@ public class StatisticsController implements Initializable {
     
     public void pieC(){
         chartstage = 2;
+        MutilYear.setDisable(true);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PieChart.fxml"));
             Parent root = loader.load();
@@ -220,6 +223,7 @@ public class StatisticsController implements Initializable {
     
     public void areaC(){
         chartstage = 3;
+        MutilYear.setDisable(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AreaChart.fxml"));
             Parent root = loader.load();

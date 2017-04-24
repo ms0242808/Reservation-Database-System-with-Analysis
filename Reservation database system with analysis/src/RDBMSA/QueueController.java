@@ -270,7 +270,7 @@ public class QueueController implements Initializable {
                 }
             }
             
-            FindApproxTime(d);
+            FindApproxTime(set);
             queuetable(n,p,d,today,period,"F",Integer.parseInt(EnterTime));
             clearField();
             UpdateFinishedTable();

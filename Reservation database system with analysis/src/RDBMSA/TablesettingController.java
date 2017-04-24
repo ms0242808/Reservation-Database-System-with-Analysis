@@ -47,8 +47,6 @@ public class TablesettingController implements Initializable {
     FxController fx = new FxController();
     @FXML
     private JFXButton BTableBack;
-    private JFXButton BTdinerAdd;
-    private JFXButton BTdinerEdit;
     
     /**
      * Initializes the controller class.
@@ -57,8 +55,6 @@ public class TablesettingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         BTableBack.setText(null);
-        BTdinerAdd.setText(null);
-        BTdinerEdit.setText(null);
         try{
             String TableQuery = "SELECT Diner from table_Info";
             ResultSet rs2 = Database.RetSet(TableQuery);

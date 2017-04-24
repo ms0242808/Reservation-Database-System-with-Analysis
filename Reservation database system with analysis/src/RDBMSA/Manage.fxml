@@ -16,7 +16,7 @@
                   <JFXButton fx:id="BCupdate" onMouseClicked="#BCUpdateClicked" styleClass="updaterecrod-button" text="Update record" />
                   <JFXButton fx:id="BCToday" onMouseClicked="#BCTodayClicked" styleClass="booked-button" text="View Today's Booking" />
                   <JFXButton fx:id="BCStaffview" onMouseClicked="#BCStaffClicked" styleClass="staff-button" text="View Staff Deatils" />
-                  <JFXButton fx:id="BGraphic" onMouseClicked="#BGraphicClicked" styleClass="graphic-button" text="Graphic" />
+                  <JFXButton fx:id="BGraphic" onMouseClicked="#BGraphicClicked" styleClass="graphic-button" text="Data Analysis" />
               </buttons>
             </ButtonBar>
             <AnchorPane layoutX="5.0" layoutY="152.0" prefHeight="530.0" prefWidth="1015.0">

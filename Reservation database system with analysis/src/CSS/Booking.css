@@ -11,7 +11,7 @@
 .jfx-text-field {
     -fx-background-color: transparent;
     -fx-font-weight: BOLD;
-    -fx-prompt-text-fill: #eff3f9;
+    -fx-prompt-text-fill: #5a1c63;
     -fx-alignment: top-left;
 }
 

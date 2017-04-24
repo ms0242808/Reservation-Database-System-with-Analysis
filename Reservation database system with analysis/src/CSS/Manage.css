@@ -1,7 +1,6 @@
 .root {
 	-fx-background-image: url("3.jpg");
 	-fx-background-size: cover;
-    -fx-opacity: 0.8;
 }
 
 .search-jfx-text-field {
